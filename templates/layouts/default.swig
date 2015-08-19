@@ -37,7 +37,7 @@
 		{# HEADER #}
 		<div id="header" class="container">
 
-			<img src="/public/images/occ-logo.png" alt="" id="jsn-logo-desktop">
+			<img src="/images/occ-logo.png" alt="" id="jsn-logo-desktop">
 
 			{# Customise your site"s navigation by changing the navLinks Array in ./routes/middleware.js
 			   ... or completely change this header to suit your design. #}
