@@ -27,9 +27,11 @@ keystone.init({
 	'custom engine': swig.renderFile,
 	
 	'emails': 'templates/emails',
-	
+
+	'cookie secret': 'a super long random string needed for occ-badminton 54398753946308208',
 	'auto update': true,
 	'session': true,
+	'session store': 'mongo',
 	'auth': true,
 	'user model': 'User'
 
