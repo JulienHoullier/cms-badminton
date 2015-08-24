@@ -13,3 +13,4 @@ node_modules
 SBT.sublime-project
 SBT.sublime-workspace
 start.bat
+npm-debug.log
