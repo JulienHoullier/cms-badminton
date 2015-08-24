@@ -30,3 +30,15 @@ Post.schema.virtual('content.full').get(function() {
 
 Post.defaultColumns = 'title, state|20%, author|20%, publishedDate|20%';
 Post.register();
+
+
+/**
+* Team post
+*
+*/
+
+var TeamPost = new keystone.List('TeamPost', { inherits: Post });
+TeamPost.add({
+	team: { type: Types.Relationship, ref: 'Team', index: true },
+})
+TeamPost.register();
