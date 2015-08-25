@@ -2,65 +2,52 @@ var keystone = require('keystone');
 var Types = keystone.Field.Types;
 
 /**
- * Enquiry Model
+ * Match Model
  * =============
  */
 
-var Enquiry = new keystone.List('Enquiry', {
-	nocreate: true,
-	noedit: true
-});
+var Match = new keystone.List('Match');
 
-Enquiry.add({
-	name: { type: Types.Name, required: true },
-	email: { type: Types.Email, required: true },
-	phone: { type: String },
-	enquiryType: { type: Types.Select, options: [
-		{ value: 'message', label: 'Just leaving a message' },
-		{ value: 'question', label: 'I\'ve got a question' },
-		{ value: 'other', label: 'Something else...' }
-	] },
-	message: { type: Types.Markdown, required: true },
+Match.add({
+	versus: { type: Types.Text, required: true, initial: true, index: true},
+	date: { type: Date },
+	location: { type: Types.Location },
+	result: { type: Types.LocalFile, dest: '/data/files' },
 	createdAt: { type: Date, default: Date.now }
 });
 
-Enquiry.schema.pre('save', function(next) {
-	this.wasNew = this.isNew;
-	next();
-});
-
-Enquiry.schema.post('save', function() {
+Match.schema.post('save', function() {
 	if (this.wasNew) {
 		this.sendNotificationEmail();
 	}
 });
 
-Enquiry.schema.methods.sendNotificationEmail = function(callback) {
+Match.schema.methods.sendNotificationEmail = function(callback) {
 	
 	if ('function' !== typeof callback) {
 		callback = function() {};
 	}
 	
-	var enquiry = this;
+	var Match = this;
 	
 	keystone.list('User').model.find().where('isAdmin', true).exec(function(err, admins) {
 		
 		if (err) return callback(err);
 		
-		new keystone.Email('enquiry-notification').send({
+		new keystone.Email('Match-notification').send({
 			to: admins,
 			from: {
 				name: 'OCC-Badminton',
 				email: 'contact@occ-badminton.com'
 			},
-			subject: 'New Enquiry for OCC-Badminton',
-			enquiry: enquiry
+			subject: 'New Match for OCC-Badminton',
+			Match: Match
 		}, callback);
 		
 	});
 	
 };
 
-Enquiry.defaultSort = '-createdAt';
-Enquiry.defaultColumns = 'name, email, enquiryType, createdAt';
-Enquiry.register();
+Match.defaultSort = '-createdAt';
+Match.defaultColumns = 'name, email, MatchType, createdAt';
+Match.register();

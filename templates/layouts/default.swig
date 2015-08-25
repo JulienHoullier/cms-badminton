@@ -35,13 +35,15 @@
 	<body>
 
 		{# HEADER #}
-		<div id="header" class="container">
+		<header class="container-fluid flagBar">
 
-			<img src="/images/occ-logo.png" alt="" id="jsn-logo-desktop">
+			<div class="visible-md visible-lg header-flag">
+				<img src="/images/occ-logo.png" alt="" id="occ-logo">
+			</div>
 
 			{# Customise your site"s navigation by changing the navLinks Array in ./routes/middleware.js
 			   ... or completely change this header to suit your design. #}
-			<div role="navigation" class="navbar navbar-default">
+			<div role="navigation" class="navbar navbar-inverse row">
 				<div class="container-fluid">
 					<div class="collapse navbar-collapse">
 						<ul class="nav navbar-nav navbar-left">
@@ -68,6 +70,8 @@
 					</div>
 				</div>
 			</div>
+		</header>	
+			
 		</div>
 
 		{# BODY #}
@@ -87,11 +91,15 @@
 			{%- block content -%}{%- endblock -%}
 		</div>
 
+		<div class="container-fluid flagBar">
+		<p class="row">The sponsors</p>
+		</div>
+
 		{# FOOTER #}
-		<div id="footer" class="container">
+		<footer class="container-fluid flagBar">
 			{# You don"t _have_ to include a link saying your site is powered by KeystoneJS, but we appreciate it! #}
 			<p>Powered by <a href="http://keystonejs.com" target="_blank">KeystoneJS</a>.</p>
-		</div>
+		</footer>
 
 		{# JAVASCRIPT #}
 

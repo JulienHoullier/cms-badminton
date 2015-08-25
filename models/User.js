@@ -13,12 +13,12 @@ User.add({
 	email: { type: Types.Email, initial: true, required: true, index: true },
 	password: { type: Types.Password, initial: true, required: true }
 }, 'Permissions', {
-	isAdmin: { type: Boolean, label: 'Can access Keystone', index: true }
+	group: { type: Types.Select, options: 'user, editor, admin', default: 'user' },
 });
 
 // Provide access to Keystone
 User.schema.virtual('canAccessKeystone').get(function() {
-	return this.isAdmin;
+	return this.group === 'admin';
 });
 
 
@@ -27,7 +27,7 @@ User.schema.virtual('canAccessKeystone').get(function() {
  */
 
 User.relationship({ ref: 'Post', path: 'posts', refPath: 'author' });
-
+User.relationship({ ref: 'Player' });
 
 /**
  * Registration
