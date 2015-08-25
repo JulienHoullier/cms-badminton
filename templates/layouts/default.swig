@@ -91,8 +91,8 @@
 			{%- block content -%}{%- endblock -%}
 		</div>
 
-		<div class="container-fluid flagBar">
-		<p class="row">The sponsors</p>
+		<div class="container-fluid flagBar" style="margin-top:30px">
+			<p class="row">The sponsors</p>
 		</div>
 
 		{# FOOTER #}
