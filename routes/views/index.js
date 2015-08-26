@@ -17,7 +17,6 @@ exports = module.exports = function(req, res) {
 	];
 	var newsFFBAD = [{title:"News FFBAD 1", content:"Superbe News FFBAD 1"}];
 
-
 	locals.news = {
 		newsClub : newsClub,
 	 	newsEquipes:newsEquipes, 

@@ -41,11 +41,18 @@
 				<img src="/images/occ-logo.png" alt="" id="occ-logo">
 			</div>
 
-			{# Customise your site"s navigation by changing the navLinks Array in ./routes/middleware.js
-			   ... or completely change this header to suit your design. #}
-			<div role="navigation" class="navbar navbar-inverse row">
+			<nav class="navbar navbar-inverse row">
 				<div class="container-fluid">
-					<div class="collapse navbar-collapse">
+					<div class="navbar-header">
+				      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#occ-header-navbar" aria-expanded="false">
+				        <span class="sr-only">Menu</span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				      </button>
+				      <a class="navbar-brand visible-sm visible-xs" href="#">OCC Badminton</a>
+				    </div>
+					<div class="collapse navbar-collapse" id="occ-header-navbar">
 						<ul class="nav navbar-nav navbar-left">
 							{%- for link in navLinks -%}
 								{%- set linkClass = '' -%}
