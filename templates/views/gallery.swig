@@ -2,12 +2,12 @@
 
 {% block intro %}
 	<div class="container">
-		<h1>Gallery</h1>
+		<h1 class="lead">Photos</h1>
 	</div>
 {% endblock %}
 
 {% block content %}
-	<div class="container">
+	<div class="container-fluid">
 		{% if galleries.length %}
 			{% for gallery in galleries %}
 				<h2>{{ gallery.name }}

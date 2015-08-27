@@ -41,7 +41,7 @@
 				<img src="/images/occ-logo.png" alt="" id="occ-logo">
 			</div>
 
-			<nav class="navbar navbar-inverse row">
+			<nav class="navbar navbar-inverse row" id="header-nav">
 				<div class="container-fluid">
 					<div class="navbar-header">
 				      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#occ-header-navbar" aria-expanded="false">
@@ -59,7 +59,7 @@
 								{%- if link.key == section -%}
 									{%- set linkClass = ' class="active"' -%}
 								{%- endif %}
-								<li{{ linkClass | safe }}>
+								<li class="{{section}}" {{ linkClass | safe }}>
 									<a href="{{ link.href }}">{{ link.label }}</a>
 								</li>
 							{%- endfor %}

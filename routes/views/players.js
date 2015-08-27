@@ -1,5 +1,4 @@
-var keystone = require('keystone'),
-	Post = keystone.list('Post');
+var keystone = require('keystone');
 
 exports = module.exports = function(req, res) {
 	
@@ -8,14 +7,11 @@ exports = module.exports = function(req, res) {
 	
 	// locals.section is used to set the currently selected
 	// item in the header navigation.
-	locals.section = 'home';
+	locals.section = 'player';
 	
-	view.query('lastPosts', Post.model.find()
-    .where('state', 'published')
-    .populate('author')
-    .sort('-publishedAt')
-    .limit(5));
-	
+	// Load the galleries by sortOrder
+	view.query('players', keystone.list('Player').model.find().sort('-name'));
+
 	// Render the view
 	view.render('index');
 	
