@@ -12,11 +12,11 @@ var Team = new keystone.List('Team', {
 });
 
 Team.add({
-	name: { type: Types.Text},
+	order: { type: Number, required: true, initial: true },
 	captain: { type: Types.Relationship, ref: 'Player', required: true, initial: true },
+	name: { type: Types.Text },
 	players: { type: Types.Relationship, ref: 'Player', many: true }
 });
 
-
-Team.defaultColumns = 'name, captain';
+Team.defaultColumns = 'order, name, captain';
 Team.register();

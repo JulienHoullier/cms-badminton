@@ -3,6 +3,7 @@ body {
 }
 
 #body{
+	margin-top:-20px
 	background-image: url('/images/bg-content.png');
 }
 
@@ -16,7 +17,7 @@ header .header-flag{
 	padding:10px;
 }
 
-header #header-flag img{
+header .header-flag img{
 	width: 180px;
 	height: 180px;
 }
@@ -24,10 +25,6 @@ header #header-flag img{
 header navbar{
 	margin-top: 10px;
 	border-top: 1px solid @gray-lighter;
-}
-
-#body {
-	margin-top:30px;
 }
 
 footer {
@@ -49,8 +46,94 @@ footer {
 
 .flagBar{
 	background-color : @flag-bar-color;
+	color: white;
 }
 
-#header-nav li.home::before #header-nav li.home:hover #header-nav li.home:active{
-	background-color : @home-color;
+#occ-header-navbar {
+	
+		.home {
+			&:before
+			{
+				content:"";
+				display:block;
+				height: @nav-tab-string-height;
+				background-color : @home-color;
+			}
+
+			a { 
+				&:hover,
+				&.active{
+					background-color : @home-color;
+				} 
+			}	
+		}
+
+		.blog {
+			&:before
+			{
+				content:"";
+				display:block;
+				height: @nav-tab-string-height;
+				background-color : @blog-color;
+			}
+
+			a { 
+				&:hover,
+				&.active{
+					background-color : @blog-color;
+				} 
+			}			
+		}
+
+		.gallery {
+			&:before
+			{
+				content:"";
+				display:block;
+				height: @nav-tab-string-height;
+				background-color : @gallery-color;
+			}
+
+			a { 
+				&:hover,
+				&.active{
+					background-color : @gallery-color;
+				} 
+			}			
+		}
+
+		.player {
+			&:before
+			{
+				content:"";
+				display:block;
+				height: @nav-tab-string-height;
+				background-color : @player-color;
+			}
+
+			a { 
+				&:hover,
+				&.active{
+					background-color : @player-color;
+				} 
+			}			
+		}
+
+		li.contact {
+			&:before
+			{
+				content:"";
+				display:block;
+				height: @nav-tab-string-height;
+				background-color : @contact-color;
+			}
+
+			a { 
+				&:hover,
+				&.active{
+					background-color : @contact-color;
+				} 
+			}			
+		}
 }
+

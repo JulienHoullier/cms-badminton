@@ -4,9 +4,9 @@
 {% block content %}
 
 
-	<div class="container-fluid">
+	<div class="container">
 	{% if lastPosts.length %}
-		<div id="myCarousel" class="carousel slide jumbotron" data-ride="carousel" data-wrap="false">
+		<div id="myCarousel" class="carousel slide jumbotron" data-ride="carousel" data-interval="1000" data-wrap="false">
 		    <!-- Indicators -->
 		    <ol class="carousel-indicators">
 		    {% for post in lastPosts %}
@@ -43,7 +43,7 @@
 		<div class="panel-primary">
 			<div class="panel-header">
 				<h4 class="lead">
-					<a href="/blog/post/{{ post.slug }}">{{ post.title }}</a>
+					<a href="/blog/post/{{ post.slug }}" class="occ-last-new-titke"><p class="bg-primary">{{ post.title }}</p></a>
 				</h4>
 				<h4>
 					{% if post.author %}

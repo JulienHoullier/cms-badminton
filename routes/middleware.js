@@ -26,16 +26,19 @@ exports.initLocals = function(req, res, next) {
 	locals.navLinks = [
 		{ label: 'Accueil',		key: 'home',		href: '/' },
 		{ label: 'Actualités',		key: 'blog',		href: '/blog' },
-		{ label: 'Photos',		key: 'gallery',		href: '/gallery' },
-		{ label: 'Joueurs',		key: 'player',		href: '/player' },
-		{ label: 'Contact',		key: 'contact',		href: '/contact' }
+		{ label: 'Photos',		key: 'gallery',		href: '/gallery' }
 	];
-	
+	//add link to connected users
+	if(req.user){
+		locals.navLinks.push({ label: 'Joueurs',		key: 'player',		href: '/player' });
+	}
+	//Contact is the last link
+	locals.navLinks.push({ label: 'Contact',		key: 'contact',		href: '/contact' });
+		
+	//store user to access it in the web page
 	locals.user = req.user;
-	console.log(req.user);
 	
 	next();
-	
 };
 
 
@@ -54,8 +57,7 @@ exports.flashMessages = function(req, res, next) {
 	
 	res.locals.messages = _.any(flashMessages, function(msgs) { return msgs.length; }) ? flashMessages : false;
 	
-	next();
-	
+	next();	
 };
 
 

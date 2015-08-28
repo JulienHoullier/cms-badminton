@@ -39,6 +39,6 @@ Post.register();
 
 var TeamPost = new keystone.List('TeamPost', { inherits: Post });
 TeamPost.add({
-	team: { type: Types.Relationship, ref: 'Team', index: true },
+	team: { type: Types.Relationship, ref: 'Team', required: true, initial: true, index: true }
 })
 TeamPost.register();

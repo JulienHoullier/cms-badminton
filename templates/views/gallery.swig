@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-	<div class="container-fluid">
+	<div class="container">
 		{% if galleries.length %}
 			{% for gallery in galleries %}
 				<h2>{{ gallery.name }}

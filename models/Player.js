@@ -34,19 +34,42 @@ Player.add({
 	], required: true, initial: true }
 });
 
-Player.schema.methods.needNotification = function() {
-
-	Player.model.findById(this.id).executer()
-    return this.state == 'new';
+Player.schema.methods.needConfirmNotification = function() {
+    return this.state == 'confirmed';
 }
 
 
-Player.schema.pre('save', function(next) {
-    if (this.isModified('state') && this.isNew() && !this.publishedAt) {
-        this.publishedAt = new Date();
+Player.schema.post('save', function() {
+    if (!this.isNew()) {
+    	this.needConfirm  = needConfirmNotification();
     }
-    next();
 });
+
+Player.schema.post('save', function() {
+    if (needConfirm) {
+    	this.sendNotificationEmail();
+    }
+});
+
+Player.schema.methods.sendNotificationEmail = function(callback) {
+	
+	if ('function' !== typeof callback) {
+		callback = function() {};
+	}
+	
+	var Player = this;
+	
+	new keystone.Email('Player-notification').send({
+			to: this.email,
+			from: {
+				name: 'OCC-Badminton',
+				email: 'contact@occ-badminton.com'
+			},
+			subject: 'Inscription validée à l\'OCC-Badminton',
+			Player: Player
+		}, callback);
+};
+
 
 Player.defaultColumns = 'name, email, type, state';
 Player.register();
