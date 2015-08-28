@@ -42,7 +42,7 @@
 			</div>
 
 			<nav class="navbar navbar-inverse row" id="header-nav">
-				<div class="container-fluid">
+				<div class="container">
 					<div class="navbar-header">
 				      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#occ-header-navbar" aria-expanded="false">
 				        <span class="sr-only">Menu</span>
