@@ -1,5 +1,4 @@
 var keystone = require('keystone');
-var keystone = require('keystone');
 var Types = keystone.Field.Types;
 
 /**
@@ -9,13 +8,15 @@ var Types = keystone.Field.Types;
 
 var Player = new keystone.List('Player', {
 	map: { name: 'name' },
-	autokey: { path: 'slug', from: 'title', unique: true }
+	label: 'Joueurs',
+	autokey: { path: 'slug', from: 'email', unique: true }
 });
 
 Player.add({
 	name: { type: Types.Name, required: true },
 	email: { type: Types.Email, required: true, initial: true },
 	phone: { type: String },
+	licence: {type: Number },
 	type: { type: Types.Select, options: [
 		{ value: 'competitor', label: 'Licence compétition' },
 		{ value: 'leisure', label: 'Licence loisir' },
@@ -40,13 +41,11 @@ Player.schema.methods.needConfirmNotification = function() {
 
 
 Player.schema.post('save', function() {
-    if (!this.isNew()) {
-    	this.needConfirm  = needConfirmNotification();
-    }
+	this.needConfirm = this.isNew && needConfirmNotification(); 
 });
 
 Player.schema.post('save', function() {
-    if (needConfirm) {
+    if (this.needConfirm) {
     	this.sendNotificationEmail();
     }
 });

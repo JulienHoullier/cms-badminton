@@ -6,7 +6,9 @@ var Types = keystone.Field.Types;
  * =============
  */
 
-var Match = new keystone.List('Match');
+var Match = new keystone.List('Match',{
+	label: 'Rencontres',
+});
 
 Match.add({
 	team: { type: Types.Relationship, ref: 'Team', required: true, initial: true, index: true },
@@ -37,19 +39,20 @@ Match.schema.methods.sendNotificationEmail = function(callback) {
 	
 	var Match = this;
 	
-	keystone.list('Team').model.findById(this._id).populate('players').exec(function(err, admins) {
+	keystone.list('Team').model.findById(this.team).populate('players').exec(function(err, team) {
 		
 		if (err) return callback(err);
 		
-		new keystone.Email('Match-notification').send({
-			to: admins,
+		console.log("will send mail to :"+team.players);
+		/*new keystone.Email('Match-notification').send({
+			to: team.players,
 			from: {
 				name: 'OCC-Badminton',
 				email: 'contact@occ-badminton.com'
 			},
 			subject: 'Match de championnat - OCC-Badminton',
 			Match: Match
-		}, callback);
+		}, callback);*/
 		
 	});
 	

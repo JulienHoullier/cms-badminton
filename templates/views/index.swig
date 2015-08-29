@@ -4,9 +4,9 @@
 {% block content %}
 
 
-	<div class="container">
+	<div>
 	{% if lastPosts.length %}
-		<div id="myCarousel" class="carousel slide jumbotron" data-ride="carousel" data-interval="1000" data-wrap="false">
+		<div id="occ-last-news-carousel" class="carousel slide col-sm-12 col-lg-6" data-ride="carousel" data-interval="1000" data-wrap="false">
 		    <!-- Indicators -->
 		    <ol class="carousel-indicators">
 		    {% for post in lastPosts %}
@@ -14,7 +14,7 @@
 				{% if loop.first %}					
 					{% set linkClass = 'class="active"' %}
 				{% endif %}
-		      <li data-target="#myCarousel" data-slide-to="{{ loop.index0 }}" {{ linkClass | safe }}></li>
+		      <li data-target="#occ-last-news-carousel" data-slide-to="{{ loop.index0 }}" {{ linkClass | safe }}></li>
 		    {% endfor %}
 		    </ol>
 
@@ -40,10 +40,10 @@
 {% endblock %}
 
 {%- macro renderSlide(post) -%}
-		<div class="panel-primary">
-			<div class="panel-header">
-				<h4 class="lead">
-					<a href="/blog/post/{{ post.slug }}" class="occ-last-new-titke"><p class="bg-primary">{{ post.title }}</p></a>
+		<div class="occ-last-news-panel panel panel-info">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					<a href="/blog/post/{{ post.slug }}" class="occ-last-new-title"><p>{{ post.title }}</p></a>
 				</h4>
 				<h4>
 					{% if post.author %}

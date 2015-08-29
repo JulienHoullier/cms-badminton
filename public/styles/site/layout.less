@@ -2,35 +2,27 @@ body {
 	background-image: url('/images/bg-body.png');
 }
 
+footer .container{
+	border-top: 1px solid @gray-lighter;
+	padding-top: 30px;
+}
+
 #body{
-	margin-top:-20px
 	background-image: url('/images/bg-content.png');
+	padding-top: 20px;
+	padding-bottom: 20px;
+	height: 100%;
 }
 
-header {
-	color: @gray-light
-}
-
-header .header-flag{
+#occ-header-flag{
 	background: #333333 url(https://lh4.googleusercontent.com/-aTxs9Gucucs/VJIIge1OF1I/AAAAAAAABrI/UwE6mL2Axo4/w982-h412-no/IMG_5224.JPG);
 	background-position-y: center;
 	padding:10px;
 }
 
-header .header-flag img{
+#occ-logo{
 	width: 180px;
 	height: 180px;
-}
-
-header navbar{
-	margin-top: 10px;
-	border-top: 1px solid @gray-lighter;
-}
-
-footer {
-	border-top: 1px solid @gray-lighter;
-	padding-top: 30px;
-	color: @gray-light;	
 }
 
 .gallery-image img {
@@ -44,13 +36,22 @@ footer {
 	margin-right:10px;
 }
 
-.flagBar{
+.occ-flagBar{
 	background-color : @flag-bar-color;
 	color: white;
 }
 
+#occ-sponsor-bar {
+	padding : 10px;
+}
+
+#occ-header-nav{
+	margin-bottom: 0px;
+}
+
 #occ-header-navbar {
-	
+		color: @gray-light;
+
 		.home {
 			&:before
 			{

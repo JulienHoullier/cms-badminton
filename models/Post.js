@@ -8,6 +8,7 @@ var Types = keystone.Field.Types;
 
 var Post = new keystone.List('Post', {
 	map: { name: 'title' },
+	label: 'Actualités',
 	autokey: { path: 'slug', from: 'title', unique: true }
 });
 

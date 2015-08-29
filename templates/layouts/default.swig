@@ -35,17 +35,15 @@
 	<body>
 
 		{# HEADER #}
-		<header class="flagBar">
-			<div class="container header-flag">
-				<div class="row visible-md visible-lg">
-					<img src="/images/occ-logo.png" alt="" id="occ-logo">
-				</div>
+		<header class="occ-flagBar">
+			<div id="occ-header-flag" class="container visible-md visible-lg">
+				<img src="/images/occ-logo.png" alt="" id="occ-logo">
 			</div>
 			
 			<div class="container">
-				<nav class="navbar navbar-inverse row" id="header-nav">
-					<div class="container-fluid">
-						<div class="navbar-header row">
+				<nav class="navbar navbar-inverse row" id="occ-header-nav">
+					
+						<div class="navbar-header">
 					      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#occ-header-navbar" aria-expanded="false">
 					        <span class="sr-only">Menu</span>
 					        <span class="icon-bar"></span>
@@ -69,23 +67,22 @@
 							<ul class="nav navbar-nav navbar-right">
 								{% if user -%}
 									{%- if user.canAccessKeystone -%}
-										<li><a href="/keystone">Open Keystone</a></li>
+										<li><a href="/keystone">Administration</a></li>
 									{%- endif -%}
-									<li><a href="/keystone/signout">Sign Out</a></li>
+									<li><a href="/keystone/signout">Déconnexion</a></li>
 								{%- else -%}
-									<li><a href="/keystone/signin">Sign In</a></li>
+									<li><a href="/keystone/signin">Connexion</a></li>
 								{%- endif %}
 							</ul>
 						</div>
-					</div>
-				</nav>
+					</nav>
 			</div>
 		</header>	
 			
 		</div>
 
 		{# BODY #}
-		<div id="body">
+		<div id="body" class="container">
 			{# The Intro block appears above flash messages (used for temporary information display) #}
 			{%- block intro -%}{%- endblock -%}
 
@@ -97,14 +94,14 @@
 			{%- block content -%}{%- endblock -%}
 		</div>
 
-		<div class="flagBar" style="margin-top:30px">
+		<div id="occ-sponsor-bar" class="occ-flagBar">
 			<div class="container">
-				<p class="row">The sponsors</p>
+				<p>The sponsors</p>
 			</div>
 		</div>
 
 		{# FOOTER #}
-		<footer class="flagBar">
+		<footer class="occ-flagBar">
 			<div class="container">
 			{# You don"t _have_ to include a link saying your site is powered by KeystoneJS, but we appreciate it! #}
 				<p class="text-right">Powered by <a href="http://keystonejs.com" target="_blank">KeystoneJS</a>.</p>
