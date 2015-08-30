@@ -8,6 +8,7 @@ var Types = keystone.Field.Types;
 
 var Post = new keystone.List('Post', {
 	map: { name: 'title' },
+	label: 'Actualités',
 	autokey: { path: 'slug', from: 'title', unique: true }
 });
 
@@ -39,6 +40,6 @@ Post.register();
 
 var TeamPost = new keystone.List('TeamPost', { inherits: Post });
 TeamPost.add({
-	team: { type: Types.Relationship, ref: 'Team', index: true },
+	team: { type: Types.Relationship, ref: 'Team', required: true, initial: true, index: true }
 })
 TeamPost.register();

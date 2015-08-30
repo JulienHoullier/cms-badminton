@@ -33,17 +33,14 @@
 {% endmacro %}
 
 {% block intro %}
-	<div class="container">
 		{% set title = "Blog" %}
 		{% if data.category %}
 			{% set title = data.category.name %}
 		{% endif %}
 		<h1>{{ title }}</h1>
-	</div>
 {% endblock %}
 
 {% block content %}
-	<div class="container">
 		<div class="row">
 			<div class="col-sm-8 col-md-9">
 				{% if filters.category and not data.category %}

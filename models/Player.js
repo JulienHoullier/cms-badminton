@@ -1,5 +1,4 @@
 var keystone = require('keystone');
-var keystone = require('keystone');
 var Types = keystone.Field.Types;
 
 /**
@@ -9,13 +8,15 @@ var Types = keystone.Field.Types;
 
 var Player = new keystone.List('Player', {
 	map: { name: 'name' },
-	autokey: { path: 'slug', from: 'title', unique: true }
+	label: 'Joueurs',
+	autokey: { path: 'slug', from: 'email', unique: true }
 });
 
 Player.add({
 	name: { type: Types.Name, required: true },
 	email: { type: Types.Email, required: true, initial: true },
 	phone: { type: String },
+	licence: {type: Number },
 	type: { type: Types.Select, options: [
 		{ value: 'competitor', label: 'Licence compétition' },
 		{ value: 'leisure', label: 'Licence loisir' },
@@ -34,19 +35,40 @@ Player.add({
 	], required: true, initial: true }
 });
 
-Player.schema.methods.needNotification = function() {
-
-	Player.model.findById(this.id).executer()
-    return this.state == 'new';
+Player.schema.methods.needConfirmNotification = function() {
+    return this.state == 'confirmed';
 }
 
 
-Player.schema.pre('save', function(next) {
-    if (this.isModified('state') && this.isNew() && !this.publishedAt) {
-        this.publishedAt = new Date();
-    }
-    next();
+Player.schema.post('save', function() {
+	this.needConfirm = this.isNew && needConfirmNotification(); 
 });
+
+Player.schema.post('save', function() {
+    if (this.needConfirm) {
+    	this.sendNotificationEmail();
+    }
+});
+
+Player.schema.methods.sendNotificationEmail = function(callback) {
+	
+	if ('function' !== typeof callback) {
+		callback = function() {};
+	}
+	
+	var Player = this;
+	
+	new keystone.Email('Player-notification').send({
+			to: this.email,
+			from: {
+				name: 'OCC-Badminton',
+				email: 'contact@occ-badminton.com'
+			},
+			subject: 'Inscription validée à l\'OCC-Badminton',
+			Player: Player
+		}, callback);
+};
+
 
 Player.defaultColumns = 'name, email, type, state';
 Player.register();

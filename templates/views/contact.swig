@@ -1,13 +1,11 @@
 {% extends "../layouts/default.swig" %}
 
 {% block intro %}
-	<div class="container">
-		<h1>Contact Us</h1>
-	</div>
+	<h1>Contact Us</h1>
 {% endblock %}
 
 {% block content %}
-	<div class="container">
+	<div>
 		{% if enquirySubmitted %}
 			<h3>Thanks for getting in touch.</h3>
 		{% else %}

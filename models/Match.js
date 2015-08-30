@@ -6,18 +6,27 @@ var Types = keystone.Field.Types;
  * =============
  */
 
-var Match = new keystone.List('Match');
+var Match = new keystone.List('Match',{
+	label: 'Rencontres',
+});
 
 Match.add({
-	versus: { type: Types.Text, required: true, initial: true, index: true},
+	team: { type: Types.Relationship, ref: 'Team', required: true, initial: true, index: true },
+	versus: { type: Types.Text, required: true, initial: true, index: true },
 	date: { type: Date },
 	location: { type: Types.Location },
-	result: { type: Types.LocalFile, dest: '/data/files' },
-	createdAt: { type: Date, default: Date.now }
+	result: { type: Types.LocalFile, dest: '/data/files' }	
+});
+
+
+Match.schema.pre('save', function(next) {
+	if (this.isModified('date')) {
+		this.needNofif;
+	}
 });
 
 Match.schema.post('save', function() {
-	if (this.wasNew) {
+	if (this.needNotif) {
 		this.sendNotificationEmail();
 	}
 });
@@ -30,24 +39,25 @@ Match.schema.methods.sendNotificationEmail = function(callback) {
 	
 	var Match = this;
 	
-	keystone.list('User').model.find().where('isAdmin', true).exec(function(err, admins) {
+	keystone.list('Team').model.findById(this.team).populate('players').exec(function(err, team) {
 		
 		if (err) return callback(err);
 		
-		new keystone.Email('Match-notification').send({
-			to: admins,
+		console.log("will send mail to :"+team.players);
+		/*new keystone.Email('Match-notification').send({
+			to: team.players,
 			from: {
 				name: 'OCC-Badminton',
 				email: 'contact@occ-badminton.com'
 			},
-			subject: 'New Match for OCC-Badminton',
+			subject: 'Match de championnat - OCC-Badminton',
 			Match: Match
-		}, callback);
+		}, callback);*/
 		
 	});
 	
 };
 
-Match.defaultSort = '-createdAt';
-Match.defaultColumns = 'name, email, MatchType, createdAt';
+Match.defaultSort = '-date';
+Match.defaultColumns = 'team, versus, date';
 Match.register();

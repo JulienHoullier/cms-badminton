@@ -35,51 +35,54 @@
 	<body>
 
 		{# HEADER #}
-		<header class="container-fluid flagBar">
-
-			<div class="visible-md visible-lg header-flag">
+		<header class="occ-flagBar">
+			<div id="occ-header-flag" class="container visible-md visible-lg">
 				<img src="/images/occ-logo.png" alt="" id="occ-logo">
 			</div>
-
-			{# Customise your site"s navigation by changing the navLinks Array in ./routes/middleware.js
-			   ... or completely change this header to suit your design. #}
-			<div role="navigation" class="navbar navbar-inverse row">
-				<div class="container-fluid">
-					<div class="collapse navbar-collapse">
-						<ul class="nav navbar-nav navbar-left">
-							{%- for link in navLinks -%}
-								{%- set linkClass = '' -%}
-								{%- if link.key == section -%}
-									{%- set linkClass = ' class="active"' -%}
+			
+			<div class="container">
+				<nav class="navbar navbar-inverse row" id="occ-header-nav">
+					
+						<div class="navbar-header">
+					      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#occ-header-navbar" aria-expanded="false">
+					        <span class="sr-only">Menu</span>
+					        <span class="icon-bar"></span>
+					        <span class="icon-bar"></span>
+					        <span class="icon-bar"></span>
+					      </button>
+					      <a class="navbar-brand visible-sm visible-xs" href="#">OCC Badminton</a>
+					    </div>
+						<div class="collapse navbar-collapse" id="occ-header-navbar">
+							<ul class="nav navbar-nav navbar-left">
+								{%- for link in navLinks -%}
+									{%- set linkClass = '' -%}
+									{%- if link.key == section -%}
+										{%- set linkClass = 'active' -%}
+									{%- endif %}
+									<li class="{{link.key}} {{ linkClass | safe }}">
+										<a href="{{ link.href }}">{{ link.label }}</a>
+									</li>
+								{%- endfor %}
+							</ul>
+							<ul class="nav navbar-nav navbar-right">
+								{% if user -%}
+									{%- if user.canAccessKeystone -%}
+										<li><a href="/keystone">Administration</a></li>
+									{%- endif -%}
+									<li><a href="/keystone/signout">Déconnexion</a></li>
+								{%- else -%}
+									<li><a href="/keystone/signin">Connexion</a></li>
 								{%- endif %}
-								<li{{ linkClass | safe }}>
-									<a href="{{ link.href }}">{{ link.label }}</a>
-								</li>
-							{%- endfor %}
-						</ul>
-						<ul class="nav navbar-nav navbar-right">
-							{% if user -%}
-								{%- if user.canAccessKeystone -%}
-									<li><a href="/keystone">Open Keystone</a></li>
-								{%- endif -%}
-								<li><a href="/keystone/signout">Sign Out</a></li>
-							{%- else -%}
-								<li><a href="/keystone/signin">Sign In</a></li>
-							{%- endif %}
-						</ul>
-					</div>
-				</div>
+							</ul>
+						</div>
+					</nav>
 			</div>
 		</header>	
 			
 		</div>
 
 		{# BODY #}
-		<div id="body">
-			{# NOTE:
-			   There is no .container wrapping class around body blocks to allow more flexibility in design.
-			   Remember to include it in your templates when you override the intro and content blocks! #}
-
+		<div id="body" class="container">
 			{# The Intro block appears above flash messages (used for temporary information display) #}
 			{%- block intro -%}{%- endblock -%}
 
@@ -91,14 +94,18 @@
 			{%- block content -%}{%- endblock -%}
 		</div>
 
-		<div class="container-fluid flagBar" style="margin-top:30px">
-			<p class="row">The sponsors</p>
+		<div id="occ-sponsor-bar" class="occ-flagBar">
+			<div class="container">
+				<p>The sponsors</p>
+			</div>
 		</div>
 
 		{# FOOTER #}
-		<footer class="container-fluid flagBar">
+		<footer class="occ-flagBar">
+			<div class="container">
 			{# You don"t _have_ to include a link saying your site is powered by KeystoneJS, but we appreciate it! #}
-			<p>Powered by <a href="http://keystonejs.com" target="_blank">KeystoneJS</a>.</p>
+				<p class="text-right">Powered by <a href="http://keystonejs.com" target="_blank">KeystoneJS</a>.</p>
+			</div>
 		</footer>
 
 		{# JAVASCRIPT #}
