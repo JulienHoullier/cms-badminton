@@ -1,4 +1,5 @@
 var keystone = require('keystone');
+var ffbadnews = require('./ffbadnews');
 
 exports = module.exports = function(req, res) {
 	
@@ -15,8 +16,8 @@ exports = module.exports = function(req, res) {
 	{title:"News Equipe 2", content:"Superbe News Equipe 2"}
 
 	];
-	var newsFFBAD = [{title:"News FFBAD 1", content:"Superbe News FFBAD 1"}];
 
+	var newsFFBAD = ffbadnews.fetch();
 
 	locals.news = {
 		newsClub : newsClub,
