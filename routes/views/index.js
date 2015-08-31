@@ -1,6 +1,6 @@
-var keystone = require('keystone');
-
-	Post = keystone.list('Post');
+var keystone = require('keystone'),
+	Post = keystone.list('Post'),
+	ffbadnews = require('../../lib/ffbadnews');
 
 exports = module.exports = function(req, res) {
 	
@@ -17,6 +17,10 @@ exports = module.exports = function(req, res) {
     .populate('author')
     .sort('-publishedAt')
     .limit(5));
+
+    ffbadnews(function(err,data){
+    	locals.news = data;
+    });
 	
 	// Render the view
 	view.render('index');
