@@ -6,7 +6,7 @@
 
 	<div>
 	{% if lastPosts.length %}
-		<div id="occ-last-news-carousel" class="carousel slide col-sm-12 col-lg-6" data-ride="carousel" data-interval="1000" data-wrap="false">
+		<div id="occ-last-news-carousel" class="carousel occ-panel slide col-sm-12 col-lg-6" data-ride="carousel" data-interval="3000">
 		    <!-- Indicators -->
 		    <ol class="carousel-indicators">
 		    {% for post in lastPosts %}

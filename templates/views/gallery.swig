@@ -1,13 +1,21 @@
 {% extends "../layouts/default.swig" %}
 
 {% block intro %}
-	<h1 class="lead">Photos</h1>
+	<h1>Photos</h1>
 {% endblock %}
 
 {% block content %}
 	<div>
 		{% if galleries.length %}
 			{% for gallery in galleries %}
+			{% set relname = "gallery"+loop.index %}
+
+
+			{% set className = "" %}
+			{% if first %}
+				{% set className = "occ-album-first" %}
+			{% endif %}
+			<div  class="occ-panel occ-album {{className}}">
 				<h2>{{ gallery.name }}
 					{% if gallery.publishedDate %}
 						<span class="pull-right text-muted">{{ gallery._.publishedDate.format("Do MMM YYYY") }}</span>
@@ -16,13 +24,13 @@
 
 				<div class="row gallery-images">
 					{% if gallery.heroImage.exists %}
-						<a class="col-sm-4 col-md-4 gallery-image" rel="gallery" title="{{gallery.name + ' hero image'}}" href="{{gallery._.heroImage.limit(900,600)}}">
+						<a class="col-sm-4 col-md-4 gallery-image" rel="{{relname}}" title="{{gallery.name + ' hero image'}}" href="{{gallery._.heroImage.limit(900,600)}}">
 							<img src="{{ gallery._.heroImage.limit(680,680) }}" class="img-rounded">
 						</a>
 						<div class="col-sm-8 col-md-8">
 							<div class="row">
 								{% for image in gallery.images %}
-									<a class="col-xs-4 col-sm-4 col-md-3 gallery-image" rel="gallery" title="{{ gallery.name + ' image ' + (i+1)}}" href="{{ image.limit(900,600)}}">
+									<a class="col-xs-4 col-sm-4 col-md-3 gallery-image" rel="{{relname}}" title="{{ gallery.name + ' image ' + (i+1)}}" href="{{ image.limit(900,600)}}">
 										<img src="{{ image.limit(300,300) }}" class="img-rounded">
 									</a>
 								{% endfor %}
@@ -30,12 +38,13 @@
 						</div>
 					{% else %}
 						{% for image in gallery.images %}
-							<a class="col-xs-6 col-sm-4 col-md-3 gallery-image" rel="gallery" title="{{gallery.name + ' image ' + (i+1)}}" href="{{image.limit(900,600)}}">
+							<a class="col-xs-6 col-sm-4 col-md-3 gallery-image" rel="{{relname}}" title="{{gallery.name + ' image ' + (i+1)}}" href="{{image.limit(900,600)}}">
 								<img src="{{ image.limit(300,300) }}" class="img-rounded">
 							</a>
 						{% endfor %}
 					{% endif %}
 				</div>
+			</div>
 			{% endfor %}
 		{% else %}
 			<h3 class="text-muted">There are no image galleries yet.</h3>

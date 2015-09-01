@@ -3,7 +3,7 @@
 {% block content %}
 		<div class="row">
 			<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
-				<article>
+				<article class="occ-post">
 					<p>
 						<a href="/blog">&larr; back to the blog</a>
 					</p>
@@ -12,7 +12,7 @@
 						<h2>Invalid Post.</h2>
 					{% else %}
 						<header>
-							<h1>{{ data.post.title }}</h1>
+							<h1 class="text-caps text-danger">{{ data.post.title }}</h1>
 							<h5>Posted</h5>
 							{% if data.post.publishedDate %}
 								on {{ data.post._.publishedDate.format("MMMM Do, YYYY") }}

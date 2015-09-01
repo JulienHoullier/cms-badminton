@@ -2,9 +2,9 @@
 
 {% block content %}
 	<div class="table-responsive">          
-		<table class="table">
+		<table class="table table-hover">
 			<thead>
-				<tr>
+				<tr class="info">
 					<th>Prénom</th>
 					<th>Nom</th>
 					<th>E-mail</th>

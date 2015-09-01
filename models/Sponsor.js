@@ -16,8 +16,9 @@ Sponsor.add({
 	name: { type: Types.Name, required: true },
 	url: { type: Types.Url , required: true, initial: true },
 	img_url: { type: Types.Url },
-	value: { type: Number }
+	amount: { type: Number }
 });
 
-Sponsor.defaultColumns = 'name, url';
+Sponsor.defaultSort = '-amount';
+Sponsor.defaultColumns = 'name, url, amount';
 Sponsor.register();

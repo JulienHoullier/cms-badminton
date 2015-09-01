@@ -40,49 +40,48 @@
 				<img src="/images/occ-logo.png" alt="" id="occ-logo">
 			</div>
 			
-			<div class="container">
+			<div class="container" data-spy="affix" data-offset-top="197">
 				<nav class="navbar navbar-inverse row" id="occ-header-nav">
-					
-						<div class="navbar-header">
-					      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#occ-header-navbar" aria-expanded="false">
-					        <span class="sr-only">Menu</span>
-					        <span class="icon-bar"></span>
-					        <span class="icon-bar"></span>
-					        <span class="icon-bar"></span>
-					      </button>
-					      <a class="navbar-brand visible-sm visible-xs" href="#">OCC Badminton</a>
-					    </div>
-						<div class="collapse navbar-collapse" id="occ-header-navbar">
-							<ul class="nav navbar-nav navbar-left">
-								{%- for link in navLinks -%}
-									{%- set linkClass = '' -%}
-									{%- if link.key == section -%}
-										{%- set linkClass = 'active' -%}
-									{%- endif %}
-									<li class="{{link.key}} {{ linkClass | safe }}">
-										<a href="{{ link.href }}">{{ link.label }}</a>
-									</li>
-								{%- endfor %}
-							</ul>
-							<ul class="nav navbar-nav navbar-right">
-								{% if user -%}
-									{%- if user.canAccessKeystone -%}
-										<li><a href="/keystone">Administration</a></li>
-									{%- endif -%}
-									<li><a href="/keystone/signout">Déconnexion</a></li>
-								{%- else -%}
-									<li><a href="/keystone/signin">Connexion</a></li>
+					<div class="navbar-header">
+				      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#occ-header-navbar" aria-expanded="false">
+				        <span class="sr-only">Menu</span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				      </button>
+				      <a class="navbar-brand visible-sm visible-xs" href="#">OCC Badminton</a>
+				    </div>
+					<div class="collapse navbar-collapse" id="occ-header-navbar">
+						<ul class="nav navbar-nav navbar-left">
+							{%- for link in navLinks -%}
+								{%- set linkClass = '' -%}
+								{%- if link.key == section -%}
+									{%- set linkClass = 'active' -%}
 								{%- endif %}
-							</ul>
-						</div>
-					</nav>
+								<li class="{{link.key}} {{ linkClass | safe }}">
+									<a href="{{ link.href }}">{{ link.label }}</a>
+								</li>
+							{%- endfor %}
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							{% if user -%}
+								{%- if user.canAccessKeystone -%}
+									<li><a class="btn" href="/keystone">Administration</a></li>
+								{%- endif -%}
+								<li><a class="btn" href="/keystone/signout">Déconnexion</a></li>
+							{%- else -%}
+								<li><a class="btn" href="/keystone/signin">Connexion</a></li>
+							{%- endif %}
+						</ul>
+					</div>
+				</nav>
 			</div>
 		</header>	
 			
 		</div>
 
 		{# BODY #}
-		<div id="body" class="container">
+		<main class="container">
 			{# The Intro block appears above flash messages (used for temporary information display) #}
 			{%- block intro -%}{%- endblock -%}
 
@@ -92,11 +91,24 @@
 
 			{# The content block should contain the body of your template"s content #}
 			{%- block content -%}{%- endblock -%}
-		</div>
+		</main>
 
 		<div id="occ-sponsor-bar" class="occ-flagBar">
 			<div class="container">
-				<p>The sponsors</p>
+				{% if sponsors && sponsors.length > 0%}
+				<div class="slideshow">
+					<ul>
+					{% for sponsor in sponsors %}
+					
+						<li><a href="{{sponsor.url}}"><img src="{{sponsor.img_url}}" alt="" width="350" height="200" /></a></li>
+						
+					{% endfor %}
+					</ul>
+				</div>
+
+				{% else %}
+				<p>The sponsors are empty</p>
+				{% endif %}
 			</div>
 		</div>
 
@@ -113,7 +125,7 @@
 		{# jQuery 1.11.1 is included by default, and required by both Bootstrap
 			and the KeystoneJS Content Editor. If you are not targeting IE8,
 			you can upgrade to 2.1.3 (also bundled) for better performance. #}
-		<script src="/js/jquery/jquery-1.11.2.min.js"></script>
+		<script src="/js/jquery/jquery-2.1.3.min.js"></script>
 
 		{# Customise which Bootstrap javascript files are served by including
 			them specifically here, instead of bootstrap-3.3.4.min.js #}

@@ -2,12 +2,12 @@ body {
 	background-image: url('/images/bg-body.png');
 }
 
-footer .container{
+footer .container {
 	border-top: 1px solid @gray-lighter;
 	padding-top: 30px;
 }
 
-#body{
+main {
 	background-image: url('/images/bg-content.png');
 	padding-top: 20px;
 	padding-bottom: 20px;
@@ -19,6 +19,17 @@ footer .container{
 	background-position-y: center;
 	padding:10px;
 }
+
+.affix {
+	top : 0;
+	width : 100%;
+	z-index : 1000;
+}
+
+header >.affix + div {
+	padding-top:50px;
+}
+
 
 #occ-logo{
 	width: 180px;
