@@ -1,5 +1,5 @@
-body {
-	background-image: url('/images/bg-body.png');
+body{
+	background-image: url('/images/bg-content.png');
 }
 
 footer .container {
@@ -8,15 +8,15 @@ footer .container {
 }
 
 main {
-	background-image: url('/images/bg-content.png');
 	padding-top: 20px;
+	min-height: 800px;
 	padding-bottom: 20px;
-	height: 100%;
 }
 
 #occ-header-flag{
-	background: #333333 url(https://lh4.googleusercontent.com/-aTxs9Gucucs/VJIIge1OF1I/AAAAAAAABrI/UwE6mL2Axo4/w982-h412-no/IMG_5224.JPG);
-	background-position-y: center;
+	background: #f8f8f8 url('/images/index2.jpg');
+	background-position: center;
+	background-repeat: no-repeat;
 	padding:10px;
 }
 
@@ -26,25 +26,14 @@ main {
 	z-index : 1000;
 }
 
-header >.affix + div {
-	padding-top:50px;
+.affix + main {
+	padding-top:70px;
 }
 
 
 #occ-logo{
 	width: 180px;
 	height: 180px;
-}
-
-.gallery-image img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-}
-
-.news {
-	float:left;
-	margin-right:10px;
 }
 
 .occ-flagBar{
@@ -58,94 +47,60 @@ header >.affix + div {
 
 #occ-header-nav{
 	margin-bottom: 0px;
+	border-style: none;
 }
 
 #occ-header-navbar {
-		color: @gray-light;
-
-		.home {
-			&:before
-			{
-				content:"";
-				display:block;
-				height: @nav-tab-string-height;
-				background-color : @home-color;
+		
+		.active{
+			a {
+				font-weight: bold;
 			}
-
-			a { 
-				&:hover,
-				&.active{
-					background-color : @home-color;
-				} 
-			}	
 		}
 
-		.blog {
-			&:before
-			{
-				content:"";
-				display:block;
-				height: @nav-tab-string-height;
-				background-color : @blog-color;
-			}
+		.home{
 
-			a { 
-				&:hover,
-				&.active{
-					background-color : @blog-color;
-				} 
-			}			
+			&:hover,
+			&.active{
+				border-top: 2px solid transparent;
+    			border-color:  @home-color;
+    		}			
 		}
 
-		.gallery {
-			&:before
-			{
-				content:"";
-				display:block;
-				height: @nav-tab-string-height;
-				background-color : @gallery-color;
-			}
+		.blog{
 
-			a { 
-				&:hover,
-				&.active{
-					background-color : @gallery-color;
-				} 
-			}			
+			&:hover,
+			&.active{
+				border-top: 2px solid transparent;
+    			border-color:  @blog-color;
+    		}			
 		}
 
-		.player {
-			&:before
-			{
-				content:"";
-				display:block;
-				height: @nav-tab-string-height;
-				background-color : @player-color;
-			}
+		.gallery{
 
-			a { 
-				&:hover,
-				&.active{
-					background-color : @player-color;
-				} 
-			}			
+			&:hover,
+			&.active{
+				border-top: 2px solid transparent;
+    			border-color:  @gallery-color;
+    		}			
+		}
+		
+		.player{
+
+			&:hover,
+			&.active{
+				border-top: 2px solid transparent;
+    			border-color:  @player-color;
+    		}			
 		}
 
-		li.contact {
-			&:before
-			{
-				content:"";
-				display:block;
-				height: @nav-tab-string-height;
-				background-color : @contact-color;
-			}
+		.contact{
 
-			a { 
-				&:hover,
-				&.active{
-					background-color : @contact-color;
-				} 
-			}			
+			&:hover,
+			&.active{
+				border-top: 2px solid transparent;
+    			border-color:  @contact-color;
+    		}			
 		}
 }
 

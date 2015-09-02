@@ -39,9 +39,10 @@
 			<div id="occ-header-flag" class="container visible-md visible-lg">
 				<img src="/images/occ-logo.png" alt="" id="occ-logo">
 			</div>
+		</header>	
 			
-			<div class="container" data-spy="affix" data-offset-top="197">
-				<nav class="navbar navbar-inverse row" id="occ-header-nav">
+		<div class="occ-flagBar" data-spy="affix" data-offset-top="197">
+				<nav class="navbar navbar-default container" id="occ-header-nav">
 					<div class="navbar-header">
 				      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#occ-header-navbar" aria-expanded="false">
 				        <span class="sr-only">Menu</span>
@@ -51,7 +52,7 @@
 				      </button>
 				      <a class="navbar-brand visible-sm visible-xs" href="#">OCC Badminton</a>
 				    </div>
-					<div class="collapse navbar-collapse" id="occ-header-navbar">
+					<div class="collapse navbar-collapse row" id="occ-header-navbar">
 						<ul class="nav navbar-nav navbar-left">
 							{%- for link in navLinks -%}
 								{%- set linkClass = '' -%}
@@ -75,13 +76,10 @@
 						</ul>
 					</div>
 				</nav>
-			</div>
-		</header>	
-			
 		</div>
 
 		{# BODY #}
-		<main class="container">
+		<main>
 			{# The Intro block appears above flash messages (used for temporary information display) #}
 			{%- block intro -%}{%- endblock -%}
 

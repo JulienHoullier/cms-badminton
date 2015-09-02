@@ -4,11 +4,60 @@
  }
 } 
 
+.occ-title-panel{
+	margin: 10px 0 10px 0;
+}
+
+.occ-title-string{
+	height:1px;
+	background-color:@gray-light;
+}
+
+.occ-title-text {
+	text-align:center;
+	color: @gray-light
+}
+
 .occ-panel {
 	background-image : url('/images/bg-news.png');
 	padding : 15px;
 }
 
 .occ-last-news-panel {
-	margin-bottom : 0px;
+	background-color: @global-bg-color;
+	height:390px;
+	padding: 30px;
+
+	blockquote {
+		max-height:200px;
+		overflow-y:hidden;
+	}
+}
+
+.occ-last-news {
+	background-color: @global-bg-color;
+	margin-bottom: 20px;
+	height : 500px;
+}
+
+.occ-teams-news {
+	background-color: @global-bg-color;
+	margin-bottom: 20px;
+	height : 500px;
+}
+
+.occ-bad-news {
+	background-color: @global-bg-color;
+	margin-bottom: 20px;
+	height : 500px;
+}
+
+.occ-last-result {
+	background-color : white;
+	color:fireBrick;
+	padding : 10px;
+
+	h4 {
+		margin-top: 5px;
+	}
 }

@@ -1,11 +1,13 @@
 {% extends "../layouts/default.swig" %}
 
 {% block intro %}
-	<h1>Photos</h1>
+	<div class="container">
+		<h1>Photos</h1>
+	</div>
 {% endblock %}
 
 {% block content %}
-	<div>
+	<div class="container">
 		{% if galleries.length %}
 			{% for gallery in galleries %}
 			{% set relname = "gallery"+loop.index %}
