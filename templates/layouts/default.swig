@@ -41,7 +41,7 @@
 			</div>
 		</header>	
 			
-		<div class="occ-bg" data-spy="affix" data-offset-top="197">
+		<div id="occ-navbar" class="occ-bg" data-spy="affix" data-offset-top="197">
 				<nav class="navbar navbar-default container" id="occ-header-nav">
 					<div class="navbar-header">
 				      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#occ-header-navbar" aria-expanded="false">
