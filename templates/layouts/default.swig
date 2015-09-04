@@ -35,13 +35,13 @@
 	<body>
 
 		{# HEADER #}
-		<header class="occ-flagBar">
+		<header class="occ-bg">
 			<div id="occ-header-flag" class="container visible-md visible-lg">
 				<img src="/images/occ-logo.png" alt="" id="occ-logo">
 			</div>
 		</header>	
 			
-		<div class="occ-flagBar" data-spy="affix" data-offset-top="197">
+		<div class="occ-bg" data-spy="affix" data-offset-top="197">
 				<nav class="navbar navbar-default container" id="occ-header-nav">
 					<div class="navbar-header">
 				      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#occ-header-navbar" aria-expanded="false">
@@ -91,7 +91,7 @@
 			{%- block content -%}{%- endblock -%}
 		</main>
 
-		<div id="occ-sponsor-bar" class="occ-flagBar">
+		<div id="occ-sponsor-bar" class="occ-bg">
 			<div class="container">
 				{% if sponsors && sponsors.length > 0%}
 				<div class="slideshow">
@@ -111,7 +111,7 @@
 		</div>
 
 		{# FOOTER #}
-		<footer class="occ-flagBar">
+		<footer class="occ-bg">
 			<div class="container">
 			{# You don"t _have_ to include a link saying your site is powered by KeystoneJS, but we appreciate it! #}
 				<p class="text-right">Powered by <a href="http://keystonejs.com" target="_blank">KeystoneJS</a>.</p>
@@ -138,6 +138,12 @@
 		{# Add scripts that are globally required by your site here. #}
 
 		{# Include template-specific javascript files by extending the js block #}
-		{%- block js -%}{%- endblock -%}
+		{%- block js -%}
+
+		<script>
+			jQuery('#occ-sponsor-bar').scrollBox();
+		</script>
+
+		{%- endblock -%}
 	</body>
 </html>

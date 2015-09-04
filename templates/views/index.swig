@@ -80,19 +80,26 @@
 		<div class="row">
 			
 			<div class="col-lg-8 occ-ffbad">
-				<ul>
+				<ul class="list-group">
 				{% for ffbadNew in ffbadNews %}
-					<li>
-						<a href="ffbadNew.url">
-							<p>{{ffbadNew.title}}</p>
-						</a>
+					<li class="list-group-item">
+						<div class="media">
+							<div class="media-body">
+								<a href="{{ffbadNew.link}}" target="_blank">
+									<p class="media-heading">{{ffbadNew.title}}</p>
+								</a>
+								<p>{{ffbadNew.summary}}</p>
+							</div>
+						</div>
 					</li>
 				{% endfor %}
 				</ul>
 			</div>
 
 			<div class="col-lg-4 occ-tuto">
-
+				<div class="embed-responsive embed-responsive-4by3">
+					<iframe class="embed-responsive-item" width="300" height="200" src="https://www.youtube.com/embed/DcevUn6J3-E" frameborder="0" allowfullscreen></iframe>
+				</div>
 			</div>
 		</div>
 
@@ -100,8 +107,8 @@
 {% endblock %}
 
 {%- macro renderSlide(post) -%}
-		<div class="occ-last-news-panel">
-			<div>
+		<div class="occ-last-news-panel media">
+			<div class="media-body">
 				<h4>
 					<a href="/blog/post/{{ post.slug }}" class="text-danger"><p>{{ post.title }}</p></a>
 				</h4>
@@ -119,8 +126,8 @@
 				</p>
 			</div>
 			{% if post.image.exists %}
-				<div class="image-wrap occ-last-news-panel-img">
-					<img src="{{ data.post._.image.fit(250,200) }}" class="img-responsive">
+				<div class="image-wrap occ-last-news-panel-img media-right media-middle">
+					<img class="img-responsive media-object" src="{{post._.image.fit(250,200) }}">
 				</div>
 			{% endif %}
 		</div>					

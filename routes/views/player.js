@@ -10,7 +10,7 @@ exports = module.exports = function(req, res) {
 	locals.section = 'player';
 	
 	// Load the galleries by sortOrder
-	view.query('players', keystone.list('Player').model.find().sort('-name'));
+	view.query('players', keystone.list('Player').model.find().populate('team').sort('-name'));
 
 	// Render the view
 	view.render('player');

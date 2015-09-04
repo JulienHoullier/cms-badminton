@@ -18,8 +18,25 @@ exports = module.exports = function(req, res) {
     .sort('-publishedAt')
     .limit(5));
 
-    ffbadnews(function(err,data){
-    	locals.news = data;
+
+
+    view.on('render', function(next){
+    	
+    	var hasBeanCalled  = false;
+    	ffbadnews(function(err,data){
+    		if(err){
+    			console.log(err);	
+    			locals.ffbadNews = [];
+    		}
+    		else{
+    			locals.ffbadNews = data;
+    		}
+ 
+    		if(!hasBeanCalled){
+    			hasBeanCalled = true;
+    			next();
+    		}
+    	});
     });
 	
 	// Render the view

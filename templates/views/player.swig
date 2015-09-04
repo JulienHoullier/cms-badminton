@@ -2,7 +2,10 @@
 
 {% block content %}
 	<div class="container">
-		<div class="table-responsive">          
+		<div class="panel panel-info">
+  		<!-- Default panel contents -->
+  		<div class="panel-heading">Liste des joueurs</div>
+         
 			<table class="table table-hover">
 				<thead>
 					<tr class="info">
@@ -25,6 +28,6 @@
 					{% endfor %}
 				</tbody>
 			</table>
-		</div>
+		
 	</div>
 {% endblock %}
