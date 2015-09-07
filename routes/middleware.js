@@ -24,17 +24,51 @@ exports.initLocals = function(req, res, next) {
 	var locals = res.locals;
 	
 	locals.navLinks = [
-		{ label: 'Home',		key: 'home',		href: '/' },
-		{ label: 'Blog',		key: 'blog',		href: '/blog' },
-		{ label: 'Gallery',		key: 'gallery',		href: '/gallery' },
-		{ label: 'Contact',		key: 'contact',		href: '/contact' }
+		{ label: 'Accueil',		key: 'home',		href: '/' },
+		{ label: 'Actualités',		key: 'blog',		href: '/blog' },
+		{ label: 'Photos',		key: 'gallery',		href: '/gallery' }
 	];
-	
+	//add link to connected users
+	if(req.user){
+		locals.navLinks.push({ label: 'Joueurs',		key: 'player',		href: '/player' });
+	}
+	//Contact is the last link
+	locals.navLinks.push({ label: 'Contact',		key: 'contact',		href: '/contact' });
+		
+	//store user to access it in the web page
 	locals.user = req.user;
 	
 	next();
-	
 };
+
+/**
+	Initialises the sponsors list
+	
+	The included layout depends on the sponsors array to generate
+	the horizontal list
+*/
+exports.initLocals = function(req, res, next) {
+	
+	var locals = res.locals;
+	
+	locals.navLinks = [
+		{ label: 'Accueil',		key: 'home',		href: '/' },
+		{ label: 'Actualités',		key: 'blog',		href: '/blog' },
+		{ label: 'Photos',		key: 'gallery',		href: '/gallery' }
+	];
+	//add link to connected users
+	if(req.user){
+		locals.navLinks.push({ label: 'Joueurs',		key: 'player',		href: '/player' });
+	}
+	//Contact is the last link
+	locals.navLinks.push({ label: 'Contact',		key: 'contact',		href: '/contact' });
+		
+	//store user to access it in the web page
+	locals.user = req.user;
+	
+	next();
+};
+
 
 
 /**
@@ -52,8 +86,7 @@ exports.flashMessages = function(req, res, next) {
 	
 	res.locals.messages = _.any(flashMessages, function(msgs) { return msgs.length; }) ? flashMessages : false;
 	
-	next();
-	
+	next();	
 };
 
 

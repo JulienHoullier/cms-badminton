@@ -8,6 +8,7 @@ var Types = keystone.Field.Types;
 
 var Post = new keystone.List('Post', {
 	map: { name: 'title' },
+	label: 'Actualités',
 	autokey: { path: 'slug', from: 'title', unique: true }
 });
 
@@ -30,3 +31,15 @@ Post.schema.virtual('content.full').get(function() {
 
 Post.defaultColumns = 'title, state|20%, author|20%, publishedDate|20%';
 Post.register();
+
+
+/**
+* Team post
+*
+*/
+
+var TeamPost = new keystone.List('TeamPost', { inherits: Post });
+TeamPost.add({
+	team: { type: Types.Relationship, ref: 'Team', required: true, initial: true, index: true }
+})
+TeamPost.register();

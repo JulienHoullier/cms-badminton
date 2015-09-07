@@ -1,4 +1,6 @@
-var keystone = require('keystone');
+var keystone = require('keystone'),
+	Post = keystone.list('Post'),
+	ffbadnews = require('../../lib/ffbadnews');
 
 exports = module.exports = function(req, res) {
 	
@@ -9,20 +11,34 @@ exports = module.exports = function(req, res) {
 	// item in the header navigation.
 	locals.section = 'home';
 	
-	var newsClub = [{title:"News 1", content:"Superbe News 1"}];
-	var newsEquipes = [
-	{title:"News Equipe 1", content:"Superbe News Equipe 1"},
-	{title:"News Equipe 2", content:"Superbe News Equipe 2"}
 
-	];
-	var newsFFBAD = [{title:"News FFBAD 1", content:"Superbe News FFBAD 1"}];
+	view.query('lastPosts', Post.model.find()
+    .where('state', 'published')
+    .populate('author')
+    .sort('-publishedAt')
+    .limit(5));
 
 
-	locals.news = {
-		newsClub : newsClub,
-	 	newsEquipes:newsEquipes, 
-	 	newsFFBAD:newsFFBAD
-	 };
+
+    view.on('render', function(next){
+    	
+    	var hasBeanCalled  = false;
+    	ffbadnews(function(err,data){
+    		if(err){
+    			console.log(err);	
+    			locals.ffbadNews = [];
+    		}
+    		else{
+    			locals.ffbadNews = data;
+    		}
+ 
+    		if(!hasBeanCalled){
+    			hasBeanCalled = true;
+    			next();
+    		}
+    	});
+    });
+	
 	// Render the view
 	view.render('index');
 	
