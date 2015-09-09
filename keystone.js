@@ -28,7 +28,7 @@ keystone.init({
 	
 	'emails': 'templates/emails',
 
-	'cookie secret': 'a super long random string needed for occ-badminton 54398753946308208',
+	'cookie secret': process.env.COOKIE_SECRET || 'a super long random string needed for occ-badminton 54398753946308208',
 	'auto update': true,
 	'session': true,
 	'session store': 'mongo',

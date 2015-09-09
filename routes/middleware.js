@@ -9,7 +9,8 @@
  */
 
 var _ = require('underscore');
-
+var keystone = require('keystone');
+var Sponsor = keystone.list('Sponsor');
 
 /**
 	Initialises the standard view locals
@@ -18,7 +19,6 @@ var _ = require('underscore');
 	the navigation in the header, you may wish to change this array
 	or replace it with your own templates / logic.
 */
-
 exports.initLocals = function(req, res, next) {
 	
 	var locals = res.locals;
@@ -47,34 +47,19 @@ exports.initLocals = function(req, res, next) {
 	The included layout depends on the sponsors array to generate
 	the horizontal list
 */
-exports.initLocals = function(req, res, next) {
+exports.initSponsors = function(req, res, next) {
 	
 	var locals = res.locals;
 	
-	locals.navLinks = [
-		{ label: 'Accueil',		key: 'home',		href: '/' },
-		{ label: 'Actualités',		key: 'blog',		href: '/blog' },
-		{ label: 'Photos',		key: 'gallery',		href: '/gallery' }
-	];
-	//add link to connected users
-	if(req.user){
-		locals.navLinks.push({ label: 'Joueurs',		key: 'player',		href: '/player' });
-	}
-	//Contact is the last link
-	locals.navLinks.push({ label: 'Contact',		key: 'contact',		href: '/contact' });
-		
-	//store user to access it in the web page
-	locals.user = req.user;
-	
-	next();
+	Sponsor.model.find().exec(function(err, results) {
+		locals.sponsors = results;
+		next(err);
+	});
 };
-
-
 
 /**
 	Fetches and clears the flashMessages before a view is rendered
 */
-
 exports.flashMessages = function(req, res, next) {
 	
 	var flashMessages = {
@@ -93,7 +78,6 @@ exports.flashMessages = function(req, res, next) {
 /**
 	Prevents people from accessing protected pages when they're not signed in
  */
-
 exports.requireUser = function(req, res, next) {
 	
 	if (!req.user) {
