@@ -91,14 +91,15 @@
 			{%- block content -%}{%- endblock -%}
 		</main>
 
-		<div id="occ-sponsor-bar" class="occ-bg">
+		<div class="occ-bg">
 			<div class="container">
+				<h4>Partenaires</h4>
 				{% if sponsors && sponsors.length > 0%}
-				<div class="slideshow">
+				<div id="occ-sponsor-bar" class="slideshow">
 					<ul>
 					{% for sponsor in sponsors %}
 					
-						<li><a href="{{sponsor.url}}"><img src="{{sponsor.img_url}}" alt="" width="350" height="200" /></a></li>
+						<li><a href="{{sponsor.url}}" class="thumbnail"><img src="{{sponsor.img_url}}" alt="" width="140" height="140" /></a></li>
 						
 					{% endfor %}
 					</ul>
@@ -129,6 +130,9 @@
 			them specifically here, instead of bootstrap-3.3.4.min.js #}
 		<script src="/js/bootstrap/bootstrap-3.3.4.min.js"></script>
 
+		{# scrollbox jQuery plugin #}
+		<script src="/js/jquery/jquery.scrollbox.min.js"></script>
+
 		{# The KeystoneJS Content Editor provides support for ks-editable data attributes,
 			which generate links to edit content for users who can access Keystone #}
 		{% if user and user.canAccessKeystone -%}
@@ -139,11 +143,18 @@
 
 		{# Include template-specific javascript files by extending the js block #}
 		{%- block js -%}
-
-		<script>
-			jQuery('#occ-sponsor-bar').scrollBox();
+		<script type="text/javascript">
+			jQuery(function($) {
+				$(''#occ-sponsor-bar').scrollBox(
+				{
+				  direction: 'h',
+				  linear: true,
+					 step: 1,
+					 delay: 0,
+					 speed: 100
+				});
+			});
 		</script>
-
 		{%- endblock -%}
 	</body>
 </html>
