@@ -145,7 +145,7 @@
 		{%- block js -%}
 		<script type="text/javascript">
 			jQuery(function($) {
-				$(''#occ-sponsor-bar').scrollBox(
+				$('#occ-sponsor-bar').scrollBox(
 				{
 				  direction: 'h',
 				  linear: true,
