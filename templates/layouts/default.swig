@@ -129,10 +129,10 @@
 		{# Customise which Bootstrap javascript files are served by including
 			them specifically here, instead of bootstrap-3.3.4.min.js #}
 		<script src="/js/bootstrap/bootstrap-3.3.4.min.js"></script>
-		
+
 		{# scrollbox jQuery plugin #}
 		<script src="/js/jquery/jquery.scrollbox.min.js"></script>
-		
+
 		{# The KeystoneJS Content Editor provides support for ks-editable data attributes,
 			which generate links to edit content for users who can access Keystone #}
 		{% if user and user.canAccessKeystone -%}
@@ -145,9 +145,9 @@
 		{%- block js -%}
 		<script type="text/javascript">
 			jQuery(function($) {
-				$(''#occ-sponsor-bar').scrollBox(
+				$('#occ-sponsor-bar').scrollBox(
 				{
-				  direction: 'h',			  
+				  direction: 'h',
 				  linear: true,
 					 step: 1,
 					 delay: 0,
