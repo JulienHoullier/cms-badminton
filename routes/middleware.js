@@ -24,9 +24,11 @@ exports.initLocals = function(req, res, next) {
 	var locals = res.locals;
 	
 	locals.navLinks = [
-		{ label: 'Accueil',		key: 'home',		href: '/' },
-		{ label: 'Actualités',		key: 'blog',		href: '/blog' },
-		{ label: 'Photos',		key: 'gallery',		href: '/gallery' }
+		{ label: 'Accueil',		 key: 'home',		href: '/' },
+		{ label: 'Le club',		 key: 'club',		href: '/club' },
+		{ label: 'Inscriptions', key: 'subscribe',	href: '/inscriptions' },
+		{ label: 'Actualités',	 key: 'blog',		href: '/blog' },
+		{ label: 'Photos',		 key: 'gallery',	href: '/gallery' }
 	];
 	//add link to connected users
 	if(req.user){
