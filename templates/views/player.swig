@@ -14,6 +14,7 @@
 						<th>E-mail</th>
 						<th>N° License</th>
 						<th>Equipe</th>
+						<th>Classement</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -24,6 +25,7 @@
 						<td>{{player.email}}</td>
 						<td>{{player.licence}}</td>
 						<td>{{player.team.order}}</td>
+						<td>{{player.ranking}}</td>
 					</tr>
 					{% endfor %}
 				</tbody>
