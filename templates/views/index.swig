@@ -69,7 +69,7 @@
                                 <div class="row">
                                     {% if  matches[team.id].length == 0 %}
                                         <div class="col-md-12 text-center" style="height:360px;">
-                                            <h3>Les matches de la prochaine saison se sont pas encore connus.</h3>
+                                            <h3>Les matches de la prochaine saison ne sont pas encore connus.</h3>
                                         </div>
                                     {% else %}
                                         <div class="col-md-6">
