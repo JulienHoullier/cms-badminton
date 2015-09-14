@@ -13,7 +13,7 @@ var Sponsor = new keystone.List('Sponsor', {
 });
 
 Sponsor.add({
-	name: { type: Types.Name, required: true },
+	name: { type: String, required: true },
 	url: { type: Types.Url , required: true, initial: true },
 	img_url: { type: Types.Url },
 	amount: { type: Number }
