@@ -1,11 +1,14 @@
 {% extends "../layouts/default.swig" %}
+{% import "../mixins/panel_title.swig" as PanelTitle%}
 
 {% block content %}
-	<div class="container">
+
+	<div class="container occ-bg">
+
+		{{ PanelTitle.renderTitle('Joueurs') }}
+
 		<div class="panel panel-info">
-  		<!-- Default panel contents -->
-  		<div class="panel-heading">Liste des joueurs</div>
-         
+  		         
 			<table class="table table-hover">
 				<thead>
 					<tr class="info">
@@ -28,6 +31,6 @@
 					{% endfor %}
 				</tbody>
 			</table>
-		
+		</div>
 	</div>
 {% endblock %}

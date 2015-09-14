@@ -1,18 +1,12 @@
-{% import "../mixins/news.swig" as News %}
+{% import "../mixins/panel_title.swig" as PanelTitle %}
 {% extends "../layouts/default.swig" %}
 
 {% block content %}
 
-
 	<div class="occ-last-news container">
 
-		<div class="occ-title-panel">
-			<div class="occ-title-string"></div>
-			<div class="occ-title-text">
-				<span class="h1">Dernières actualités</span>
-			</div>
-			<div class="occ-title-string"></div>
-		</div>
+		{{ PanelTitle.renderTitle('Dernières Actualités') }}
+		
 		<div> 
 		{% if lastPosts.length %}
 			<div id="occ-last-news-carousel" class="carousel occ-panel slide" data-ride="carousel" data-interval="3000">
@@ -27,7 +21,6 @@
 			    {% endfor %}
 			    </ol>
 
-
 			    <!-- Wrapper for slides -->
 			    <div class="carousel-inner" role="listbox">
 			    {% for post in lastPosts %}
@@ -35,26 +28,20 @@
 					{% if loop.first %}
 						{% set activeClass = 'active' %}
 					{% endif %}
-			      <div class="item {{activeClass}}">
-			        {{ renderSlide(post) }}
-			      </div>
+					<div class="item {{activeClass}}">
+					{{ renderSlide(post) }}
+					</div>
 			     {% endfor %}
 			    </div>
-			  </div>
 			</div>
 		{% else %}
 			<h3 class="text-muted">Aucune news pour le moment.</h3>
 		{% endif %}
 		</div>
 	</div>
+
 	<div class="occ-teams-news container">
-		<div class="occ-title-panel">
-			<div class="occ-title-string"></div>
-			<div class="occ-title-text">
-				<span class="h1">Résultats équipes</span>
-			</div>
-			<div class="occ-title-string"></div>
-		</div>
+		{{ PanelTitle.renderTitle('Résultats équipes') }}
 
         <div class="col-lg-12">
             {% if teams.length %}
@@ -174,33 +161,25 @@
 
 	<div class="container occ-bad-news">
 		
-		<div class="occ-title-panel">
-			<div class="occ-title-string"></div>
-			<div class="occ-title-text">
-				<span class="h1">Bad Français</span>
-			</div>
-			<div class="occ-title-string"></div>
-		</div>
-
+		{{ PanelTitle.renderTitle('Bad Français') }}
 		<div class="row">
-			
 			<div class="col-lg-8 occ-ffbad">
 				<ul class="list-group">
 				{% for ffbadNew in ffbadNews %}
 					<li class="list-group-item">
-						<div class="media">
-							<div class="media-body">
-								<a href="{{ffbadNew.link}}" target="_blank">
-									<p class="media-heading">{{ffbadNew.title}}</p>
-								</a>
-								<p>{{ffbadNew.summary}}</p>
-							</div>
+					<div class="media">
+						<div class="media-body">
+							<a href="{{ffbadNew.link}}" target="_blank">
+								<p class="media-heading">{{ffbadNew.title}}</p>
+							</a>
+							<p>{{ffbadNew.summary}}</p>
 						</div>
+					</div>
 					</li>
 				{% endfor %}
 				</ul>
 			</div>
-
+			
 			<div class="col-lg-4 occ-tuto">
 				<div class="embed-responsive embed-responsive-4by3">
 					<iframe class="embed-responsive-item" width="300" height="200" src="https://www.youtube.com/embed/DcevUn6J3-E" frameborder="0" allowfullscreen></iframe>

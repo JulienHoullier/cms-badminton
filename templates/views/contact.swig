@@ -1,13 +1,10 @@
 {% extends "../layouts/default.swig" %}
-
-{% block intro %}
-	<div class="container">
-		<h1>Nous contacter</h1>
-	</div>
-{% endblock %}
+{% import "../mixins/panel_title.swig" as PanelTitle %}
 
 {% block content %}
-	<div class="container">
+	<div class="container occ-bg">
+
+		{{ PanelTitle.renderTitle('Nous contacter') }}
 		{% if enquirySubmitted %}
 			<h3>Merci de votre participation </p></h3>
 		{% else %}
