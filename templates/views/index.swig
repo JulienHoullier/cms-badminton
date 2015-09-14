@@ -58,19 +58,19 @@
 
         <div class="col-lg-12">
             {% if teams.length %}
-                <ul class="nav nav-tabs">
-                    <div class="row">
-                        <ul class="nav nav-tabs">
-                            {% for team in teams %}
-                                {% set activeClass = '' %}
-                                {% if loop.first %}
-                                    {% set activeClass = 'active' %}
-                                {% endif %}
-                                <li class="{{activeClass}}"><a data-toggle="tab" href="#equipe{{loop.index}}">{{team.name}}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </ul>
+
+                <div class="occ-container-team-list">
+                    <ul class="occ-team-list">
+                        {% for team in teams %}
+                            {% set activeClass = '' %}
+                            {% if loop.first %}
+                                {% set activeClass = 'active' %}
+                            {% endif %}
+                            <li class="{{activeClass}}"><a data-toggle="tab" href="#equipe{{loop.index}}">{{team.name}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
                 <div class="row">
                     <div class="tab-content">
                         {% for team in teams %}
@@ -86,30 +86,80 @@
                                         </div>
                                     {% else %}
                                         <div class="col-md-6">
-                                        <h3>DERNIERE RENCONTRE</h3>
+                                        <h3>DERNIÈRE RENCONTRE</h3>
                                         <hr />
+                                        {% set lastResult = lastResults[team.id] %}
+                                        {% if lastResult and lastResult.occResult %}
+                                            {% set resultClass = '' %}
+                                            {% if lastResult.occResult > lastResult.versusResult %}
+                                                {% set resultClass = 'Win' %}
+                                            {% elseif lastResult.versusResult > lastResult.occResult%}
+                                                {% set resultClass = 'Loose' %}
+                                            {% endif %}
                                             <div class="row">
-                                                <div class="col-md-8 col-md-offset-2 text-center">
-                                                    <div style="border-radius: 8px;background-color:#DFF0D8;height: 40px;line-height: 40px;">
-                                                        <h4 style="line-height: 40px;">OCC-BADMINTON 4 : 3 FIB</h4>
+                                                    <div class="col-xs-10 col-xs-offset-1 text-center occ-last-match-result occ-last-{{resultClass}}">
+                                                        <div class="col-md-5">
+                                                            <H4>
+                                                                {% if lastResult.home == 'Yes' %}
+                                                                    OCC-BADMINTON
+                                                                {% else %}
+                                                                    {{lastResult.versus|upper}}
+                                                                {% endif %}
+                                                            </H4>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <H4>
+                                                                {% if lastResult.home === 'Yes' %}
+                                                                    {{lastResult.occResult}} : {{lastResult.versusResult}}
+                                                                {% else %}
+                                                                    {{lastResult.versusResult}} : {{lastResult.occResult}}
+                                                                {% endif %}
+                                                            </H4>
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            <H4>
+                                                                {% if lastResult.home == 'Yes' %}
+                                                                    {{lastResult.versus|upper}}
+                                                                {% else %}
+                                                                    OCC-BADMINTON
+                                                                {% endif %}
+                                                            </H4>
+                                                        </div>
                                                     </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 text-center">
+                                                    {{lastResult.date|date('d/m/Y')}}
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-12 text-center">
-                                                    Le 10/09/2015 à Césson-Sévigné
+                                                    {% if lastResult.home == 'Yes' %}
+                                                        Césson-Sévigné
+                                                    {% else %}
+                                                        {{lastResult.location.state|capitalize}}
+                                                    {% endif %}
                                                 </div>
                                             </div>
-                                            <ul class="nav nav-tabs">
-                                                <li class="active success"><a data-toggle="tab" href="#SH1">SH1</a></li>
-                                                <li><a data-toggle="tab" href="#SH2">SH2</a></li>
-                                                <li><a data-toggle="tab" href="#SD1">SD1</a></li>
-                                                <li><a data-toggle="tab" href="#SD2">SD2</a></li>
-
-                                                <li><a data-toggle="tab" href="#DH">DH</a></li>
-                                                <li><a data-toggle="tab" href="#DD">DD</a></li>
-                                                <li><a data-toggle="tab" href="#DX">DX</a></li>
-                                            </ul>
+                                            <div class="row">
+                                                <div class="col-xs-10 col-xs-offset-1 occ-detail-list-container">
+                                                    <ul class="nav nav-tabs occ-detailResult" role="tablist">
+                                                        <li class="occ-last-{{lastResult.resultDetails.sh1}}">SH1</li>
+                                                        <li class="occ-last-{{lastResult.resultDetails.sh2}}">SH2</li>
+                                                        <li class="occ-last-{{lastResult.resultDetails.sd1}}">SD1</li>
+                                                        <li class="occ-last-{{lastResult.resultDetails.sd2}}">SD2</li>
+                                                        <li class="occ-last-{{lastResult.resultDetails.dh}}">DH</li>
+                                                        <li class="occ-last-{{lastResult.resultDetails.dd}}">DD</li>
+                                                        <li class="occ-last-{{lastResult.resultDetails.dx1}}">DX1</li>
+                                                        <li class="occ-last-{{lastResult.resultDetails.dx2}}">DX2</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        {% else %}
+                                            <div class="col-md-12 text-center">
+                                                <h3>Les matches n'ont pas encore commencés.</h3>
+                                            </div>
+                                        {% endif %}
                                     </div>
                                         <div class="col-md-6">
                                             <h3>LISTE DES RENCONTRES</h3>
@@ -128,7 +178,7 @@
                                                                 {% if match.home == 'Yes' %}
                                                                     OCC-BADMINTON
                                                                 {% else %}
-                                                                    {{match.versus}}
+                                                                    {{match.versus|upper}}
                                                                 {% endif %}
                                                             </td>
                                                             <td class="col-md-2">
@@ -146,7 +196,7 @@
                                                             </td>
                                                             <td class="col-md-5">
                                                                 {% if match.home == 'Yes' %}
-                                                                    {{match.versus}}
+                                                                    {{match.versus|upper}}
                                                                 {% else %}
                                                                     OCC-BADMINTON
                                                                 {% endif %}

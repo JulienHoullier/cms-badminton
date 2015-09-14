@@ -21,6 +21,7 @@ exports = module.exports = function(req, res) {
     .sort('-publishedAt')
     .limit(5));
 
+
     view.on('init', function(next) {
         Team.model.find()
         .sort('name')
@@ -32,7 +33,7 @@ exports = module.exports = function(req, res) {
                 locals.teams = teams;
                 locals.matches = [];
                 async.each(locals.teams,function(team, next){
-                    keystone.list('Match').model.find()
+                    Match.model.find()
                     .where('team').in([team._id])
                     .sort('matchNumber')
                     .exec(function(err, matches) {
@@ -47,8 +48,26 @@ exports = module.exports = function(req, res) {
     });
 
     view.on('render', function(next){
-        //console.log(res.locals.teams);
-        //console.log(res.locals.matches);
+
+        //TODO
+        //Transformer cette boucle en une requête mongoose
+        //à voir avec la fonction aggregate
+        //Permet de récupérer le dernier résultat de chaque équipe.
+        locals.lastResults = [];
+        for(team in locals.teams){
+            var teamId = locals.teams[team]._id;
+            var teamMatches = locals.matches[teamId];
+            locals.lastResults[teamId] = [];
+            if(teamMatches){
+                for(var i=teamMatches.length-1; i>=0; i--){
+                    if(teamMatches[i].occResult && teamMatches[i].versusResult){
+                        locals.lastResults[teamId] = teamMatches[i];
+                        break;
+                    }
+                }
+            }
+        }
+        console.log(locals.lastResults);
 
     	var hasBeanCalled  = false;
     	ffbadnews(function(err,data){
