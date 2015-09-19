@@ -71,6 +71,7 @@
 						<div class="form-actions">
 							<button type="submit" class="btn btn-primary">Send</button>
 						</div>
+						<br/>
 					</form>
 				</div>
 			</div>

@@ -4,6 +4,7 @@ require('dotenv').load();
 
 // Require keystone
 var keystone = require('keystone');
+require('keystone-nodemailer');
 var swig = require('swig');
 
 // Disable swig's bulit-in template caching, express handles it
@@ -33,8 +34,15 @@ keystone.init({
 	'session': true,
 	'session store': 'mongo',
 	'auth': true,
-	'user model': 'User'
+	'user model': 'User',
 
+	'email nodemailer': {
+		service: 'Gmail',
+		auth: {
+			user: process.env.GMAIL_USER,
+			pass: process.env.GMAIL_PWD
+		}
+	}
 });
 
 // Load your project's Models

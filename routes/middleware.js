@@ -9,7 +9,9 @@
  */
 
 var _ = require('underscore');
-
+var keystone = require('keystone');
+var Sponsor = keystone.list('Sponsor');
+var Page = keystone.list('Page');
 
 /**
 	Initialises the standard view locals
@@ -21,56 +23,63 @@ var _ = require('underscore');
 
 exports.initLocals = function(req, res, next) {
 	
+	console.log('test');
 	var locals = res.locals;
 	
-	locals.navLinks = [
+		locals.navLinks = [
 		{ label: 'Accueil',		 key: 'home',		href: '/' },
-		{ label: 'Le club',		 key: 'club',		href: '/club' },
-		{ label: 'Inscriptions', key: 'subscribe',	href: '/inscriptions' },
 		{ label: 'Actualités',	 key: 'blog',		href: '/blog' },
 		{ label: 'Photos',		 key: 'gallery',	href: '/gallery' }
 	];
+	
+
 	//add link to connected users
 	if(req.user){
 		locals.navLinks.push({ label: 'Joueurs',		key: 'player',		href: '/player' });
 	}
-	//Contact is the last link
-	locals.navLinks.push({ label: 'Contact',		key: 'contact',		href: '/contact' });
+	
 		
 	//store user to access it in the web page
 	locals.user = req.user;
 	
-	next();
-};
+	Page.model.find().exec(function(err, results) {
+		console.log(results);
+		console.log('passe ici');
+		if(results){
+			console.log(results);
+			var divers;
+			results.forEach(function(result){ 
+				var pageArray;
+				if(locals.navLinks.length < 8){
+					pageArray = locals.navLinks;
+				} else{
+					if(!divers){
+						divers = {
+							label: 'Divers', 
+							key: 'divers', 
+							pages : []
+						}
+					}
+					pageArray = divers.pages;
+					
+				}
 
-/**
-	Initialises the sponsors list
-	
-	The included layout depends on the sponsors array to generate
-	the horizontal list
-*/
-exports.initLocals = function(req, res, next) {
-	
-	var locals = res.locals;
-	
-	locals.navLinks = [
-		{ label: 'Accueil',		key: 'home',		href: '/' },
-		{ label: 'Actualités',		key: 'blog',		href: '/blog' },
-		{ label: 'Photos',		key: 'gallery',		href: '/gallery' }
-	];
-	//add link to connected users
-	if(req.user){
-		locals.navLinks.push({ label: 'Joueurs',		key: 'player',		href: '/player' });
-	}
-	//Contact is the last link
-	locals.navLinks.push({ label: 'Contact',		key: 'contact',		href: '/contact' });
+
+				pageArray.push(
+					{ 
+						label: result.title,
+						key: result.slug,
+						href: result.url 
+					});
+			});
+		}
+		console.log('passe la');
+		//Contact is the last link
+		locals.navLinks.push({ label: 'Contact',		key: 'contact',		href: '/contact' });
 		
-	//store user to access it in the web page
-	locals.user = req.user;
-	
-	next();
+		next(err);
+	});
 };
-
 
 
 /**

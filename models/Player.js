@@ -32,7 +32,8 @@ Player.add({
 		{ value: 'monday_newbie', label: 'Lundi débutant  20h30/22h' },
 		{ value: 'wednesday_strong', label: 'Mercredi confirmé 20h30/22h' },
 		{ value: 'friday_middle', label: 'Vendredi intermédiaire 20h/21h30' },
-	], required: true, initial: true }
+	], required: true, initial: true },
+	team: { type: Types.Relationship, ref: 'Team', index: true }
 });
 
 Player.schema.methods.needConfirmNotification = function() {
@@ -40,8 +41,8 @@ Player.schema.methods.needConfirmNotification = function() {
 }
 
 
-Player.schema.post('save', function() {
-	this.needConfirm = this.isNew && needConfirmNotification(); 
+Player.schema.pre('save', function() {
+	this.needConfirm = this.isModified('state') && needConfirmNotification(); 
 });
 
 Player.schema.post('save', function() {
@@ -62,7 +63,7 @@ Player.schema.methods.sendNotificationEmail = function(callback) {
 			to: this.email,
 			from: {
 				name: 'OCC-Badminton',
-				email: 'contact@occ-badminton.com'
+				email: 'j.houllier@gmail.com'
 			},
 			subject: 'Inscription validée à l\'OCC-Badminton',
 			Player: Player
