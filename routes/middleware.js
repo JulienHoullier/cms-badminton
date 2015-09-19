@@ -11,6 +11,8 @@
 var _ = require('underscore');
 var keystone = require('keystone');
 var Sponsor = keystone.list('Sponsor');
+var Page = keystone.list('Page');
+
 
 /**
 	Initialises the standard view locals
@@ -23,25 +25,56 @@ exports.initLocals = function(req, res, next) {
 	
 	var locals = res.locals;
 	
-	locals.navLinks = [
+		locals.navLinks = [
 		{ label: 'Accueil',		 key: 'home',		href: '/' },
-		{ label: 'Le club',		 key: 'club',		href: '/club' },
-		{ label: 'Inscriptions', key: 'subscribe',	href: '/inscriptions' },
 		{ label: 'Actualités',	 key: 'blog',		href: '/blog' },
 		{ label: 'Photos',		 key: 'gallery',	href: '/gallery' }
 	];
+	
 	//add link to connected users
 	if(req.user){
 		locals.navLinks.push({ label: 'Joueurs',		key: 'player',		href: '/player' });
 	}
-	//Contact is the last link
-	locals.navLinks.push({ label: 'Contact',		key: 'contact',		href: '/contact' });
 		
 	//store user to access it in the web page
 	locals.user = req.user;
 	
-	next();
+	Page.model.find().exec(function(err, results) {
+		if(results){
+
+			var divers;
+			results.forEach(function(result){ 
+				var pageArray;
+				if(locals.navLinks.length < 8){
+					pageArray = locals.navLinks;
+				} else{
+					if(!divers){
+						divers = {
+							label: 'Divers', 
+							key: 'divers', 
+							pages : []
+						}
+					}
+					pageArray = divers.pages;
+					
+				}
+
+				pageArray.push(
+					{ 
+						label: result.title,
+						key: result.slug,
+						href: result.url 
+					});
+			});
+		}
+
+		//Contact is the last link
+		locals.navLinks.push({ label: 'Contact',		key: 'contact',		href: '/contact' });
+		
+		next(err);
+	});
 };
+
 
 /**
 	Initialises the sponsors list

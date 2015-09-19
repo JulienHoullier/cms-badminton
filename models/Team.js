@@ -15,9 +15,15 @@ var Team = new keystone.List('Team', {
 Team.add({
 	order: { type: Number, required: true, index:true, initial: true },
 	captain: { type: Types.Relationship, ref: 'Player', required: true, initial: true },
-	name: { type: Types.Text, required: true, initial: true },
-	players: { type: Types.Relationship, ref: 'Player', many: true }
+	name: { type: Types.Text, required: true, initial: true }
 });
+
+
+/**
+ * Relationships
+ */
+
+Team.relationship({ ref: 'Player', path: 'players', refPath: 'team' });
 
 Team.defaultColumns = 'name, order, captain';
 Team.register();
