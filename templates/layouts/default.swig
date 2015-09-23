@@ -39,8 +39,8 @@
 			<div id="occ-header-flag" class="container visible-md visible-lg">
 				<img src="/images/occ-logo.png" alt="" id="occ-logo">
 			</div>
-		</header>	
-			
+		</header>
+
 		<div id="occ-navbar" class="occ-bg" data-spy="affix" data-offset-top="197">
 				<nav class="navbar navbar-default container" id="occ-header-nav">
 					<div class="navbar-header">
@@ -98,9 +98,7 @@
 				<div id="occ-sponsor-bar" class="slideshow">
 					<ul>
 					{% for sponsor in sponsors %}
-					
 						<li><a href="{{sponsor.url}}" class="thumbnail"><img src="{{sponsor.img_url}}" alt="" width="140" height="140" /></a></li>
-						
 					{% endfor %}
 					</ul>
 				</div>
