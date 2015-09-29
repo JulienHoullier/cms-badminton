@@ -42,17 +42,29 @@ main {
 }
 
 #occ-sponsor-bar {
-	height: 120px;
 	overflow: hidden;
 	font-size: 0px;
 
   	ul {
 	  width: 100%;
-
+	  padding-left: 0px;
+	  
+	  &:first-child{
+		margin-left: -10px;
+	  }
 	  li {
 		display: inline-block;
-		margin: 10px 0px 10px 10px;
+		margin-left: 10px;
+	  
+	  	img{
+		  height: 100px;
+		  width: 100px;
+		}
 	  }
+	}
+  
+  	.thumbnail{
+	  margin-bottom : 0px;
 	}
 }
 

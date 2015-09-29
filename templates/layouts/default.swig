@@ -106,7 +106,7 @@
 			<div class="container">
 				<h4>Partenaires</h4>
 				{% if sponsors && sponsors.length > 0%}
-				<div id="occ-sponsor-bar" class="slideshow">
+				<div id="occ-sponsor-bar" class="scroll-text">
 					<ul>
 					{% for sponsor in sponsors %}
 					
@@ -159,10 +159,7 @@
 				$('#occ-sponsor-bar').scrollBox(
 				{
 				  direction: 'h',
-				  linear: true,
-					 step: 1,
-					 delay: 0,
-					 speed: 100
+				  distance: 110
 				});
 			});
 		</script>
