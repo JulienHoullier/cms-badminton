@@ -3,7 +3,7 @@
 
 {% block content %}
 
-	<div class="container occ-bg">
+	<div class="container occ-bg occ-container">
 
 		{{ PanelTitle.renderTitle('Joueurs') }}
 

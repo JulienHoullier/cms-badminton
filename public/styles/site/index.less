@@ -4,20 +4,6 @@
  }
 } 
 
-.occ-title-panel{
-	margin: 10px 0 20px 0;
-}
-
-.occ-title-string{
-	height:1px;
-	background-color:@gray-light;
-}
-
-.occ-title-text {
-	text-align:center;
-	color: @gray-light
-}
-
 .occ-panel {
 	background-image : url('/images/bg-news.png');
 	padding : 15px;
@@ -26,7 +12,7 @@
 .occ-last-news-panel {
 	background-color: @global-bg-color;
 	height:380px;
-	padding: 30px;
+	padding: 15px;
 
 	blockquote {
 		max-height:200px;
@@ -34,16 +20,40 @@
 	}
 }
 
-.occ-last-news {
-	background-color: @global-bg-color;
+#occ-last-news {
 	margin-bottom: 20px;
-	padding-bottom: 15px;
 }
 
-.occ-teams-news {
-	background-color: @global-bg-color;
+#occ-tournaments {
+  background-color: @wisteria-color;
+  color: #ecf0f1;
+  margin-bottom: 20px;
+
+  .occ-title-string{
+	background-color: #ecf0f1;
+  }
+
+  .occ-title-text, .text-muted{
+	color: #ecf0f1;
+  }
+}
+
+#occ-tournaments-container{
+  	height:380px;
+}
+
+#occ-teams-news {
+	background-color: #bdc3c7;
 	margin-bottom: 20px;
 	padding-bottom: 15px;
+
+  .occ-title-string{
+	background-color: white;
+  }
+
+  .occ-title-text, .text-muted{
+	color: white;
+  }
 }
 
 .occ-bad-news {
@@ -52,10 +62,30 @@
 	padding-bottom: 15px;
 }
 
-.occ-ffbad{
+#occ-ffbad{
 	height : 410px;
 	overflow: auto;
 }
+
+#occ-tuto{
+  background-color: #d35400;
+  color: #ecf0f1;
+  margin-bottom: 20px;
+  
+  .occ-title-string{
+	background-color: #ecf0f1;
+  }
+
+  .occ-title-text, .text-muted{
+	color: #ecf0f1;
+  }
+}
+
+#occ-tuto-panel{
+  height : 410px;
+  overflow: auto;
+}
+
 
 .occ-last-result {
 	background-color : white;
