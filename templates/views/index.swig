@@ -242,7 +242,9 @@
 				<div id="occ-tuto" class="occ-container">
 					{{ PanelTitle.renderTitle('Comment ...') }}
 					
-					<p>Comment améliorer sa prise de raquette ?</p>
+					<h4>Comment améliorer sa prise de raquette ?</h4>
+					
+					<p>La prise coup droit et la prise revers, expliquées ... en anglais</p>
 					
 					<div class="embed-responsive embed-responsive-4by3">
 						<iframe class="embed-responsive-item" width="300" height="200" src="https://www.youtube.com/embed/DcevUn6J3-E" frameborder="0" allowfullscreen></iframe>
