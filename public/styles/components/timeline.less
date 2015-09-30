@@ -14,6 +14,7 @@
 @timeline-path:         .25em;
 @timeline-offset:       3em;
 @timeline-node:         1.4em;
+@timeline-node-dot:     0.3em;
 @timeline-alphaomega:   @timeline-node;
 
 .timeline {
@@ -67,7 +68,7 @@
 		height: 25px;
 
 		content: "";
-		margin-top: -(@timeline-node / 2);
+		margin-top: -((@timeline-node + @timeline-node-dot) / 2);
 		position: absolute;
 		z-index: 3;
 
