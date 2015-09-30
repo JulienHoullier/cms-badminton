@@ -21,6 +21,22 @@ exports = module.exports = function(req, res) {
     .sort('-publishedAt')
     .limit(5));
 
+    locals.tournaments = {
+        incoming : [
+        {
+            name:"Tournoi Liffré", 
+            club: "USL",
+            date:"16/10/2015", 
+            link:"http://badminton.usliffre.org/content/tournoi-doctobre-nocturne"
+        },
+        {
+            name:"Tournoi Bain de Bretagne",
+            club: "BCBB",
+            date:"17/10/2015",
+            link:"http://www.badmintonclubbaindebretagne.com/tournoi-national/"
+        }
+        ]
+    }
 
     view.on('init', function(next) {
         Team.model.find()
@@ -67,7 +83,6 @@ exports = module.exports = function(req, res) {
                 }
             }
         }
-        console.log(locals.lastResults);
 
     	var hasBeanCalled  = false;
     	ffbadnews(function(err,data){

@@ -47,13 +47,35 @@
 					{{ PanelTitle.renderTitle('Tournois') }}
 			
 					<div> 
-					{% if tournaments.length %}
+					{% if tournaments.incoming.length %}
 					<div>
-						<div class="btn-group" role="group" aria-label="...">
-                          <button type="button" class="btn btn-default">Left</button>
-                          <button type="button" class="btn btn-default">Middle</button>
+						<div>
+                            <ul class="occ-team-list">
+                                <li class="active"><a data-toggle="tab" href="#tournament-incoming">A venir</a></li>
+                                <li><a data-toggle="tab" href="#tournament-results">Succès</a></li>
+                            </ul>
+                          
                         </div>
-                        <div id="occ-tournaments-container">
+                        <div class="tab-content">
+                            <div id="tournament-incoming" class="tab-pane active">
+                                <ul class="list-group">
+                                {% for tournament in tournaments.incoming %}
+                                    <li class="list-group-item">
+                                    <div class="media">
+                                        <div class="media-body">
+                                            <a href="{{tournament.link}}" target="_blank">
+                                                <p class="media-heading">{{tournament.name}}</p>
+                                            </a>
+                                            <p>{{tournament.club}} - {{tournament.date}}</p>
+                                        </div>
+                                    </div>
+                                    </li>
+                                {% endfor %}
+                                </ul>
+                            </div>
+                            <div id="tournament-results" class="tab-pane">
+                                <p>no result for now</p>
+                            </div>
                         </div>
                     </div>
 					{% else %}
@@ -84,7 +106,7 @@
 								</ul>
 							</div>
 			
-							<div class="row">
+							<div>
 								<div class="tab-content">
 									{% for team in teams %}
 										{% set activeClass = '' %}

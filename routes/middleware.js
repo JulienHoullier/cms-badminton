@@ -39,7 +39,7 @@ exports.initLocals = function(req, res, next) {
 	//store user to access it in the web page
 	locals.user = req.user;
 	
-	Page.model.find().exec(function(err, results) {
+	Page.model.find().where('state', 'published').exec(function(err, results) {
 		if(results){
 
 			var divers;

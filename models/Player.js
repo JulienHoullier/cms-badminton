@@ -36,40 +36,5 @@ Player.add({
 	team: { type: Types.Relationship, ref: 'Team', index: true }
 });
 
-Player.schema.methods.needConfirmNotification = function() {
-    return this.state == 'confirmed';
-}
-
-
-Player.schema.pre('save', function() {
-	this.needConfirm = this.isModified('state') && needConfirmNotification(); 
-});
-
-Player.schema.post('save', function() {
-    if (this.needConfirm) {
-    	this.sendNotificationEmail();
-    }
-});
-
-Player.schema.methods.sendNotificationEmail = function(callback) {
-	
-	if ('function' !== typeof callback) {
-		callback = function() {};
-	}
-	
-	var Player = this;
-	
-	new keystone.Email('Player-notification').send({
-			to: this.email,
-			from: {
-				name: 'OCC-Badminton',
-				email: 'j.houllier@gmail.com'
-			},
-			subject: 'Inscription validée à l\'OCC-Badminton',
-			Player: Player
-		}, callback);
-};
-
-
 Player.defaultColumns = 'name, email, type, state';
 Player.register();
