@@ -35,7 +35,8 @@ User.schema.pre('save', function() {
 	this.wasNew = this.isNew;
 	if(this.isModified('group') && this.group != 'unauthorized'){
 		this.sendUserNotif = true;
-	} 
+	}
+	next();
 });
 
 User.schema.post('save', function() {

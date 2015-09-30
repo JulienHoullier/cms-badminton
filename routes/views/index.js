@@ -22,20 +22,7 @@ exports = module.exports = function(req, res) {
     .limit(5));
 
     locals.tournaments = {
-        incoming : [
-        {
-            name:"Tournoi Liffré", 
-            club: "USL",
-            date:"16/10/2015", 
-            link:"http://badminton.usliffre.org/content/tournoi-doctobre-nocturne"
-        },
-        {
-            name:"Tournoi Bain de Bretagne",
-            club: "BCBB",
-            date:"17/10/2015",
-            link:"http://www.badmintonclubbaindebretagne.com/tournoi-national/"
-        }
-        ]
+        incoming : require('../../lib/tournois.json')
     }
 
     view.on('init', function(next) {

@@ -61,14 +61,12 @@
                                 <ul class="list-group">
                                 {% for tournament in tournaments.incoming %}
                                     <li class="list-group-item">
-                                    <div class="media">
-                                        <div class="media-body">
+                                        <div>
                                             <a href="{{tournament.link}}" target="_blank">
-                                                <p class="media-heading">{{tournament.name}}</p>
+                                                <p>{{tournament.name}}</p>
                                             </a>
                                             <p>{{tournament.club}} - {{tournament.date}}</p>
                                         </div>
-                                    </div>
                                     </li>
                                 {% endfor %}
                                 </ul>
@@ -280,14 +278,12 @@
 						<ul class="list-group">
 						{% for ffbadNew in ffbadNews %}
 							<li class="list-group-item">
-							<div class="media">
 								<div class="media-body">
 									<a href="{{ffbadNew.link}}" target="_blank">
-										<p class="media-heading">{{ffbadNew.title}}</p>
+										<p>{{ffbadNew.title}}</p>
 									</a>
 									<p>{{ffbadNew.summary}}</p>
 								</div>
-							</div>
 							</li>
 						{% endfor %}
 						</ul>
@@ -319,7 +315,7 @@
 			</div>
 			{% if post.image.exists %}
 				<div class="image-wrap occ-last-news-panel-img media-right media-middle">
-					<img class="img-responsive media-object" src="{{post._.image.fit(250,200) }}">
+					<img class="img-responsive media-object" src="{{post._.image.fit(450,200) }}">
 				</div>
 			{% endif %}
 		</div>					

@@ -29,9 +29,11 @@ Post.schema.virtual('content.full').get(function() {
 	return this.content.extended || this.content.brief;
 });
 
-Post.schema.pre('save', function() {
-	if(this.isNew && this.important);
-		this.needMail = true; 
+Post.schema.pre('save', function(next {
+	if (this.isNew && this.important) {
+		this.needMail = true;
+	}
+	next();
 });
 
 Post.schema.post('save', function() {
