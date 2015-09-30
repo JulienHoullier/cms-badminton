@@ -84,39 +84,41 @@
                                                 {% set resultClass = 'Loose' %}
                                             {% endif %}
                                             <div class="row">
-                                                    <div class="col-xs-10 col-xs-offset-1 text-center occ-last-match-result occ-last-{{resultClass}}">
-                                                        <div class="col-md-5">
-                                                            <H4>
-                                                                {% if lastResult.home == 'Yes' %}
-                                                                    OCC-BADMINTON
-                                                                {% else %}
-                                                                    {{lastResult.versus|upper}}
-                                                                {% endif %}
-                                                            </H4>
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <H4>
-                                                                {% if lastResult.home === 'Yes' %}
-                                                                    {{lastResult.occResult}} : {{lastResult.versusResult}}
-                                                                {% else %}
-                                                                    {{lastResult.versusResult}} : {{lastResult.occResult}}
-                                                                {% endif %}
-                                                            </H4>
-                                                        </div>
-                                                        <div class="col-md-5">
-                                                            <H4>
-                                                                {% if lastResult.home == 'Yes' %}
-                                                                    {{lastResult.versus|upper}}
-                                                                {% else %}
-                                                                    OCC-BADMINTON
-                                                                {% endif %}
-                                                            </H4>
-                                                        </div>
+                                                <div class="col-xs-10 col-xs-offset-1 text-center occ-last-match-result occ-last-{{resultClass}}">
+                                                    <div class="col-md-5">
+                                                        <H4>
+                                                            {% if lastResult.home == 'Yes' %}
+                                                                OCC-BADMINTON
+                                                            {% else %}
+                                                                {{lastResult.versus|upper}}
+                                                            {% endif %}
+                                                        </H4>
                                                     </div>
+                                                    <div class="col-md-2">
+                                                        <H4>
+                                                            {% if lastResult.home === 'Yes' %}
+                                                                {{lastResult.occResult}} : {{lastResult.versusResult}}
+                                                            {% else %}
+                                                                {{lastResult.versusResult}} : {{lastResult.occResult}}
+                                                            {% endif %}
+                                                        </H4>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <H4>
+                                                            {% if lastResult.home == 'Yes' %}
+                                                                {{lastResult.versus|upper}}
+                                                            {% else %}
+                                                                OCC-BADMINTON
+                                                            {% endif %}
+                                                        </H4>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-12 text-center">
-                                                    {{lastResult.date|date('d/m/Y')}}
+                                                    {% if lastResult.date %}
+                                                        {{lastResult.date|date('d/m/Y')}}
+                                                    {% endif %}
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -151,8 +153,8 @@
                                         <div class="col-md-6">
                                             <h3>LISTE DES RENCONTRES</h3>
                                             <hr />
-                                            <div class="table-responsive">
-                                                <table id="recontresList" class="table table-hover text-center">
+                                            <div class="table-responsive occ-results-matches-container">
+                                                <table id="rencontresList{{loop.index}}" class="table table-hover text-center rencontresList">
                                                     {% for match in matches[team.id] %}
                                                         {% set resultClass = '' %}
                                                         {% if match.occResult > match.versusResult %}
@@ -194,8 +196,8 @@
                                             </div>
                                             <nav>
                                               <ul class="pager">
-                                                <li><a href="#">Précédent</a></li>
-                                                <li><a href="#">Suivant</a></li>
+                                                <li><a id="previousResults{{loop.index}}" href="#">Précédent</a></li>
+                                                <li><a id="nextResults{{loop.index}}" href="#">Suivant</a></li>
                                               </ul>
                                             </nav>
                                         </div>
@@ -266,3 +268,80 @@
 			{% endif %}
 		</div>					
 {%- endmacro -%}
+
+
+
+{%- block js -%}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+    <script type="text/javascript">
+
+        jQuery(function($) {
+            var rowHeight = 37;     //hauteur d'une ligne du tableau
+            var matchDisplay = 5;   //nombre de match à afficher
+
+            {% for team in teams %}
+
+                //Initialisation des variables
+                var matches{{loop.index}} = {{matches[team.id].length}};
+                var rowNumber{{loop.index}} = matches{{loop.index}}-matchDisplay;
+
+                {% if  matches[team.id].length == 0 %}
+                    var i{{loop.index}} = 0;
+                {% else %}
+                    {% set lastResult = lastResults[team.id] %}
+                    var i{{loop.index}} = {{lastResult.matchNumber}};
+                {% endif %}
+
+                if({{matches[team.id].length}} < matchDisplay){
+                    i{{loop.index}} = 0;
+                }else if(matches{{loop.index}} > matches{{loop.index}} - matchDisplay){
+                    i{{loop.index}} = matches{{loop.index}} - matchDisplay;
+                }
+
+                //positionnement du tableau
+                $('#rencontresList{{loop.index}}').css('margin-top',-i{{loop.index}}*rowHeight+'px');
+
+                //au click sur suivant
+                $('#nextResults{{loop.index}}').click(_.throttle(function(){
+                    console.log(i{{loop.index}});
+                    if(i{{loop.index}}+1 <= rowNumber{{loop.index}}){
+                        var currentMargin = parseInt($('#rencontresList{{loop.index}}').css('margin-top').replace("px", ""))-rowHeight;
+                        $('#rencontresList{{loop.index}}').css('margin-top',currentMargin+'px');
+                        i{{loop.index}}++;
+                    }
+                    return false;
+                },500));
+
+                //au click sur précédent
+                $('#previousResults{{loop.index}}').click(_.throttle(function(){
+                    console.log(i{{loop.index}});
+                    if(i{{loop.index}}-1 >= 0){
+                        var currentMargin = parseInt($('#rencontresList{{loop.index}}').css('margin-top').replace("px", ""))+rowHeight;
+                        $('#rencontresList{{loop.index}}').css('margin-top',currentMargin+'px');
+                        i{{loop.index}}--;
+                    }
+                    return false;
+                },500));
+
+            {% endfor %}
+
+        });
+    </script>
+{%- endblock -%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -67,7 +67,6 @@ exports = module.exports = function(req, res) {
                 }
             }
         }
-        console.log(locals.lastResults);
 
     	var hasBeanCalled  = false;
     	ffbadnews(function(err,data){
