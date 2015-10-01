@@ -14,7 +14,7 @@ exports = module.exports = function(req, res) {
 	view.on('init', function(next) {
 
 		// Load the players by sortOrder
-		keystone.list('Player').model.find().populate('team').sort('-name').exec(function (err, results){
+		keystone.list('Player').model.find().populate('team').sort('name').exec(function (err, results){
 
 			if (err || !results.length) {
 				return next(err);
