@@ -36,13 +36,9 @@ Player.add({
 	team: { type: Types.Relationship, ref: 'Team', index: true }
 });
 
-Player.schema.methods.needConfirmNotification = function() {
-    return this.state == 'confirmed';
-}
-
-
-Player.schema.pre('save', function() {
-	this.needConfirm = this.isModified('state') && needConfirmNotification();
+Player.schema.pre('save', function(next) {
+	this.needConfirm = this.isModified('state') && this.state == 'confirmed';
+	next();
 });
 
 Player.schema.post('save', function() {

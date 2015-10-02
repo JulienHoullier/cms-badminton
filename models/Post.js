@@ -22,24 +22,20 @@ Post.add({
 		brief: { type: Types.Html, wysiwyg: true, height: 150 },
 		extended: { type: Types.Html, wysiwyg: true, height: 400 }
 	},
-	categories: { type: Types.Relationship, ref: 'PostCategory', many: true }
+	category: { type: Types.Relationship, ref: 'PostCategory' }
 });
 
 Post.schema.virtual('content.full').get(function() {
 	return this.content.extended || this.content.brief;
 });
 
+Post.schema.pre('save', function(next) {
+	if(!this.image.exists && this.category && this.category.default_image){
+		console.log('default_image: '+this.category.default_image);
+		//TODO : this.image._.upload(this.category.default_image, true, function(err, )
+	}
+	next();
+});
+
 Post.defaultColumns = 'title, state|20%, author|20%, publishedDate|20%';
 Post.register();
-
-
-/**
-* Team post
-*
-*/
-
-var TeamPost = new keystone.List('TeamPost', { inherits: Post });
-TeamPost.add({
-	team: { type: Types.Relationship, ref: 'Team', required: true, initial: true, index: true }
-})
-TeamPost.register();
