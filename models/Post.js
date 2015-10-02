@@ -22,16 +22,19 @@ Post.add({
 		brief: { type: Types.Html, wysiwyg: true, height: 150 },
 		extended: { type: Types.Html, wysiwyg: true, height: 400 }
 	},
-	categories: { type: Types.Relationship, ref: 'PostCategory'}
+	category: { type: Types.Relationship, ref: 'PostCategory'},
+	important : {type : Types.Boolean}
 });
 
 Post.schema.virtual('content.full').get(function() {
 	return this.content.extended || this.content.brief;
 });
 
-Post.schema.pre('save', function() {
-	if(this.isNew && this.important);
-		this.needMail = true; 
+Post.schema.pre('save', function(next) {
+	if(this.isModified('important') && this.important){
+		this.needMail = true;
+	}
+	next();
 });
 
 Post.schema.post('save', function() {
@@ -45,15 +48,16 @@ Post.schema.methods.sendNotificationEmail = function(callback) {
 	if ('function' !== typeof callback) {
 		callback = function() {};
 	}
-	
+	console.log('test 1');
 	var post = this;
 	
-	keystone.list('Player').model.find().where('state', 'confirmed').exec(function(err, players) {
+	keystone.list('Team').model.find().where('name', post.category.name).populate('players').exec(function(err, team) {
 		
+		console.log('test 2');
 		if (err) return callback(err);
 	
 		new keystone.Email('Post-notification').send({
-			to: players,
+			to: team.players,
 			from: {
 				name: 'OCC-Badminton',
 				email: 'webmaster@occ-badminton.org'

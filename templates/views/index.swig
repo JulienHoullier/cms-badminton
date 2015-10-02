@@ -260,7 +260,7 @@
 		</div>
 
 		<div class="row"> 
-			<div class="col-md-4">
+			<div class="col-md-5">
 				<div id="occ-tuto" class="occ-container">
 					{{ PanelTitle.renderTitle('Comment ...') }}
 					
@@ -273,7 +273,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-8">
+			<div class="col-md-7">
 				<div id="occ-bad-news" class="occ-container occ-bg">
 					{{ PanelTitle.renderTitle('Bad Français') }}				
 					<div id="occ-ffbad">

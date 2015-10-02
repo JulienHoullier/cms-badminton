@@ -31,11 +31,12 @@ User.schema.virtual('canAccessKeystone').get(function() {
 User.relationship({ ref: 'Post', path: 'posts', refPath: 'author' });
 User.relationship({ ref: 'Player' });
 
-User.schema.pre('save', function() {
+User.schema.pre('save', function(next) {
 	this.wasNew = this.isNew;
 	if(this.isModified('group') && this.group != 'unauthorized'){
 		this.sendUserNotif = true;
-	} 
+	}
+	next();
 });
 
 User.schema.post('save', function() {
