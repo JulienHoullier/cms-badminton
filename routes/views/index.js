@@ -12,34 +12,35 @@ exports = module.exports = function(req, res) {
 	locals.section = 'home';
 	
 
-	view.query('lastPosts', Post.model.find()
+	view.query('articles', Post.model.find()
     .where('state', 'published')
     .populate('author')
-    .sort('-publishedAt')
-    .limit(5));
+    .populate('categories')
+    .sort('-publishedDate')
+    .limit(4));
 
 
 
-    view.on('render', function(next){
+    // view.on('render', function(next){
     	
-    	var hasBeanCalled  = false;
-    	ffbadnews(function(err,data){
-    		if(err){
-    			console.log(err);	
-    			locals.ffbadNews = [];
-    		}
-    		else{
-    			locals.ffbadNews = data;
-    		}
+    // 	var hasBeanCalled  = false;
+    // 	ffbadnews(function(err,data){
+    // 		if(err){
+    // 			console.log(err);	
+    // 			locals.ffbadNews = [];
+    // 		}
+    // 		else{
+    // 			locals.ffbadNews = data;
+    // 		}
  
-    		if(!hasBeanCalled){
-    			hasBeanCalled = true;
-    			next();
-    		}
-    	});
-    });
+    // 		if(!hasBeanCalled){
+    // 			hasBeanCalled = true;
+    // 			next();
+    // 		}
+    // 	});
+    // });
 	
 	// Render the view
-	view.render('index');
+	view.render('newIndex');
 	
 };

@@ -1,7 +1,7 @@
 {% import "../mixins/flash-messages.swig" as FlashMessages %}
 
 <!doctype html>
-<html>
+<html xml:lang="fr-fr" lang="fr-fr">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
