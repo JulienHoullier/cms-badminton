@@ -39,11 +39,13 @@ keystone.init({
 	'wysiwyg images': true,
 	
 	'email nodemailer': {
-		service: 'Gmail',
-		auth: {
-			user: process.env.GMAIL_USER,
-			pass: process.env.GMAIL_PWD
-		}
+		host: 'smtp.occ-badminton.org',
+	    port : 587,
+	    auth: {
+	        user: 'webmaster@occ-badminton.org',
+	        pass: 'ndFyh7f]'
+	    },
+	    authMethod : 'PLAIN'
 	}
 });
 

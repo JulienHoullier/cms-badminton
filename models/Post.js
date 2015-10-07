@@ -46,26 +46,42 @@ Post.schema.post('save', function() {
 Post.schema.methods.sendNotificationEmail = function(callback) {
 	
 	if ('function' !== typeof callback) {
-		callback = function() {};
+		callback = function(err) {console.log(err);};
 	}
-	console.log('test 1');
+
 	var post = this;
-	
-	keystone.list('Team').model.find().where('name', post.category.name).populate('players').exec(function(err, team) {
-		
-		console.log('test 2');
-		if (err) return callback(err);
-	
-		new keystone.Email('Post-notification').send({
-			to: team.players,
-			from: {
-				name: 'OCC-Badminton',
-				email: 'webmaster@occ-badminton.org'
-			},
-			subject: 'Info importante',
-			Post: post
-		}, callback);
+	console.log('post :'+post);
+	Post.model.populate(this, {path : 'category'}, function(err, post){
+	console.log('post2 :'+post);
+
+		keystone.list('Team').model.findOne({ name: post.category.name}, function(err, team) {
+			
+			if (err) return callback(err);
+			console.log('team :'+team);
+			keystone.list('Team').model.populate(team, {path: 'players'}, function(err, callback){
+				
+				console.log('team2 :'+team);
+				new keystone.Email({
+					templateName:'Post-notification',
+					templateExt: 'swig',
+					templateEngine: require('swig')
+					}).send({
+					to: team.players,
+					from: {
+						name: 'OCC-Badminton',
+						email: 'webmaster@occ-badminton.org'
+					},
+					subject: 'Info importante',
+					Post: post,
+					mandrill : {}
+				}, callback);
+			});
+		});
 	});
+
+	/*keystone.list('PostCategory').model.findById(post.category).exec(function(err, category){
+		
+	});*/
 };
 
 Post.defaultColumns = 'title, state|20%, author|20%, publishedDate|20%';
