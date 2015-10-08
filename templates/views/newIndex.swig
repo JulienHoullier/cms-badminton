@@ -1,4 +1,3 @@
-{% import "../mixins/news.swig" as News %}
 {% extends "../layouts/default.swig" %}
 
 {% block content %}

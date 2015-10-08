@@ -1,7 +1,10 @@
 <section id="myCarousel" class="carousel slide" data-ride="carousel">
 	<h2>
-		<img src="/images/shuttlecock.png">
+		<img src="/images/shuttlecock.png" class="occ-section-img">
 		Dernières actus
+		<a href="/blog" class="pull-right">
+			<img src="/images/link.png" class="occ-section-link"/>
+		</a>
 	</h2>
 	<!-- Indicators -->
 	<ol class="carousel-indicators">
