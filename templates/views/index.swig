@@ -130,5 +130,5 @@
 					<img class="img-responsive media-object" src="{{post._.image.fit(250,200) }}">
 				</div>
 			{% endif %}
-		</div>					
+		</div>
 {%- endmacro -%}
