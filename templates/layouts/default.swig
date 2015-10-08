@@ -59,9 +59,20 @@
 								{%- if link.key == section -%}
 									{%- set linkClass = 'active' -%}
 								{%- endif %}
-								<li class="{{link.key}} {{ linkClass | safe }}">
-									<a href="{{ link.href }}">{{ link.label }}</a>
-								</li>
+								{%- if link.href -%}
+									<li class="{{link.key}} {{ linkClass | safe }}">
+										<a href="{{ link.href }}">{{ link.label }}</a>
+									</li>
+								{%- else -%}
+									<li class="dropdown {{link.key}} {{ linkClass | safe }}">
+							          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ link.label }} <span class="caret"></span></a>
+							          <ul class="dropdown-menu">
+							          	{%- for page in link.pages -%}
+							            <li><a href="{{ page.href }}">{{ page.label }}</a></li>
+							            {%- endfor %}
+							          </ul>
+							        </li>
+								{%- endif %}
 							{%- endfor %}
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
@@ -95,10 +106,10 @@
 			<div class="container">
 				<h4>Partenaires</h4>
 				{% if sponsors && sponsors.length > 0%}
-				<div id="occ-sponsor-bar" class="slideshow">
+				<div id="occ-sponsor-bar" class="scroll-text">
 					<ul>
 					{% for sponsor in sponsors %}
-						<li><a href="{{sponsor.url}}" class="thumbnail"><img src="{{sponsor.img_url}}" alt="" width="140" height="140" /></a></li>
+						<li><a href="{{sponsor.url}}" class="thumbnail"><img src="{{sponsor.img_url}}" alt="" width="100" height="100" /></a></li>
 					{% endfor %}
 					</ul>
 				</div>
@@ -127,10 +138,10 @@
 		{# Customise which Bootstrap javascript files are served by including
 			them specifically here, instead of bootstrap-3.3.4.min.js #}
 		<script src="/js/bootstrap/bootstrap-3.3.4.min.js"></script>
-		
+
 		{# scrollbox jQuery plugin #}
 		<script src="/js/jquery/jquery.scrollbox.min.js"></script>
-		
+
 		{# The KeystoneJS Content Editor provides support for ks-editable data attributes,
 			which generate links to edit content for users who can access Keystone #}
 		{% if user and user.canAccessKeystone -%}
@@ -143,13 +154,10 @@
 		{%- block js -%}
 		<script type="text/javascript">
 			jQuery(function($) {
-				$(''#occ-sponsor-bar').scrollBox(
+				$('#occ-sponsor-bar').scrollBox(
 				{
-				  direction: 'h',			  
-				  linear: true,
-					 step: 1,
-					 delay: 0,
-					 speed: 100
+				  direction: 'h',
+				  distance: 110
 				});
 			});
 		</script>

@@ -12,7 +12,8 @@
     "swig": "^1.4.1",
     "underscore": "^1.8.0",
     "xpath": "^0.0.9",
-    "xmldom": "^0.1.19"
+    "xmldom": "^0.1.19",
+    "keystone-nodemailer": "https://github.com/bgag/keystone-nodemailer.git"
   },
   "devDependencies": {
     "gulp": "^3.7.0",

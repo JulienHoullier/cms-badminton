@@ -1,26 +1,26 @@
 {% extends "../layouts/default.swig" %}
-
-{% block intro %}
-	<div class="container">
-		<h1>Photos</h1>
-	</div>
-{% endblock %}
+{% import "../mixins/panel_title.swig" as PanelTitle%}
 
 {% block content %}
-	<div class="container">
+	<div class="container occ-bg occ-container">
+
+		{{ PanelTitle.renderTitle('Photos') }}
 		{% if galleries.length %}
 			{% for gallery in galleries %}
 			{% set relname = "gallery"+loop.index %}
 
 
 			{% set className = "" %}
-			{% if first %}
+			{% if loop.first %}
 				{% set className = "occ-album-first" %}
+			{% endif %}
+			{% if loop.last %}
+				{% set className = "occ-album-last" %}
 			{% endif %}
 			<div  class="occ-panel occ-album {{className}}">
 				<h2>{{ gallery.name }}
 					{% if gallery.publishedDate %}
-						<span class="pull-right text-muted">{{ gallery._.publishedDate.format("Do MMM YYYY") }}</span>
+						<span class="pull-right">{{ gallery._.publishedDate.format("Do MMM YYYY") }}</span>
 					{% endif %}
 				</h2>
 

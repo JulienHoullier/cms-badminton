@@ -1,8 +1,14 @@
 {% extends "../layouts/default.swig" %}
+{% import "../mixins/panel_title.swig" as PanelTitle%}
 
 {% block content %}
-	<div class="container">
+
+	<div class="container occ-bg occ-container">
+
+		{{ PanelTitle.renderTitle('Joueurs') }}
+
 		<div class="panel panel-info">
+
   		<!-- Default panel contents -->
   		<div class="panel-heading">Liste des joueurs licenciés de l'OCC</div>
          
@@ -28,6 +34,6 @@
 					{% endfor %}
 				</tbody>
 			</table>
-		
+		</div>
 	</div>
 {% endblock %}

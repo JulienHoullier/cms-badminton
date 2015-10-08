@@ -2,20 +2,6 @@
  p{
 	padding: 10px;
  }
-} 
-
-.occ-title-panel{
-	margin: 10px 0 20px 0;
-}
-
-.occ-title-string{
-	height:1px;
-	background-color:@gray-light;
-}
-
-.occ-title-text {
-	text-align:center;
-	color: @gray-light
 }
 
 .occ-panel {
@@ -26,7 +12,7 @@
 .occ-last-news-panel {
 	background-color: @global-bg-color;
 	height:380px;
-	padding: 30px;
+	padding: 15px;
 
 	blockquote {
 		max-height:200px;
@@ -34,28 +20,79 @@
 	}
 }
 
-.occ-last-news {
-	background-color: @global-bg-color;
+#occ-last-news {
 	margin-bottom: 20px;
-	height : 500px;
 }
 
-.occ-teams-news {
-	background-color: @global-bg-color;
+#occ-tournaments {
+  background-color: @lastnews-color;
+  border-style: outset;
+  border-color: #65426F;
+  color: #ecf0f1;
+  margin-bottom: 20px;
+
+  .occ-title-string{
+	background-color: #ecf0f1;
+  }
+
+  .occ-title-text, .text-muted{
+	color: #ecf0f1;
+  }
+}
+
+#occ-tournaments-container{
+  	height:380px;
+}
+
+#occ-teams-news {
+	background-color: @teamresults-color;
+	border-style: outset;
+  	border-color: #844040;
+	color: #ecf0f1;
 	margin-bottom: 20px;
-	height : 500px;
+	padding-bottom: 15px;
+
+  .occ-title-string{
+	background-color: #ecf0f1;
+  }
+
+  .occ-title-text, .text-muted{
+	color: #ecf0f1;
+  }
 }
 
 .occ-bad-news {
 	background-color: @global-bg-color;
 	margin-bottom: 20px;
-	height : 500px;
+	padding-bottom: 15px;
 }
 
-.occ-ffbad{
+#occ-ffbad{
 	height : 410px;
 	overflow: auto;
 }
+
+#occ-tuto{
+  background-color: @tuto-color;
+  color: #ecf0f1;
+  margin-bottom: 20px;
+  border-style: outset;
+  border-color: #D39A75;
+  
+  .occ-title-string{
+	background-color: #ecf0f1;
+  }
+
+  .occ-title-text, .text-muted{
+	color: #ecf0f1;
+  }
+}
+
+#occ-tuto-panel{
+  height : 410px;
+  overflow: auto;
+}
+
 
 .occ-last-result {
 	background-color : white;
@@ -68,9 +105,31 @@
 }
 
 article {
-	margin-left: 35px;
+	margin: 0px 5% 20px 5%;
 	background-color: white;
-	border: 1px solid grey;
+	border: 1px solid #ddd;
 	border-radius: 4px;
 	padding: 5px;
+	height: 350px;
+}
+
+section {
+	// padding-left: 10px;
+	box-shadow: 3px 3px 6px 5px #c0c0c0;
+	border-left: 48px #BF1E2D solid;
+
+	h2 {
+		color: #BF1E2D;
+		margin-left: -45px;
+		padding-top: 5px;
+	}
+
+	img {
+		width: 40px;
+		height: 40px;
+	}
+}
+
+.carousel-control{
+	width: 5%;
 }
