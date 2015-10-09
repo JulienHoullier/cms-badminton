@@ -5,10 +5,9 @@
 		<div class="panel panel-info">
   		<!-- Default panel contents -->
   		<div class="panel-heading">Liste des joueurs licenciés de l'OCC</div>
-         
 			<table class="table table-hover">
 				<thead>
-					<tr class="info">
+					<tr>
 						<th>Prénom</th>
 						<th>Nom</th>
 						<th>N° License</th>
@@ -28,6 +27,5 @@
 					{% endfor %}
 				</tbody>
 			</table>
-		
 	</div>
 {% endblock %}

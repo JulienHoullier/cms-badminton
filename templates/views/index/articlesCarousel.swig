@@ -2,8 +2,8 @@
 	<h2>
 		<img src="/images/shuttlecock.png" class="occ-section-img">
 		Dernières actus
-		<a href="/blog" class="pull-right">
-			<img src="/images/link.png" class="occ-section-link"/>
+		<a href="/resultats" class="text-right">
+			<img src="/images/plus.png" width="16px" height="16px" />
 		</a>
 	</h2>
 	<!-- Indicators -->
