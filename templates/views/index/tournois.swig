@@ -2,8 +2,8 @@
 	<h2>
 		<img src="/images/tournament-cup2.png" class="occ-section-img">
 		Tournois
-		<a href="/resultats" class="text-right">
-			<img src="/images/plus.png" width="16px" height="16px" />
+		<a href="/tournois" class="pull-right">
+			<img src="/images/arrow.png" width="16px" height="16px" />
 		</a>
 	</h2>
 	<div style="height: 225px">

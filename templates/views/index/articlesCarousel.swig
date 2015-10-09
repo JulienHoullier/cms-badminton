@@ -2,8 +2,8 @@
 	<h2>
 		<img src="/images/shuttlecock.png" class="occ-section-img">
 		Dernières actus
-		<a href="/resultats" class="text-right">
-			<img src="/images/plus.png" width="16px" height="16px" />
+		<a href="/resultats" class="pull-right">
+			<img src="/images/arrow.png" width="16px" height="16px" />
 		</a>
 	</h2>
 	<!-- Indicators -->
@@ -34,7 +34,7 @@
 					</div>
 					{{ article.content.brief | safe}}
 					<p class="text-right">
-						<a href="">Lire plus...</a>
+						<a href="/blog/post/{{ article.slug }}">Lire plus...</a>
 					</p>
 				</div>
 			</article>
