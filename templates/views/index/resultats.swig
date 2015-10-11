@@ -9,46 +9,46 @@
 	<div style="height: 225px">
 		<table class="table table-striped" style="font-weight: bold">
 			<tr>
-				<td><img src="/images/good.png"></td>
-				<td width="40%">Equipe 1</td>
-				<td class="pull-left" width="10%">5</td>
-				<td width="10%">3</td>
-				<td class="text-right" width="40%">REC</td>
-			</tr>
-			<tr>
-				<td><img src="/images/good.png"></td>
-				<td width="40%">Equipe 2</td>
-				<td class="pull-left" width="10%">8</td>
-				<td width="10%">0</td>
-				<td class="text-right" width="40%">Liffré</td>
-			</tr>
-			<tr>
-				<td><img src="/images/sad.png"></td>
+				<td width="10%"><img src="/images/good.png"></td>
 				<td width="40%">Equipe 3</td>
-				<td class="pull-left" width="10%">3</td>
-				<td width="10%">5</td>
+				<td class="text-left" width="5%">3</td>
+				<td width="5%">5</td>
 				<td class="text-right" width="40%">Bourgbarré</td>
 			</tr>
 			<tr>
-				<td><img src="/images/sad.png"></td>
+				<td width="10%"><img src="/images/good.png"></td>
 				<td width="40%">Equipe 3</td>
-				<td class="pull-left" width="10%">3</td>
-				<td width="10%">5</td>
+				<td class="text-left" width="5%">3</td>
+				<td width="5%">5</td>
 				<td class="text-right" width="40%">Bourgbarré</td>
 			</tr>
 			<tr>
-				<td><img src="/images/sad.png"></td>
+				<td width="10%"><img src="/images/good.png"></td>
 				<td width="40%">Equipe 3</td>
-				<td class="pull-left" width="10%">3</td>
-				<td width="10%">5</td>
+				<td class="text-left" width="5%">3</td>
+				<td width="5%">5</td>
 				<td class="text-right" width="40%">Bourgbarré</td>
 			</tr>
 			<tr>
-				<td><img src="/images/good.png"></td>
-				<td width="40%">Equipe 1</td>
-				<td class="pull-left" width="10%">5</td>
-				<td width="10%">3</td>
-				<td class="text-right" width="40%">REC</td>
+				<td width="10%"><img src="/images/sad.png"></td>
+				<td width="40%">Equipe 3</td>
+				<td class="text-left" width="5%">3</td>
+				<td width="5%">5</td>
+				<td class="text-right" width="40%">Bourgbarré</td>
+			</tr>
+			<tr>
+				<td width="10%"><img src="/images/sad.png"></td>
+				<td width="40%">Equipe 3</td>
+				<td class="text-left" width="5%">3</td>
+				<td width="5%">5</td>
+				<td class="text-right" width="40%">Bourgbarré</td>
+			</tr>
+			<tr>
+				<td width="10%"><img src="/images/sad.png"></td>
+				<td width="40%">Equipe 3</td>
+				<td class="text-left" width="5%">3</td>
+				<td width="5%">5</td>
+				<td class="text-right" width="40%">Bourgbarré</td>
 			</tr>
 		</table>
 	</div>
