@@ -6,14 +6,13 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-
 		<title>{{ title|default("OCC-Badminton") }}</title>
 		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
 		{# Customise the stylesheet for your site by editing /public/styles/site.less
 		//- All .less files will be automatically compiled and minified in production. #}
 		<link href="/styles/site.min.css" rel="stylesheet">
-
+		<link href='https://fonts.googleapis.com/css?family=Roboto:300' rel='stylesheet' type='text/css'>
 		{# This file provides the default styling for the KeystoneJS Content Editor #}
 		{%- if user and user.canAccessKeystone -%}
 			<link href="/keystone/styles/content/editor.min.css" rel="stylesheet">
