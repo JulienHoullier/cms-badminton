@@ -34,7 +34,7 @@
 				</h3>
 
 				<div class="articleContent">
-					<img class="img-responsive center-block" src="/images/defaultnews.jpg" />
+					{# <img class="img-responsive center-block" src="/images/defaultnews.jpg" /> #}
 					{{ article.content.brief | safe}}
 					
 					<p class="text-right">
