@@ -1,72 +1,3 @@
-#occ-last-news-title{
- p{
-	padding: 10px;
- }
-}
-
-.occ-title-panel{
-	margin: 10px 0 20px 0;
-}
-
-.occ-title-string{
-	height:1px;
-	background-color:@gray-light;
-}
-
-.occ-title-text {
-	text-align:center;
-	color: @gray-light
-}
-
-.occ-panel {
-	background-image : url('/images/bg-news.png');
-	padding : 15px;
-}
-
-.occ-last-news-panel {
-	background-color: @global-bg-color;
-	height:380px;
-	padding: 30px;
-
-	blockquote {
-		max-height:200px;
-		overflow-y:hidden;
-	}
-}
-
-.occ-last-news {
-	background-color: @global-bg-color;
-	margin-bottom: 20px;
-	height : 500px;
-}
-
-.occ-teams-news {
-	background-color: @global-bg-color;
-	margin-bottom: 20px;
-	height : 500px;
-}
-
-.occ-bad-news {
-	background-color: @global-bg-color;
-	margin-bottom: 20px;
-	height : 500px;
-}
-
-.occ-ffbad{
-	height : 410px;
-	overflow: auto;
-}
-
-.occ-last-result {
-	background-color : white;
-	color:fireBrick;
-	padding : 10px;
-
-	h4 {
-		margin-top: 5px;
-	}
-}
-
 article {
 	margin: 0px 5% 20px 5%;
 	background-color: white;
@@ -76,19 +7,39 @@ article {
 	height: 350px;
 }
 
+.articleHead{
+	text-align: center;
+	font-weight: bold;
+	font-size: 36px;
+	color: #444;
+}
+
+.articleDate{
+	color: @theme-color;
+	font-weight: 900;
+
+	.day{
+		font-size: 40px;	
+	}
+	
+	.month, .year{
+		font-size: 20px;	
+	}
+}
+
 section {
 	// padding-left: 10px;
 	box-shadow: 3px 3px 6px 5px #c0c0c0;
-	border-left: 48px #BF1E2D solid;
+	border-left: 48px @theme-color solid;
 
 	h2 {
-		color: #BF1E2D;
+		color: @theme-color;
 		margin-left: -44px;
 		padding-top: 5px;
 	}
 
 	a{
-		color: #BF1E2D;
+		color: @theme-color;
 		text-decoration: underline;
 	}
 }
@@ -115,3 +66,6 @@ section {
 	height: 16px;
 }
 
+.social{
+	margin-bottom: 15px;
+}

@@ -37,7 +37,7 @@
 						</a>
 					</div>
 					<div class="col-xs-4 text-center">
-						<a href="https://www.facebook.com/groups/449683501877406/?fref=ts" target="_blank">
+						<a href="https://www.facebook.com/groups/449683501877406/?fref=ts" target="_blank"	>
 							<img src="/images/facebook.png" />
 						</a>
 					</div>
