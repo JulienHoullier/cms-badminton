@@ -9,9 +9,9 @@
 	<!-- Indicators -->
 	<ol class="carousel-indicators">
 			<li data-target="#newsCarousel" data-slide-to="0" class="active"></li>
-			<li data-target="#newsCarousel" data-slide-to="1" class="equipe"></li>
-			<li data-target="#newsCarousel" data-slide-to="2" class="club"></li>
-			<li data-target="#newsCarousel" data-slide-to="3" class="ffbad"></li>
+			<li data-target="#newsCarousel" data-slide-to="1"></li>
+			<li data-target="#newsCarousel" data-slide-to="2"></li>
+			<li data-target="#newsCarousel" data-slide-to="3"></li>
 	</ol>
 
 	<!-- Wrapper for slides -->
@@ -24,7 +24,7 @@
 			<article class="item {{ activeClass }}">
 
 				<div class="row">
-					<div class="articleDate">
+					<div class="articleDate visible-md-block visible-lg-block">
 						<div class="day">{{ article.publishedDate.toString().split(' ')[2] }}</div>
 						<div class="month">{{ article.publishedDate.toString().split(' ')[1] }}</div>
 						<div class="year">{{ article.publishedDate.toString().split(' ')[3] }}</div>
@@ -36,23 +36,27 @@
 							{% set urlImg = article.image.url %}
 						{% endif %}
 
-						<img src="{{ urlImg }}" class="img-responsive">
-					</div>		
+						<img src="{{ urlImg }}" class="visible-md-block visible-lg-block" width="100%" height="300">
+					</div>
 
 					<div class="col-md-5">
 						<h3 class="articleHead">
 							{{ article.title }}
 						</h3>
 
-						<div class="visible-md-block visible-lg-block">
+						<div class="">
 							{{ article.content.brief | safe}}
 						</div>
+
+						<span class="visible-xs-inline visible-sm-inline articleDateXs">
+							Le {{ article.publishedDate.toString().split(' ')[2] }} {{ article.publishedDate.toString().split(' ')[1] }} {{ article.publishedDate.toString().split(' ')[3] }}
+						</span>
 
 						<p class="text-right">
 							<a href="/blog/post/{{ article.slug }}">Lire plus...</a>
 						</p>
-					</div>		
-					
+					</div>
+
 				</div>
 			</article>
 		{% endfor %}
