@@ -3,7 +3,7 @@
 		<img src="/images/resultats.png" class="occ-section-img">
 		Derniers résultats
 		<a href="/resultats" title="Voir tous les résultats" class="pull-right">
-			<img src="/images/arrow.png" width="14px" height="14px" />
+			<img src="/images/plus.png" width="16px" height="16px" />
 		</a>
 	</h2>
 	<div style="height: 225px">

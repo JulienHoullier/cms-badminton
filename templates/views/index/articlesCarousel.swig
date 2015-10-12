@@ -3,15 +3,15 @@
 		<img src="/images/shuttlecock.png" class="occ-section-img">
 		Dernières actus
 		<a href="/blog" class="pull-right">
-			<img src="/images/arrow.png" width="16px" height="16px" />
+			<img src="/images/plus.png" width="16px" height="16px" />
 		</a>
 	</h2>
 	<!-- Indicators -->
 	<ol class="carousel-indicators">
 			<li data-target="#newsCarousel" data-slide-to="0" class="active"></li>
 			<li data-target="#newsCarousel" data-slide-to="1"></li>
-			<li data-target="#newsCarousel" data-slide-to="2"></li>
-			<li data-target="#newsCarousel" data-slide-to="3"></li>
+{# 			<li data-target="#newsCarousel" data-slide-to="2"></li>
+			<li data-target="#newsCarousel" data-slide-to="3"></li> #}
 	</ol>
 
 	<!-- Wrapper for slides -->
