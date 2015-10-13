@@ -6,7 +6,7 @@
 			<img src="/images/plus.png" width="16px" height="16px" />
 		</a>
 	</h2>
-	<div class="occ-section-resultats">
+	<div class="occ-section-little">
 		{% if lastResults %}
 			<table class="table table-striped">
 				{% for result in lastResults %}
