@@ -44,7 +44,7 @@
 							{{ article.title }}
 						</h3>
 
-						<div class="">
+						<div class="articleContent">
 							{{ article.content.brief | safe}}
 						</div>
 
@@ -52,7 +52,7 @@
 							Le {{ article.publishedDate.toString().split(' ')[2] }} {{ article.publishedDate.toString().split(' ')[1] }} {{ article.publishedDate.toString().split(' ')[3] }}
 						</span>
 
-						<p class="text-right">
+						<p class="text-right articleContent">
 							<a href="/blog/post/{{ article.slug }}">Lire plus...</a>
 						</p>
 					</div>

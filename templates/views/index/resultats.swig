@@ -6,50 +6,24 @@
 			<img src="/images/plus.png" width="16px" height="16px" />
 		</a>
 	</h2>
-	<div style="height: 225px">
-		<table class="table table-striped" style="font-weight: bold">
-			<tr>
-				<td width="10%"><img src="/images/good.png"></td>
-				<td width="40%">Equipe 3</td>
-				<td class="text-left" width="5%">3</td>
-				<td width="5%">5</td>
-				<td class="text-right" width="40%">Bourgbarré</td>
-			</tr>
-			<tr>
-				<td width="10%"><img src="/images/good.png"></td>
-				<td width="40%">Equipe 3</td>
-				<td class="text-left" width="5%">3</td>
-				<td width="5%">5</td>
-				<td class="text-right" width="40%">Bourgbarré</td>
-			</tr>
-			<tr>
-				<td width="10%"><img src="/images/good.png"></td>
-				<td width="40%">Equipe 3</td>
-				<td class="text-left" width="5%">3</td>
-				<td width="5%">5</td>
-				<td class="text-right" width="40%">Bourgbarré</td>
-			</tr>
-			<tr>
-				<td width="10%"><img src="/images/sad.png"></td>
-				<td width="40%">Equipe 3</td>
-				<td class="text-left" width="5%">3</td>
-				<td width="5%">5</td>
-				<td class="text-right" width="40%">Bourgbarré</td>
-			</tr>
-			<tr>
-				<td width="10%"><img src="/images/sad.png"></td>
-				<td width="40%">Equipe 3</td>
-				<td class="text-left" width="5%">3</td>
-				<td width="5%">5</td>
-				<td class="text-right" width="40%">Bourgbarré</td>
-			</tr>
-			<tr>
-				<td width="10%"><img src="/images/sad.png"></td>
-				<td width="40%">Equipe 3</td>
-				<td class="text-left" width="5%">3</td>
-				<td width="5%">5</td>
-				<td class="text-right" width="40%">Bourgbarré</td>
-			</tr>
-		</table>
+	<div class="occ-section-resultats">
+		{% if lastResults %}
+			<table class="table table-striped">
+				{% for result in lastResults %}
+					{% set %}
+					<tr>
+						<td width="10%"><img src="/images/good.png"></td>
+						<td width="40%">{{ result.team.name }}</td>
+						<td class="text-left" width="5%">{{ result.occResult }}</td>
+						<td width="5%">{{ result.versusResult }}</td>
+						<td class="text-right" width="40%">{{ result.versus }}</td>
+					</tr>
+				{% endfor %}
+			</table>
+		{% else %}
+			<div class="occ-no-element">
+				Aucun résultat pour le moment...
+			</div>
+		{% endif %}
 	</div>
 </section>

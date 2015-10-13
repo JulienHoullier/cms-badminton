@@ -15,7 +15,7 @@
 					<th class="text-right">Nb d'inscrit</th>
 				</tr>
 			</thead>
-			<tr>
+			{# <tr>
 				<td>16/10/2015</td>
 				<td>Liffré</td>
 				<td class="text-right">
@@ -49,7 +49,7 @@
 				<td class="text-right">
 					<a href="">0</a>
 				</td>
-			</tr>
+			</tr> #}
 		</table>
 	</div>
 </section>
