@@ -4,7 +4,7 @@ require('dotenv').load();
 
 // Require keystone
 var keystone = require('keystone');
-require('keystone-nodemailer');
+//require('keystone-nodemailer');
 var swig = require('swig');
 
 // Disable swig's bulit-in template caching, express handles it
@@ -110,7 +110,8 @@ keystone.set('nav', {
 	'Photos': 'galleries',
 	'Demandes': 'enquiries',
 	'Club': ['teams', 'players','matches'],
-	'Utilisateurs': 'users'
+	'Utilisateurs': 'users',
+    'Tournois' : ['tournaments', 'registereds']
 });
 
 // Start Keystone to connect to your database and initialise the web server
