@@ -13,17 +13,41 @@
 					{% set %}
 					<tr>
 						<td width="10%"><img src="/images/good.png"></td>
-						<td width="40%">{{ result.team.name }}</td>
-						<td class="text-left" width="5%">{{ result.occResult }}</td>
-						<td width="5%">{{ result.versusResult }}</td>
+						<td width="40%" class="text-left">{{ result.team.name }}</td>
+						<td class="text-right" width="5%">{{ result.occResult }}</td>
+						<td width="5%" class="text-left">{{ result.versusResult }}</td>
 						<td class="text-right" width="40%">{{ result.versus }}</td>
 					</tr>
 				{% endfor %}
 			</table>
 		{% else %}
 			<div class="occ-no-element">
-				Aucun résultat pour le moment...
+				Aucun résultat pour le moment...<br/>
+				Mais les équipes sont prêtes ! :-)
 			</div>
+			<table class="table table-striped">
+				<tr>
+					<td width="10%"><img src="/images/good.png"></td>
+					<td width="40%" class="text-left">Equipe 1</td>
+					<td class="text-right" width="5%">?</td>
+					<td width="5%" class="text-left">?</td>
+					<td class="text-right" width="40%">Vitré 2</td>
+				</tr>
+				<tr>
+					<td width="10%"><img src="/images/good.png"></td>
+					<td width="40%" class="text-left">Equipe 2</td>
+					<td class="text-right" width="5%">?</td>
+					<td width="5%" class="text-left">?</td>
+					<td class="text-right" width="40%">Gosné 1</td>
+				</tr>
+				<tr>
+					<td width="10%"><img src="/images/good.png"></td>
+					<td width="40%" class="text-left">Equipe 3</td>
+					<td class="text-right" width="5%">?</td>
+					<td width="5%" class="text-left">?</td>
+					<td class="text-right" width="40%">REC 4</td>
+				</tr>
+			</table>
 		{% endif %}
 	</div>
 </section>
