@@ -13,17 +13,23 @@ var Post = new keystone.List('Post', {
 });
 
 Post.add({
-	title: { type: String, required: true },
-	state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', index: true },
-	author: { type: Types.Relationship, ref: 'User', index: true },
-	publishedDate: { type: Types.Date, index: true, dependsOn: { state: 'published' } },
-	image: { type: Types.CloudinaryImage },
+	title: { type: String, label:'Titre', required: true },
+	state: { type: Types.Select, label:'Etat', options: 
+		[
+			{value:'draft', label:'Ebauche'},
+			{value:'published', label:'Publiée'}, 
+			{value:'archived', label:'Archivée'},
+		], 
+		default: 'draft', index: true },
+	author: { type: Types.Relationship, label:'Auteur', ref: 'User', index: true },
+	publishedDate: { type: Types.Date, label:'date de publication', index: true, dependsOn: { state: 'published' } },
+	image: { type: Types.CloudinaryImage, label:'Image' },
 	content: {
-		brief: { type: Types.Html, wysiwyg: true, height: 150 },
-		extended: { type: Types.Html, wysiwyg: true, height: 400 }
+		brief: { type: Types.Html, label:'En bref', wysiwyg: true, height: 150 },
+		extended: { type: Types.Html, label:'En détail', wysiwyg: true, height: 400 }
 	},
-	category: { type: Types.Relationship, ref: 'PostCategory'},
-	important : {type : Types.Boolean}
+	category: { type: Types.Relationship, label:'Catégorie', ref: 'PostCategory'},
+	important : {type : Types.Boolean, label:'Important'}
 });
 
 Post.schema.virtual('content.full').get(function() {
@@ -53,20 +59,14 @@ Post.schema.methods.sendNotificationEmail = function(callback) {
 	
 	var send = function(to){
 		
-		new keystone.Email({
-			templateName: 'Post-notification',
-			templateExt: 'swig',
-			templateEngine: require('swig')
-		}).send({
-				to: 'contact@occ-badminton.org',
-				cc: to,
+		new keystone.Email('post-notification').send({
+				to: to,
 				from: {
 					name: 'OCC-Badminton',
-					email: 'webmaster@occ-badminton.org'
+					email: 'contact@occ-badminton.org'
 				},
 				subject: 'Info importante',
-				Post: post,
-				mandrill: {}
+				Post: post
 			}, callback);
 	};
 	

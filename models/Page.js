@@ -12,9 +12,12 @@ var Page = new keystone.List('Page', {
 });
 
 Page.add({
-	title: { type: String, required: true },
-	state: { type: Types.Select, options: 'show, hide', default: 'show', index: true },
-	content: { type: Types.Html, wysiwyg: true, height: 800 },
+	title: { type: String, label:'Titre', required: true },
+	state: { type: Types.Select, label:'Affichage', options: [
+		{value:'show', label:'Afficher dans le menu'}, 
+		{value:'hide', label:'Masquer'}
+	], default: 'show', index: true },
+		content: { type: Types.Html, label:'Contenu', wysiwyg: true, height: 800 },
 });
 
 Page.schema.virtual('url').get(function() {

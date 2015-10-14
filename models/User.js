@@ -11,11 +11,19 @@ var User = new keystone.List('User', {
 });
 
 User.add({
-	name: { type: Types.Name, required: true, index: true },
-	email: { type: Types.Email, initial: true, required: true, index: true },
-	password: { type: Types.Password, initial: true, required: true }
+	name: { type: Types.Name, label:'Nom', required: true, index: true },
+	email: { type: Types.Email, label:'Email', initial: true, required: true, index: true },
+	password: { type: Types.Password, label:'Mot de passe', initial: true, required: true }
 }, 'Permissions', {
-	group: { type: Types.Select, options: 'unauthorized, user, editor, admin', default: 'unauthorized' },
+	group: { type: Types.Select, label:'Permissions', options: 
+		[
+			{value:'unauthorized', label:'Banni'},
+			{value:'user', label:'utilisateur simple'},
+			{value:'editor', label:'Editeur'},
+			{value:'admin', label:'Administrateur'}
+		],
+		default: 'unauthorized' },
+	manage_tournaments: { type: Types.Boolean, label:'Gère les inscriptions aux tournois' }
 });
 
 // Provide access to Keystone
@@ -51,7 +59,11 @@ User.schema.post('save', function() {
 User.schema.methods.sendAdminNotificationEmail = function(callback) {
 	
 	if ('function' !== typeof callback) {
-		callback = function() {};
+		callback = function(err) {
+			if (err) {
+				console.log(err);
+			}
+		};
 	}
 	
 	var User = this;
@@ -60,11 +72,13 @@ User.schema.methods.sendAdminNotificationEmail = function(callback) {
 		
 		if (err) return callback(err);
 		
-		new keystone.Email('UserAdmin-notification').send({
+		console.log('admins :'+JSON.stringify(admins));
+		
+		new keystone.Email('userAdmin-notification').send({
 			to: admins,
 			from: {
 				name: 'OCC-Badminton',
-				email: 'webmaster@occ-badminton.org'
+				email: 'contact@occ-badminton.org'
 			},
 			subject: 'Demande d`\'inscription',
 			User: User
@@ -75,17 +89,25 @@ User.schema.methods.sendAdminNotificationEmail = function(callback) {
 User.schema.methods.sendUserNotificationEmail = function(callback) {
 	
 	if ('function' !== typeof callback) {
-		callback = function() {};
+		callback = function(err) {
+			if (err) {
+				console.log(err);
+			}
+		};
 	}
+
+	var User = this;
+
+	console.log('admins :'+JSON.stringify(User));
 	
-	new keystone.Email('User-notification').send({
-			to: this.email,
+	new keystone.Email('user-notification').send({
+			to: User.email,
 			from: {
 				name: 'OCC-Badminton',
-				email: 'webmaster@occ-badminton.org'
+				email: 'contact@occ-badminton.org'
 			},
 			subject: 'Inscription confirmée',
-			User: this
+			User: User
 		}, callback);
 };
 

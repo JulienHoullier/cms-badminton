@@ -9,13 +9,13 @@ var Types = keystone.Field.Types;
 var Team = new keystone.List('Team', {
 	map: { name: 'name' },
 	label: 'Equipes',
-	drilldown: 'captain'
+	drilldown: 'captain players'
 });
 
 Team.add({
-	name: { type: Types.Text, required: true, initial: true },
-	order: { type: Number, required: true, index:true, initial: true },
-	captain: { type: Types.Relationship, ref: 'Player', required: true, initial: true }
+	name: { type: Types.Text, label:'Nom', required: true, initial: true },
+	order: { type: Number, label:'Ordre', required: true, index:true, initial: true },
+	captain: { type: Types.Relationship, label:'Capitaine', ref: 'Player', required: true, initial: true }
 });
 
 
@@ -23,7 +23,7 @@ Team.add({
  * Relationships
  */
 
-Team.relationship({ ref: 'Player', path: 'players', refPath: 'team' });
+Team.relationship({ ref: 'Player', path: 'players', refPath: 'team', label:'Joueurs' });
 
 Team.schema.pre('save', function(next) {
 	if(this.isNew){
@@ -31,12 +31,10 @@ Team.schema.pre('save', function(next) {
 		
 		var PostCategory = keystone.list('PostCategory');
 		PostCategory.model.findOne({name : team.name}, function (err, category){
-			console.log('category: ' + category);
 			if(err){
 				console.log(err);
 			}
 			else if(!category) {
-				var category = new PostCategory.model({name :  team.name});
 				console.log('category: ' + category);
 				category.save();
 			}
