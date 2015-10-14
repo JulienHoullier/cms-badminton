@@ -29,7 +29,7 @@ keystone.init({
 	
 	'emails': 'templates/emails',
 
-	'cookie secret': process.env.COOKIE_SECRET || 'a super long random string needed for occ-badminton 54398753946308208',
+	'cookie secret': process.env.COOKIE_SECRET,
 	'auto update': true,
 	'session': true,
 	'session store': 'mongo',
@@ -37,16 +37,6 @@ keystone.init({
 	'user model': 'User',
 
 	'wysiwyg images': true,
-	
-	'email nodemailer': {
-		host: 'smtp.occ-badminton.org',
-	    port : 587,
-	    auth: {
-	        user: 'webmaster@occ-badminton.org',
-	        pass: 'ndFyh7f]'
-	    },
-	    authMethod : 'PLAIN'
-	}
 });
 
 // Load your project's Models
@@ -68,6 +58,17 @@ keystone.set('locals', {
 
 keystone.set('routes', require('./routes'));
 
+//prepare nodemailer config
+
+keystone.set('email nodemailer' , {
+host: process.env.MAIL_HOST,
+	port : 587,
+	auth: {
+	user: process.env.MAIL_USR,
+		pass: process.env.MAIL_PWD
+},
+authMethod : 'PLAIN'
+});
 
 // Setup common locals for your emails. The following are required by Keystone's
 // default email templates, you may remove them if you're using your own.

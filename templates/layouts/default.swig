@@ -1,7 +1,7 @@
 {% import "../mixins/flash-messages.swig" as FlashMessages %}
 
 <!doctype html>
-<html>
+<html xml:lang="fr-fr" lang="fr-fr">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,8 +39,8 @@
 			<div id="occ-header-flag" class="container visible-md visible-lg">
 				<img src="/images/occ-logo.png" alt="" id="occ-logo">
 			</div>
-		</header>	
-			
+		</header>
+
 		<div id="occ-navbar" class="occ-bg" data-spy="affix" data-offset-top="197">
 				<nav class="navbar navbar-default container" id="occ-header-nav">
 					<div class="navbar-header">
@@ -109,9 +109,7 @@
 				<div id="occ-sponsor-bar" class="scroll-text">
 					<ul>
 					{% for sponsor in sponsors %}
-					
 						<li><a href="{{sponsor.url}}" class="thumbnail"><img src="{{sponsor.img_url}}" alt="" width="100" height="100" /></a></li>
-						
 					{% endfor %}
 					</ul>
 				</div>

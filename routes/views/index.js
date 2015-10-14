@@ -15,11 +15,12 @@ exports = module.exports = function(req, res) {
 	// item in the header navigation.
 	locals.section = 'home';
 
-	view.query('lastPosts', Post.model.find()
+	view.query('articles', Post.model.find()
     .where('state', 'published')
     .populate('author')
-    .sort('-publishedAt')
-    .limit(5));
+    .populate('categories')
+    .sort('-publishedDate')
+    .limit(4));
 
     locals.tournaments = {
         incoming : require('../../lib/tournois.json')
@@ -49,46 +50,26 @@ exports = module.exports = function(req, res) {
             }
         });
     });
-
-    view.on('render', function(next){
-
-        //TODO
-        //Transformer cette boucle en une requête mongoose
-        //à voir avec la fonction aggregate
-        //Permet de récupérer le dernier résultat de chaque équipe.
-        locals.lastResults = [];
-        for(team in locals.teams){
-            var teamId = locals.teams[team]._id;
-            var teamMatches = locals.matches[teamId];
-            locals.lastResults[teamId] = [];
-            if(teamMatches){
-                for(var i=teamMatches.length-1; i>=0; i--){
-                    if(teamMatches[i].occResult && teamMatches[i].versusResult){
-                        locals.lastResults[teamId] = teamMatches[i];
-                        break;
-                    }
-                }
-            }
-        }
-
-    	var hasBeanCalled  = false;
-    	ffbadnews(function(err,data){
-    		if(err){
-    			console.log(err);	
-    			locals.ffbadNews = [];
-    		}
-    		else{
-    			locals.ffbadNews = data;
-    		}
+	
+    // view.on('render', function(next){
+    	
+    // 	var hasBeanCalled  = false;
+    // 	ffbadnews(function(err,data){
+    // 		if(err){
+    // 			console.log(err);	
+    // 			locals.ffbadNews = [];
+    // 		}
+    // 		else{
+    // 			locals.ffbadNews = data;
+    // 		}
  
-    		if(!hasBeanCalled){
-    			hasBeanCalled = true;
-    			next();
-    		}
-    	});
-    });
-
+    // 		if(!hasBeanCalled){
+    // 			hasBeanCalled = true;
+    // 			next();
+    // 		}
+    // 	});
+    // });
 	
 	// Render the view
-    view.render('index');
+	view.render('newIndex');
 };
