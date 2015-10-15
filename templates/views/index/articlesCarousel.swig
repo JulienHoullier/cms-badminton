@@ -8,10 +8,13 @@
 	</h2>
 	<!-- Indicators -->
 	<ol class="carousel-indicators">
-			<li data-target="#newsCarousel" data-slide-to="0" class="active"></li>
-			<li data-target="#newsCarousel" data-slide-to="1"></li>
-{# 			<li data-target="#newsCarousel" data-slide-to="2"></li>
-			<li data-target="#newsCarousel" data-slide-to="3"></li> #}
+		 {% for article in articles %}
+	    	{% set linkClass = '' %}
+			{% if loop.first %}
+				{% set linkClass = 'class="active"' %}
+			{% endif %}
+	      <li data-target="#newsCarousel" data-slide-to="{{ loop.index0 }}" {{ linkClass | safe }}></li>
+	    {% endfor %}
 	</ol>
 
 	<!-- Wrapper for slides -->
