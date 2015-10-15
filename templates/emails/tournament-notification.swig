@@ -5,22 +5,22 @@
 
 {% block content %}
 	<p>Bonjour,</p>
-	{% if subscription.player2 %}
+	{% if subscription.player2.exists %}
 		<p>Nous souhaiterions nous inscrire au tournoi de : 
 	{% else %}
-		<p>Je souhaiterais m'inscrire au tournoi de : </p>
+		<p>Je souhaiterais m'inscrire au tournoi de : 
 	{% endif %}
-		<span>{{ subscription.tournament }}
+		<strong>{{ subscription.tournament }}</strong>
 	</p>
 	
-	<p>Dans la catégorie : {{ subscription.category }}</p>
+	<p>Dans la catégorie : <strong>{{ subscription.category }} {{ subscription.level }}</strong> </p>
 	
 	
-	{% if subscription.player2 %}
+	{% if subscription.player2.exists %}
 		<p>Nos numéros de licence sont : </p>
 		<ul>
-			<li>{{ subscription.player1}}: {{ subscription.player1_licence }}</li>
-			<li>{{ subscription.player2}}: {{ subscription.player2_licence }}</li>
+			<li>{{ subscription.player1.full }}: <strong>{{ subscription.player1_licence }}</strong></li>
+			<li>{{ subscription.player2.full }}: <strong>{{ subscription.player2_licence }}</strong></li>
 		</ul>
 
 	{% else %}

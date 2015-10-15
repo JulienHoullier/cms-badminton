@@ -66,7 +66,7 @@ Post.schema.methods.sendNotificationEmail = function(callback) {
 					email: 'contact@occ-badminton.org'
 				},
 				subject: 'Info importante',
-				Post: post
+				post: post
 			}, callback);
 	};
 	

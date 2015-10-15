@@ -15,22 +15,18 @@ User.add({
 	email: { type: Types.Email, label:'Email', initial: true, required: true, index: true },
 	password: { type: Types.Password, label:'Mot de passe', initial: true, required: true }
 }, 'Permissions', {
-	group: { type: Types.Select, label:'Permissions', options: 
-		[
-			{value:'unauthorized', label:'Banni'},
-			{value:'user', label:'utilisateur simple'},
-			{value:'editor', label:'Editeur'},
-			{value:'admin', label:'Administrateur'}
-		],
-		default: 'unauthorized' },
-	manage_tournaments: { type: Types.Boolean, label:'Gère les inscriptions aux tournois' }
+	isAdmin: { type: Types.Boolean, label:'Administrateur' },
+	isUser: { type: Types.Boolean, label:'Utilisateur' },
+	isEditor: { type: Types.Boolean, label:'Editeur' },
+	isTournamentManager: { type: Types.Boolean, label:'Gère les tournois' },
 });
 
-// Provide access to Keystone
 User.schema.virtual('canAccessKeystone').get(function() {
-	return this.group === 'admin';
+	return this.isAdmin; 
 });
-
+User.schema.virtual('isValid').get(function() {
+	return this.isUser || this.isEditor || this.isTournamentManager || this.isAdmin;
+});
 
 /**
  * Relationships
@@ -81,7 +77,7 @@ User.schema.methods.sendAdminNotificationEmail = function(callback) {
 				email: 'contact@occ-badminton.org'
 			},
 			subject: 'Demande d`\'inscription',
-			User: User
+			user: User
 		}, callback);
 	});
 };
@@ -107,7 +103,7 @@ User.schema.methods.sendUserNotificationEmail = function(callback) {
 				email: 'contact@occ-badminton.org'
 			},
 			subject: 'Inscription confirmée',
-			User: User
+			user: User
 		}, callback);
 };
 

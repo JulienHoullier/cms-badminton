@@ -45,7 +45,7 @@ exports.initLocals = function(req, res, next) {
 	];
 	
 	//add link to connected users
-	if(req.user){
+	if(req.user && req.user.isValid){
 		locals.navLinks.push({ 
 			label: 'Joueurs',        
 			key: 'player',      
@@ -137,10 +137,15 @@ exports.flashMessages = function(req, res, next) {
 exports.requireUser = function(req, res, next) {
 	
 	if (!req.user) {
-		req.flash('error', 'Please sign in to access this page.');
+		req.flash('error', 'Connectez-vous pour accéder à cet page');
 		res.redirect('/keystone/signin');
 	} else {
-		next();
+		if(!req.user.isValid){
+			req.flash('warn', 'Votre compte n\'est pas encore validé');
+			res.redirect('/');
+		}
+		else{
+			next();
+		}
 	}
-	
 };

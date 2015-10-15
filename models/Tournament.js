@@ -7,29 +7,35 @@ var Types = keystone.Field.Types;
  */
 
 var Tournament = new keystone.List('Tournament', {
-	nocreate: true,
 	noedit: true,
 	label: 'Tournois',
 });
 
-Tournament.add({
-	tournament: { type: Types.Text, label:'Tournoi', required: true},
-	category: {
-		type: Types.Select, label:'Catégorie', options: ['Simple', 'Double', 'Mixte']
-	},
-	message: { type: Types.Markdown, label:'Message' },
-	createdAt: { type: Date, default: Date.now },
-	status: {
-	type: Types.Select, label:'Statut', options: ['Simple', 'Double', 'Mixte']
-},
-	},
-	{ heading: 'Joueur' },
+Tournament.add(
 	{
-		player1: {type: Types.Name, label: 'Joueur 1', required: true},
-		player1_email: {type: Types.Email, label: 'Joueur 1 mail', required: true},
-		player1_licence: {type: Types.Number, label: 'Joueur 1 N° Licence', required: true},
+		tournament: { type: Types.Text, label:'Tournoi', required: true, initial:true},
+		category: {
+			type: Types.Select, label:'Catégorie', options: ['SH','SD','DH','DD','DMx'],
+			required: true, default: 'SH', initial:true},
+		message: { type: Types.Markdown, label:'Message', initial:true},
+		createdAt: { type: Date, default: Date.now },
+		status: {
+			type: Types.Select, label:'Statut', options: [
+				{value:'in_progress', label:'En cours'},
+				{value:'validated', label:'Confirmée'},
+				{value:'impossible', label:'Impossible'},
+			],
+			default: 'in_progress'
+		},
+		level: { type: Types.Text, label:'Niveau', required: true, initial:true},
 	},
-	{ heading: 'Partenaire', dependsOn: { category: ['Double', 'Mixte'] } },
+	{ heading: 'Joueur'},
+	{
+		player1: {type: Types.Name, label: 'Joueur 1', required: true, initial:true},
+		player1_email: {type: Types.Email, label: 'Joueur 1 mail', required: true, initial:true},
+		player1_licence: {type: Types.Number, label: 'Joueur 1 N° Licence', required: true, initial:true},
+	},
+	{ heading: 'Partenaire', dependsOn: { category: ['DH', 'DD', 'DMx'] } },
 	{
 		player2: {type: Types.Name, label:'Joueur 2'},
 		player2_email: {type: Types.Email, label: 'Joueur 2 mail'},

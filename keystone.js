@@ -37,6 +37,8 @@ keystone.init({
 	'user model': 'User',
 
 	'wysiwyg images': true,
+
+	'signin redirect' : '/'
 });
 
 // Load your project's Models
@@ -102,6 +104,10 @@ keystone.set('email rules', [{
 }, {
 	find: '/keystone/',
 	replace: (keystone.get('env') == 'production') ? 'http://www.your-server.com/keystone/' : 'http://localhost:3000/keystone/'
+},
+{
+	find: '/#',
+	replace: (keystone.get('env') == 'production') ? 'http://www.your-server.com/#' : 'http://localhost:3000/#'
 }]);
 
 keystone.Email.defaults.templateExt =  'swig';
@@ -117,10 +123,18 @@ keystone.set('email tests', require('./routes/emails'));
 keystone.set('nav', {
 	'Actualités': ['posts', 'post-categories'],
 	'Photos': 'galleries',
-	'Demandes': 'enquiries',
+	'Demandes': ['tournaments','enquiries'],
 	'Club': ['teams', 'players','matches'],
 	'Utilisateurs': 'users'
 });
+
+keystone.post('signin', signinWithUser);
+
+function signinWithUser(user, callback) {
+	if(!user.isValid){
+		callback({message: 'Your account is not yet validated by an administrator'});
+	}
+}
 
 // Start Keystone to connect to your database and initialise the web server
 

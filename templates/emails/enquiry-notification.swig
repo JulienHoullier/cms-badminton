@@ -1,7 +1,7 @@
 {% extends "../layouts/mail.swig" %}
 
 {% block content %}
-	<h1>Bonjour {{ first_name }}</h1>,
+	<p>Bonjour {{ first_name }},</p>
 	<p class="text-larger">Une demande a été postée sur le site {{ brand }}:</p>
 	{% if enquiry.name.full or enquiry.email %}
 		<p class="text-larger">Par
@@ -22,6 +22,6 @@
 	{% if enquiry.message %}
 		{{ enquiry.message.html | safe }}
 	{% endif %}
-	<p class="text-muted">Sent {{ enquiry._.createdAt.format() }}</p>
+	<p class="text-muted">Envoyé le {{ enquiry._.createdAt.format() }}</p>
 	<p><a href="/keystone/enquiries/{{ enquiry.id }}">Accéder à l'Admin</a></p>
 {% endblock %}

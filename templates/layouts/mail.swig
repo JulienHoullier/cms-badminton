@@ -19,18 +19,6 @@
                 <td align="center">
                     <table  cellpadding="0" cellspacing="0" border="0">
                         <tbody>                            
-                            <tr>
-                                <td class="w640"  width="640" height="10"></td>
-                            </tr>
-
-                            <tr>
-                                <td align="center" class="w640"  width="640" height="20"> <a style="color:{{theme.link_color}}; font-size:12px;" href="#"><span style="color:{{theme.link_color}}; font-size:12px;">Voir le contenu de ce mail en ligne</span></a> </td>
-                            </tr>
-                            <tr>
-                                <td class="w640"  width="640" height="10"></td>
-                            </tr>
-
-
                             <!-- entete -->
                             <tr class="pagetoplogo">
                                 <td class="w640"  width="640">
@@ -39,9 +27,10 @@
                                             <tr>
                                                 <td class="w30"  width="30"></td>
                                                 <td  class="w580"  width="580" valign="middle" align="left">
-                                                    <div class="pagetoplogo-content">
-                                                        <img class="w580" style="text-decoration: none; display: block; color:#476688; font-size:30px; margin-top:10px; margin-bottom:10px;" src="{{logo_src}}" alt="Mon Logo" width="{{logo_width}}" height="{{logo_height}}"/>
-                                                    </div>
+                                                        <img class="w580" style="text-decoration: none; color:#476688; font-size:30px; margin-top:10px; margin-bottom:10px; float:left" src="{{logo_src}}" alt="Mon Logo" width="{{logo_width}}" height="{{logo_height}}"/>
+                                                    	<h2 style="color:white; font-size:22px; padding-top:12px; padding-left:130px">
+															{{subject}}
+														</h2>
                                                 </td> 
                                                 <td class="w30"  width="30"></td>
                                             </tr>
@@ -68,10 +57,6 @@
                                                         <tbody>                                                            
                                                             <tr>
                                                                 <td class="w580"  width="580">
-                                                                    <h2 style="color:#0E7693; font-size:22px; padding-top:12px;">
-                                                                        {{subject}}
-																	</h2>
-
                                                                     <div align="left" class="article-content">
                                                                         {%- block content -%}{%- endblock -%}
                                                                     </div>
@@ -104,8 +89,10 @@
                                             <tr>
                                                 <td class="w30"  width="30"></td>
                                                 <td class="w580"  width="580" valign="top">
-                                                    <p align="right" class="pagebottom-content-left">
-                                                        <a style="color:#255D5C;" href="http://occ-badminton.org"><span style="color:#255D5C;">http://occ-badminton.org</span></a>
+                                                    <p align="middle" class="pagebottom-content-left">
+                                                        <a style="color:#255D5C;" href="/#"><span style="color:#255D5C;">Accéder au site</span></a>
+                                                         - 
+                                                        <a style="color:#255D5C;" href="mailto:contact@occ-badminton.org"><span style="color:#255D5C;">Contact</span></a>
                                                     </p>
                                                 </td>
 

@@ -9,7 +9,7 @@ var Types = keystone.Field.Types;
 var Team = new keystone.List('Team', {
 	map: { name: 'name' },
 	label: 'Equipes',
-	drilldown: 'captain players'
+	drilldown: 'captain'
 });
 
 Team.add({
