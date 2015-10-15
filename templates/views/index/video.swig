@@ -1,6 +1,6 @@
-<div>
+<div class="occ-section-social">
 	<h2>
-		<img src="/images/video.png">
+		<img src="/images/video.png" class="occ-section-img">
 		Comment ... ?
 	</h2>
 	<div class="embed-responsive embed-responsive-4by3">

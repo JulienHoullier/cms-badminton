@@ -47,6 +47,13 @@
 					<td width="5%" class="text-left">?</td>
 					<td class="text-right" width="40%">REC 4</td>
 				</tr>
+				<tr>
+					<td width="10%"><img src="/images/good.png"></td>
+					<td width="40%" class="text-left">Equipe H</td>
+					<td class="text-right" width="5%">?</td>
+					<td width="5%" class="text-left">?</td>
+					<td class="text-right" width="40%">CPB 1</td>
+				</tr>
 			</table>
 		{% endif %}
 	</div>
