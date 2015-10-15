@@ -1,68 +1,124 @@
-#occ-last-news-title{
- p{
-	padding: 10px;
- }
-} 
-
-.occ-title-panel{
-	margin: 10px 0 20px 0;
+article {
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	padding: 5px;
+	height: 350px;
 }
 
-.occ-title-string{
-	height:1px;
-	background-color:@gray-light;
+.articleHead{
+	text-align: center;
+	font-weight: bold;
+	font-size: 36px;
+	color: #444;
 }
 
-.occ-title-text {
-	text-align:center;
-	color: @gray-light
+.articleDateXs{
+	color: @theme-color;
 }
 
-.occ-panel {
-	background-image : url('/images/bg-news.png');
-	padding : 15px;
-}
+.articleDate{
+	color: @theme-color;
+	background-color: #fff;
+	padding: 3px 5px 5px 3px;
+	font-weight: 900;
+	position: absolute;
+	left:0px;
+	z-index: 1;
+	opacity: 0.9;
 
-.occ-last-news-panel {
-	background-color: @global-bg-color;
-	height:380px;
-	padding: 30px;
+	.day{
+		font-size: 40px;	
+	}
 
-	blockquote {
-		max-height:200px;
-		overflow-y:hidden;
+	.month{
+		font-size: 24px;	
+		text-transform: uppercase;
+	}
+
+	.year{
+		font-size: 18px;	
 	}
 }
 
-.occ-last-news {
-	background-color: @global-bg-color;
-	margin-bottom: 20px;
-	padding-bottom: 15px;
+
+.articleContent{
+	padding-right: 20px;
 }
 
-.occ-teams-news {
-	background-color: @global-bg-color;
-	margin-bottom: 20px;
-	padding-bottom: 15px;
-}
 
-.occ-bad-news {
-	background-color: @global-bg-color;
-	margin-bottom: 20px;
-	padding-bottom: 15px;
-}
+section {
+	box-shadow: 3px 3px 6px 5px #c0c0c0;
+	border-left: 48px @theme-color solid;
 
-.occ-ffbad{
-	height : 410px;
-	overflow: auto;
-}
-
-.occ-last-result {
-	background-color : white;
-	color:fireBrick;
-	padding : 10px;
-
-	h4 {
-		margin-top: 5px;
+	h2 {
+		color: @theme-color;
+		margin-left: -44px;
+		padding-top: 5px;
 	}
+
+	a{
+		color: @theme-color;
+		text-decoration: underline;
+	}
+}
+
+.occ-section-social{
+	h2 {
+		background-color: @theme-color;
+		color: #fff;
+		padding: 4px;
+		border-radius: 30px;
+	}
+}
+
+#newsCarousel{
+	padding-bottom: 20px;
+}
+
+.occ-section-img{
+	width: 40px;
+	height: 40px;
+	margin-right:15px
+}
+
+.occ-section-link{
+	padding-bottom: 32px;
+}
+
+//surcharge carousel
+.carousel-control{
+	width: 5%;
+	top: 56px;
+	bottom: 20px;
+
+	&.right, &.left{
+		background-image: none;
+	}
+}
+
+.voirplus{
+	width: 16px;
+	height: 16px;
+}
+
+.occ-section-social{
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.occ-section-little{
+	height: 225px;
+	font-weight: bold;
+}
+
+.occ-section-tournois{
+	height: 225px;
+}
+
+.occ-no-element{
+	font-weight: bold;
+	text-align: center;
+	width: 100%;
+	margin-bottom: 20px;
 }

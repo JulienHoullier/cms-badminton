@@ -14,7 +14,7 @@
 			    <ol class="carousel-indicators">
 			    {% for post in lastPosts %}
 			    	{% set linkClass = '' %}
-					{% if loop.first %}					
+					{% if loop.first %}
 						{% set linkClass = 'class="active"' %}
 					{% endif %}
 			      <li data-target="#occ-last-news-carousel" data-slide-to="{{ loop.index0 }}" {{ linkClass | safe }}></li>
@@ -108,5 +108,5 @@
 					<img class="img-responsive media-object" src="{{post._.image.fit(250,200) }}">
 				</div>
 			{% endif %}
-		</div>					
+		</div>
 {%- endmacro -%}

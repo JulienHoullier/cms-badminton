@@ -1,19 +1,18 @@
 {% import "../mixins/flash-messages.swig" as FlashMessages %}
 
 <!doctype html>
-<html>
+<html xml:lang="fr-fr" lang="fr-fr">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-
 		<title>{{ title|default("OCC-Badminton") }}</title>
 		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
 		{# Customise the stylesheet for your site by editing /public/styles/site.less
 		//- All .less files will be automatically compiled and minified in production. #}
 		<link href="/styles/site.min.css" rel="stylesheet">
-
+		<link href='https://fonts.googleapis.com/css?family=Roboto:300' rel='stylesheet' type='text/css'>
 		{# This file provides the default styling for the KeystoneJS Content Editor #}
 		{%- if user and user.canAccessKeystone -%}
 			<link href="/keystone/styles/content/editor.min.css" rel="stylesheet">
@@ -39,8 +38,8 @@
 			<div id="occ-header-flag" class="container visible-md visible-lg">
 				<img src="/images/occ-logo.png" alt="" id="occ-logo">
 			</div>
-		</header>	
-			
+		</header>
+
 		<div id="occ-navbar" class="occ-bg" data-spy="affix" data-offset-top="197">
 				<nav class="navbar navbar-default container" id="occ-header-nav">
 					<div class="navbar-header">
@@ -109,9 +108,7 @@
 				<div id="occ-sponsor-bar" class="slideshow">
 					<ul>
 					{% for sponsor in sponsors %}
-					
 						<li><a href="{{sponsor.url}}" class="thumbnail"><img src="{{sponsor.img_url}}" alt="" width="140" height="140" /></a></li>
-						
 					{% endfor %}
 					</ul>
 				</div>
