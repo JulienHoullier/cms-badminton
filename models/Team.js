@@ -28,20 +28,53 @@ Team.relationship({ ref: 'Player', path: 'players', refPath: 'team', label:'Joue
 Team.schema.pre('save', function(next) {
 	if(this.isNew){
 		var team = this;
-		
 		var PostCategory = keystone.list('PostCategory');
-		PostCategory.model.findOne({name : team.name}, function (err, category){
-			if(err){
-				console.log(err);
-			}
-			else if(!category) {
-				console.log('category: ' + category);
+		findCategory(team, function(category){
+			if(!category) {
+				category = new PostCategory.model({name: team.name});
 				category.save();
 			}
 		});
+		this.wasNew = true;
 	}
 	next();
 });
+
+Team.schema.post('save', function() {
+	if(this.wasNew) {
+		var team = this;
+		
+		var Player = keystone.list('Player');
+		Player.model.findById(this.captain).populate('interests').exec(function(err, captain){
+			if(err){
+				return console.log(err);
+			}
+			captain.team = team;
+
+			findCategory(team, function(category){
+				if(category){
+					var interests = captain.interests ? captain.interests : new Array();
+					
+					if (interests.indexOf(category.name) == -1) {
+						interests.push(category);
+						captain.interests = interests;
+					}
+				}
+				captain.save();
+			});
+		});
+	}
+});
+
+var findCategory = function(team, callback){
+	var PostCategory = keystone.list('PostCategory');
+	PostCategory.model.findOne({name : team.name}, function (err, category){
+		if(err){
+			return console.log(err);
+		}
+		callback(category);
+	});
+}
 
 Team.defaultColumns = 'name, order, captain';
 Team.register();

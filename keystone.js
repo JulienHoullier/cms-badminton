@@ -128,13 +128,13 @@ keystone.set('nav', {
 	'Utilisateurs': 'users'
 });
 
-keystone.post('signin', signinWithUser);
-
-function signinWithUser(user, callback) {
-	if(!user.isValid){
-		callback({message: 'Your account is not yet validated by an administrator'});
+keystone.post('signin', function (callback) {
+	//user is passed as context
+	if(!this.isValid){
+		return callback({message: 'Your account is not yet validated by an administrator'});
 	}
-}
+	callback();
+});
 
 // Start Keystone to connect to your database and initialise the web server
 
