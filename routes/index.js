@@ -42,6 +42,7 @@ exports = module.exports = function(app) {
 	app.get('/pages/:page', routes.views.page);
 	app.get('/gallery', routes.views.gallery);
 	app.get('/player', middleware.requireUser, routes.views.player);
+	app.get('/results', routes.views.resultat)
 	app.all('/contact', routes.views.contact);
 	
 };

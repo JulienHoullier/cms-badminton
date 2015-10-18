@@ -48,26 +48,7 @@ exports = module.exports = function(req, res) {
         });
     });
 
-    // view.on('render', function(next){
-
-        //TODO
-        //Transformer cette boucle en une requête mongoose
-        //à voir avec la fonction aggregate
-        //Permet de récupérer le dernier résultat de chaque équipe.
-    //     locals.lastResults = [];
-    //     for(team in locals.teams){
-    //         var teamId = locals.teams[team]._id;
-    //         var teamMatches = locals.matches[teamId];
-    //         locals.lastResults[teamId] = [];
-    //         if(teamMatches){
-    //             for(var i=teamMatches.length-1; i>=0; i--){
-    //                 if(teamMatches[i].occResult && teamMatches[i].versusResult){
-    //                     locals.lastResults[teamId] = teamMatches[i];
-    //                     break;
-    //                 }
-    //             }
-    //         }
-    //     }
+    
 
     // 	var hasBeanCalled  = false;
     // 	ffbadnews(function(err,data){
