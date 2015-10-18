@@ -1,8 +1,8 @@
 /**
  * This file contains the common middleware used by your routes.
- * 
+ *
  * Extend or replace these functions as your application requires.
- * 
+ *
  * This structure is not enforced, and just a starting point. If
  * you have more middleware you may want to group it as separate
  * modules in your project's /lib directory.
@@ -16,29 +16,30 @@ var Page = keystone.list('Page');
 
 /**
 	Initialises the standard view locals
-	
+
 	The included layout depends on the navLinks array to generate
 	the navigation in the header, you may wish to change this array
 	or replace it with your own templates / logic.
 */
 exports.initLocals = function(req, res, next) {
-	
+
 	var locals = res.locals;
-	
+
 		locals.navLinks = [
 		{ label: 'Accueil',		 key: 'home',		href: '/' },
 		{ label: 'Actualités',	 key: 'blog',		href: '/blog' },
 		{ label: 'Photos',		 key: 'gallery',	href: '/gallery' }
+
 	];
 
 	//add link to connected users
 	if(req.user){
-		locals.navLinks.push({ label: 'Joueurs',		key: 'player',		href: '/player' });
+		locals.navLinks.push({ label: 'Joueurs',        key: 'player',      href: '/player' });
 	}
-		
+
 	//store user to access it in the web page
 	locals.user = req.user;
-	
+
 	Page.model.find().exec(function(err, results) {
 		if(results){
 
@@ -56,7 +57,6 @@ exports.initLocals = function(req, res, next) {
 						}
 					}
 					pageArray = divers.pages;
-
 				}
 
 				pageArray.push(
@@ -73,6 +73,7 @@ exports.initLocals = function(req, res, next) {
 
 		next(err);
 	});
+
 };
 
 
@@ -106,7 +107,7 @@ exports.flashMessages = function(req, res, next) {
 	
 	res.locals.messages = _.any(flashMessages, function(msgs) { return msgs.length; }) ? flashMessages : false;
 	
-	next();	
+	next(); 
 };
 
 

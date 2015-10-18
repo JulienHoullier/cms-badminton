@@ -1,189 +1,124 @@
-#occ-last-news-title{
- p{
-	padding: 10px;
- }
-} 
-
-.occ-title-panel{
-	margin: 10px 0 20px 0;
+article {
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	padding: 5px;
+	height: 350px;
 }
 
-.occ-title-string{
-	height:1px;
-	background-color:@gray-light;
+.articleHead{
+	text-align: center;
+	font-weight: bold;
+	font-size: 36px;
+	color: #444;
 }
 
-.occ-title-text {
-	text-align:center;
-	color: @gray-light
+.articleDateXs{
+	color: @theme-color;
 }
 
-.occ-panel {
-	background-image : url('/images/bg-news.png');
-	padding : 15px;
-}
+.articleDate{
+	color: @theme-color;
+	background-color: #fff;
+	padding: 3px 5px 5px 3px;
+	font-weight: 900;
+	position: absolute;
+	left:0px;
+	z-index: 1;
+	opacity: 0.9;
 
-.occ-last-news-panel {
-	background-color: @global-bg-color;
-	height:380px;
-	padding: 30px;
+	.day{
+		font-size: 40px;	
+	}
 
-	blockquote {
-		max-height:200px;
-		overflow-y:hidden;
+	.month{
+		font-size: 24px;	
+		text-transform: uppercase;
+	}
+
+	.year{
+		font-size: 18px;	
 	}
 }
 
-.occ-last-news {
-	background-color: @global-bg-color;
-	margin-bottom: 20px;
-	padding-bottom: 15px;
+.articleContent{
+	padding-right: 20px;
+	max-height: 200px;
 }
 
-.occ-teams-news {
-	background-color: @global-bg-color;
-	margin-bottom: 20px;
-	padding-bottom: 15px;
-}
 
-.occ-bad-news {
-	background-color: @global-bg-color;
-	margin-bottom: 20px;
-	padding-bottom: 15px;
-}
+section {
+	box-shadow: 3px 3px 6px 5px #c0c0c0;
+	border-left: 48px @theme-color solid;
 
-.occ-ffbad{
-	height : 410px;
-	overflow: auto;
-}
+	h2 {
+		color: @theme-color;
+		margin-left: -44px;
+		padding-top: 5px;
+	}
 
-.occ-last-result {
-	background-color : white;
-	color:fireBrick;
-	padding : 10px;
-
-	h4 {
-		margin-top: 5px;
+	a{
+		color: @theme-color;
+		text-decoration: underline;
 	}
 }
 
-.occ-last-match-result{
-    border-radius: 8px;
-    min-height: 60px;
-    margin-bottom: 10px;
-
-    h4{
-       line-height: 40px;
-    }
+.occ-section-social{
+	h2 {
+		background-color: @theme-color;
+		color: #fff;
+		padding: 4px;
+		border-radius: 30px;
+	}
 }
 
-.occ-last-Win{
-    background-color: #d0e9c6;
+#newsCarousel{
+	padding-bottom: 20px;
 }
 
-.occ-last-Loose{
-    background-color: #ebcccc;
+.occ-section-img{
+	width: 40px;
+	height: 40px;
+	margin-right:15px
 }
 
-.occ-last-{
-    background-color: white;
+.occ-section-link{
+	padding-bottom: 32px;
 }
 
-.occ-team-list{
-    border-bottom: 0px;
-    list-style: none;
-    padding-left: 0;
-    padding-right: 0px;
+//surcharge carousel
+.carousel-control{
+	width: 5%;
+	top: 56px;
+	bottom: 20px;
 
-    li{
-
-        list-style: none;
-
-        margin: auto;
-        display: inline;
-        margin: 2px;
-        a{
-            font-weight: bold;
-            padding: 10px;
-            padding-left: 20px;
-            padding-right:20px;
-            background-color: #e72f29;
-            text-transform: uppercase;
-            text-decoration: none;
-            color:white;
-            display: inline-block;
-            width: 20%;
-            height:36px;
-            min-width: 115px;
-            line-height: 16px;
-        }
-    }
-}
-.occ-container-team-list{
-    display: block;
-    text-align: center;
-    margin-top: 20px;
+	&.right, &.left{
+		background-image: none;
+	}
 }
 
-.occ-team-list>li.active{
-    a{
-        background-color: white;
-        color : black;
-    }
+.voirplus{
+	width: 16px;
+	height: 16px;
 }
 
-.occ-team-list li:first-child a {
-  border-top-left-radius: 30px;
-  border-bottom-left-radius: 30px;
+.occ-section-social{
+	margin-top: 15px;
+	margin-bottom: 15px;
 }
 
-.occ-team-list li:last-child a {
-  border-top-right-radius: 30px;
-  border-bottom-right-radius: 30px;
+.occ-section-little{
+	height: 225px;
+	font-weight: bold;
 }
 
-.occ-detail-list-container{
-    padding-left: 0px;
-    padding-right: 0px;
-    margin-top: 20px;
+.occ-section-tournois{
+	height: 225px;
 }
 
-.occ-detailResult{
-    list-style: none;
-    margin: auto;
-    text-align: center;
-    border-bottom: 0px;
-
-    li{
-        list-style: none;
-        width: 12%;
-        margin: auto;
-        display: inline;
-        padding: 2px;
-        margin: 1px;
-    }
-}
-
-.occ-detailResult li:first-child{
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
-}
-
-.occ-detailResult li:last-child{
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-}
-
-.rencontresList{
-    margin-top: 0px;
-    -webkit-transition: all 0.25s ease-in-out;
-    -moz-transition: all 0.25s ease-in-out;
-    -o-transition: all 0.25s ease-in-out;
-    transition: all 0.25s ease-in-out;
-    transition-timing-function: linear;
-}
-
-.occ-results-matches-container{
-    max-height: 185px;
-    overflow-y: hidden;
+.occ-no-element{
+	font-weight: bold;
+	text-align: center;
+	width: 100%;
+	margin-bottom: 20px;
 }

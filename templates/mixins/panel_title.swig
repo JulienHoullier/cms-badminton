@@ -1,9 +1,7 @@
 {%- macro renderTitle(title) -%}
 	<div class="occ-title-panel">
-		<div class="occ-title-string"></div>
 		<div class="occ-title-text">
-			<span class="h1">{{title}}</span>
+			<h1>{{title}}</h1>
 		</div>
-		<div class="occ-title-string"></div>
 	</div>
 {%- endmacro -%}
