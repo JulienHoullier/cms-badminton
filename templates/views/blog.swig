@@ -13,7 +13,7 @@
 			<h4 class="text-caps text-danger">{{ post.title }}</h4>
 			<h6>{{post._.publishedDate.format('DD/MM/YYYY')}}</h6>
 			{% if post.categories and post.categories.length %}
-			<br>in
+			<br>catégories :
 				{% for cat in post.categories %}
 					<a href="/blog/{{ cat.key }}">{{ cat.name }}</a>
 					{% if loop.index < post.categories.length - 1 %}, {% endif %}
@@ -22,7 +22,7 @@
 			<p>{{ post.content.brief | safe }}</p>
 			{% if post.content.extended %}
 				<p class="read-more">
-					<a href="/blog/post/{{ post.slug }}">Read more...</a>
+					<a href="/blog/post/{{ post.slug }}">Lire plus...</a>
 				</p>
 			{% endif %}
 		</div>
