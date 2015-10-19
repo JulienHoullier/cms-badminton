@@ -21,7 +21,7 @@ exports.create = {
 		{ 'name.first': 'Séverine', 'name.last': 'Baudais', email: 'philseve.baudais@sfr.fr ', licence: '00265394', type: 'competitor', timeSlot: 'monday_middle' },
 		{ 'name.first': 'Alexandra', 'name.last': 'Billiard', email: '*****', licence: '06924344', type: 'competitor', timeSlot: 'monday_middle' },
 		{ 'name.first': 'Morgane', 'name.last': 'Dussart', email: '*****', licence: '00521437', type: 'competitor', timeSlot: 'wednesday_strong' },
-		{ 'name.first': 'Thomas', 'name.last': 'GESLIN', email: '*****', licence: '06464668', type: 'competitor', timeSlot: 'wednesday_strong' },
+		{ 'name.first': 'Thomas', 'name.last': 'Geslin', email: '*****', licence: '06464668', type: 'competitor', timeSlot: 'wednesday_strong' },
 		{ 'name.first': 'Fabien', 'name.last': 'Juguet', email: 'fabjug@hotmail.com', licence: '06791613', type: 'competitor', timeSlot: 'wednesday_strong' }
 	]
 };

@@ -10,9 +10,14 @@
 		{% if lastResults %}
 			<table class="table table-striped">
 				{% for result in lastResults %}
-					{% set %}
+					{% set img = 'good' %}
+					{% if result.occResult == result.versusResult %}
+						{% set img = 'neutral' %}
+					{% elseif result.occResult < result.versusResult %}
+						{% set img = 'sad' %}
+					{% endif %}
 					<tr>
-						<td width="10%"><img src="/images/good.png"></td>
+						<td width="10%"><img src="/images/{{img}}.png"></td>
 						<td width="40%" class="text-left">{{ result.team.name }}</td>
 						<td class="text-right" width="5%">{{ result.occResult }}</td>
 						<td width="5%" class="text-left">{{ result.versusResult }}</td>
