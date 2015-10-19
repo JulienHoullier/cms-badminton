@@ -59,11 +59,11 @@
 									{%- set linkClass = 'active' -%}
 								{%- endif %}
 								{%- if link.href -%}
-									<li class="{{link.key}} {{ linkClass | safe }}">
+									<li class="linkMenu {{ linkClass | safe }}">
 										<a href="{{ link.href }}">{{ link.label }}</a>
 									</li>
 								{%- else -%}
-									<li class="dropdown {{link.key}} {{ linkClass | safe }}">
+									<li class="dropdown linkMenu {{ linkClass | safe }}">
 							          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ link.label }} <span class="caret"></span></a>
 							          <ul class="dropdown-menu">
 							          	{%- for page in link.pages -%}
