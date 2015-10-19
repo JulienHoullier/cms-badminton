@@ -29,7 +29,7 @@ exports.initLocals = function(req, res, next) {
 		{ label: 'Accueil',		 key: 'home',		href: '/' },
 		{ label: 'Actualités',	 key: 'blog',		href: '/blog' },
 		{ label: 'Photos',		 key: 'gallery',	href: '/gallery' },
-		{ label: 'Résultats',	 key: 'results',	href: '/results' }
+		{ label: 'Résultats',	 key: 'results',	href: '/resultats' }
 
 	];
 
@@ -69,12 +69,11 @@ exports.initLocals = function(req, res, next) {
 			});
 		}
 
+		//Contact is the last link
+		locals.navLinks.push({ label: 'Contact',		key: 'contact',		href: '/contact' });
+
 		next(err);
 	});
-	
-	//Contact is the last link
-	locals.navLinks.push({ label: 'Contact',		key: 'contact',		href: '/contact' });
-
 };
 
 

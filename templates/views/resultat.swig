@@ -2,7 +2,8 @@
 {% extends "../layouts/default.swig" %}
 
 {% block content %}
-    <div class="occ-teams-news container">
+
+    <div class="container occ-bg">
 		{{ PanelTitle.renderTitle('Résultats équipes') }}
 
         <div class="col-lg-12">
@@ -206,7 +207,6 @@
 
                 //au click sur suivant
                 $('#nextResults{{loop.index}}').click(_.throttle(function(){
-                    console.log(i{{loop.index}});
                     if(i{{loop.index}}+1 <= rowNumber{{loop.index}}){
                         var currentMargin = parseInt($('#rencontresList{{loop.index}}').css('margin-top').replace("px", ""))-rowHeight;
                         $('#rencontresList{{loop.index}}').css('margin-top',currentMargin+'px');
@@ -217,7 +217,6 @@
 
                 //au click sur précédent
                 $('#previousResults{{loop.index}}').click(_.throttle(function(){
-                    console.log(i{{loop.index}});
                     if(i{{loop.index}}-1 >= 0){
                         var currentMargin = parseInt($('#rencontresList{{loop.index}}').css('margin-top').replace("px", ""))+rowHeight;
                         $('#rencontresList{{loop.index}}').css('margin-top',currentMargin+'px');
