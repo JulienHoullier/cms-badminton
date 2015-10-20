@@ -1,29 +1,28 @@
-article {
+.occ-article {
 	background-color: #fff;
 	border: 1px solid #ddd;
-	border-radius: 4px;
 	padding: 5px;
 	height: 350px;
 }
 
-.articleHead{
+.occ-article-head{
 	text-align: center;
 	font-weight: bold;
 	font-size: 36px;
 	color: #444;
 }
 
-.articleDateXs{
+.occ-article-date-xs{
 	color: @theme-color;
 }
 
-.articleDate{
+.occ-article-date{
 	color: @theme-color;
 	background-color: #fff;
 	padding: 3px 5px 5px 3px;
 	font-weight: 900;
 	position: absolute;
-	left:0px;
+	top: 0;
 	z-index: 1;
 	opacity: 0.9;
 
@@ -41,13 +40,14 @@ article {
 	}
 }
 
-.articleContent{
+.occ-article-content{
 	padding-right: 20px;
 	max-height: 200px;
+	overflow-y:hidden;
 }
 
 
-section {
+.occ-section {
 	box-shadow: 3px 3px 6px 5px #c0c0c0;
 	border-left: 48px @theme-color solid;
 
@@ -63,14 +63,7 @@ section {
 	}
 }
 
-.occ-section-social{
-	h2 {
-		background-color: @theme-color;
-		color: #fff;
-		padding: 4px;
-		border-radius: 30px;
-	}
-}
+
 
 #newsCarousel{
 	padding-bottom: 20px;
@@ -105,6 +98,12 @@ section {
 .occ-section-social{
 	margin-top: 15px;
 	margin-bottom: 15px;
+	h2 {
+		background-color: @theme-color;
+		color: #fff;
+		padding: 4px;
+		border-radius: 30px;
+	}
 }
 
 .occ-section-little{

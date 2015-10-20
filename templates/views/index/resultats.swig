@@ -1,4 +1,4 @@
-<section>
+<section class="occ-section">
 	<h2>
 		<img src="/images/resultats.png" class="occ-section-img">
 		Derniers résultats

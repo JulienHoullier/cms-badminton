@@ -1,4 +1,4 @@
-<section id="newsCarousel" class="carousel slide" data-ride="carousel">
+<section id="newsCarousel" class="carousel slide occ-section" data-ride="carousel">
 	<h2>
 		<img src="/images/shuttlecock.png" class="occ-section-img">
 		Dernières actus
@@ -24,10 +24,10 @@
 					{% if loop.first %}
 						{% set activeClass = 'active' %}
 					{% endif %}
-			<article class="item {{ activeClass }}">
+			<article class="occ-article item {{ activeClass }}">
 
 				<div class="row">
-					<div class="articleDate visible-md-block visible-lg-block">
+					<div class="occ-article-date visible-md-block visible-lg-block">
 						<div class="day">{{ article.publishedDate.toString().split(' ')[2] }}</div>
 						<div class="month">{{ article.publishedDate.toString().split(' ')[1] }}</div>
 						<div class="year">{{ article.publishedDate.toString().split(' ')[3] }}</div>
@@ -43,23 +43,21 @@
 					</div>
 
 					<div class="col-md-5">
-						<h3 class="articleHead">
+						<h3 class="occ-article-head">
 							{{ article.title }}
 						</h3>
 
-						<div class="articleContent">
+						<div class="occ-article-content">
 							{{ article.content.brief | safe}}
+							<p class="text-right">
+								<a href="/blog/post/{{ article.slug }}">Lire plus...</a>
+							</p>
 						</div>
 
-						<span class="visible-xs-inline visible-sm-inline articleDateXs">
+						<span class="visible-xs-inline visible-sm-inline occ-article-date-xs">
 							Le {{ article.publishedDate.toString().split(' ')[2] }} {{ article.publishedDate.toString().split(' ')[1] }} {{ article.publishedDate.toString().split(' ')[3] }}
 						</span>
-
-						<p class="text-right articleContent">
-							<a href="/blog/post/{{ article.slug }}">Lire plus...</a>
-						</p>
 					</div>
-
 				</div>
 			</article>
 		{% endfor %}

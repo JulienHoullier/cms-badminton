@@ -1,8 +1,7 @@
 {% extends "../layouts/default.swig" %}
+{% import "../mixins/panel_title.swig" as PanelTitle %}
 
 {% macro showPost(post, index, first) %}
-	
-
 	{% set className = "timeline-item--even" %}
 	{% if index % 2 == 1 %}
 		{% set className = "timeline-item--odd" %}
@@ -10,29 +9,49 @@
 	<div class="timeline-item {{className}}">
 		<div class="timeline-item-node"></div>
 		<div class="timeline-item-inner">
-			<h4 class="text-caps text-danger">{{ post.title }}</h4>
-			<h6>{{post._.publishedDate.format('DD/MM/YYYY')}}</h6>
-			{% if post.categories and post.categories.length %}
-			<br>catégories :
-				{% for cat in post.categories %}
-					<a href="/blog/{{ cat.key }}">{{ cat.name }}</a>
-					{% if loop.index < post.categories.length - 1 %}, {% endif %}
-				{% endfor %}
-			{% endif %}
-			<p>{{ post.content.brief | safe }}</p>
-			{% if post.content.extended %}
-				<p class="read-more">
-					<a href="/blog/post/{{ post.slug }}">Lire plus...</a>
-				</p>
-			{% endif %}
+			<div class="row">
+					<div class="articleDate visible-md-block visible-lg-block">
+						<div class="day">{{ post.publishedDate.toString().split(' ')[2] }}</div>
+						<div class="month">{{ post.publishedDate.toString().split(' ')[1] }}</div>
+						<div class="year">{{ post.publishedDate.toString().split(' ')[3] }}</div>
+					</div>
+
+					<div class="col-md-7">
+						{% set urlImg = '/images/defaultnews.jpg' %}
+						{% if post.image.exists %}
+							{% set urlImg = post.image.url %}
+						{% endif %}
+
+						<img src="{{ urlImg }}" class="visible-md-block visible-lg-block img-responsive">
+					</div>
+
+					<div class="col-md-5">
+						<h3 class="articleHead">
+							{{ post.title }}
+						</h3>
+
+						<div class="articleContent">
+							{{ post.content.brief | safe}}
+						</div>
+
+						<span class="visible-xs-inline visible-sm-inline articleDateXs">
+							Le {{ post.publishedDate.toString().split(' ')[2] }} {{ post.publishedDate.toString().split(' ')[1] }} {{ post.publishedDate.toString().split(' ')[3] }}
+						</span>
+
+						<p class="text-right articleContent">
+							<a href="/blog/post/{{ post.slug }}">Lire plus...</a>
+						</p>
+					</div>
+
+				</div>
 		</div>
 	</div>
 {% endmacro %}
 
 {% block intro %}
-		{% set title = "Blog" %}
+	
 
-		{% if data.categories.length %}
+	{% if data.categories.length %}
 			<div class="container occ-categories">
 				<h2>Catégories</h2>
 				<div>
@@ -52,8 +71,10 @@
 		</div>
 {% endblock %}
 
+
 {% block content %}
 	<div class="container occ-blog-posts">
+		{{ PanelTitle.renderTitle('Blog') }}
 		<div class="row">
 			<div class="timeline">
 				<div class="timeline-path"></div>

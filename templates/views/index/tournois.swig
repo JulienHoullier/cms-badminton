@@ -1,4 +1,4 @@
-<section>
+<section class="occ-section">
 	<h2>
 		<img src="/images/tournament-cup2.png" class="occ-section-img">
 		Tournois
