@@ -20,31 +20,20 @@ var User = new keystone.List('User', {
 User.add({
 	name: { type: Types.Name, label:'Nom', required: true, index: true },
 	email: { type: Types.Email, label:'Email', initial: true, required: true, index: true },
-	password: { type: Types.Password, label:'Mot de passe', initial: true, required: true },
-	state:{ type: Types.Select, label:'Permissions', options: 
-		[
-			{value:'unauthorized', label:'Banni'},
-			{value:'authorized', label:'Accepté'}
-		],
-		required: true,
-		default:  'unauthorized'
-	}
+	password: { type: Types.Password, label:'Mot de passe', initial: true, required: true }
+}, 'Permissions', {
+	isAdmin: { type: Types.Boolean, label:'Administrateur' },
+	isUser: { type: Types.Boolean, label:'Utilisateur' },
+	isEditor: { type: Types.Boolean, label:'Editeur' },
+	isTournamentManager: { type: Types.Boolean, label:'Gère les tournois' },
 });
 
-var rolesType = {};
-
-_.each(roles, function(def) {
-	rolesType[def.value] = {type : Types.Boolean, label: def.label};
-});
-
-User.add('Roles', rolesType);
-
-
-// Provide access to Keystone
 User.schema.virtual('canAccessKeystone').get(function() {
-	return this.roles === 'admin';
+	return this.isAdmin; 
 });
-
+User.schema.virtual('isValid').get(function() {
+	return this.isUser || this.isEditor || this.isTournamentManager || this.isAdmin;
+});
 
 /**
  * Relationships
@@ -95,7 +84,7 @@ User.schema.methods.sendAdminNotificationEmail = function(callback) {
 				email: 'contact@occ-badminton.org'
 			},
 			subject: 'Demande d`\'inscription',
-			User: User
+			user: User
 		}, callback);
 	});
 };
@@ -121,7 +110,7 @@ User.schema.methods.sendUserNotificationEmail = function(callback) {
 				email: 'contact@occ-badminton.org'
 			},
 			subject: 'Inscription confirmée',
-			User: User
+			user: User
 		}, callback);
 };
 

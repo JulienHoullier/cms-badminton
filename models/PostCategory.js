@@ -14,6 +14,7 @@ PostCategory.add({
 	name: { type: String, label:'Nom', required: true }
 });
 
-PostCategory.relationship({ ref: 'Post', path: 'categories', label:'Catégories' });
+PostCategory.relationship({ ref: 'Post', path: 'posts', refPath: 'category', label:'Catégories' });
+PostCategory.relationship({ ref: 'Player', path: 'followers', refPath: 'interests', label:'Abonnés' });
 
 PostCategory.register();

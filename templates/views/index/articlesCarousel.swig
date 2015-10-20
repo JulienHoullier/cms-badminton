@@ -18,7 +18,7 @@
 					{% if loop.first %}
 						{% set activeClass = 'active' %}
 					{% endif %}
-			<article class="item {{ activeClass }}">
+			<article class="occ-article item {{ activeClass }}">
 				<h3 class="articleHead">
 					<img src="/images/ffbad.png" height="24" width="24">
 					{{ article.title }}

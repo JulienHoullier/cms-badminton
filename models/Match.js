@@ -17,7 +17,7 @@ Match.add({
 	date: { type: Date },
     home: { type: Types.Select, options: [
 		{ value: 'Yes', label: 'Oui' },
-		{ value: 'No', label: 'Non' },
+		{ value: 'No', label: 'Non' }
 	] },
 	location: { type: Types.Location },
     result: { type: Types.LocalFile, dest: '/data/files' },
@@ -25,22 +25,16 @@ Match.add({
     versusResult: { type: Number }
 });
 
-
-
 Match.schema.pre('save', function(next) {
-	if (!this.isNew && this.isModified('date')) {
-		this.needNofif;
-	}
+	this.needNotif = (!this.isNew && this.isModified('date'));
 	next();
 });
-
 
 Match.schema.post('save', function() {
 	if (this.needNotif) {
 		this.sendNotificationEmail();
 	}
 });
-
 
 Match.schema.methods.sendNotificationEmail = function(callback) {
 	
@@ -62,18 +56,17 @@ Match.schema.methods.sendNotificationEmail = function(callback) {
 			if (err) {
 				return callback(err);
 			}
-			new keystone.Email('Match-notification').send({
+			new keystone.Email('match-notification').send({
 				to: team.players,
 				from: {
 					name: 'OCC-Badminton',
 					email: 'contact@occ-badminton.com'
 				},
 				subject: 'Journée de championnat',
-				Match: Match
+				match: Match
 			}, callback);
 		});
 	});
-
 };
 
 Match.defaultSort = '-matchNumber';

@@ -42,6 +42,6 @@ exports = module.exports = function(app) {
 	app.get('/pages/:page', routes.views.page);
 	app.get('/gallery', routes.views.gallery);
 	app.get('/player', middleware.requireUser, routes.views.player);
-	app.all('/tournament', middleware.requireUser, routes.views.tournament);
+	app.all('/registration', middleware.requireUser, routes.views.registration);
 	
 };

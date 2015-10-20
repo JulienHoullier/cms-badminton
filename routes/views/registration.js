@@ -1,5 +1,5 @@
 var keystone = require('keystone');
-var Tournament = keystone.list('Tournament');
+var Registration = keystone.list('Registration');
 
 exports = module.exports = function(req, res) {
 	
@@ -9,23 +9,22 @@ exports = module.exports = function(req, res) {
 	// Set locals
 	locals.formData = req.body || {};
 	locals.validationErrors = {};
-	locals.enquirySubmitted = false;
+	locals.registrationSubmitted = false;
 	
 	// On POST requests, add the Enquiry item to the database
 	view.on('post', { action: 'subscribe' }, function(next) {
 		
-		var newSubcription = new Tournament.model(),
-			updater = newSubcription.getUpdateHandler(req);
+		var newRegistration = new Registration.model(),
+			updater = newRegistration.getUpdateHandler(req);
 		
 		updater.process(req.body, {
 			flashErrors: true,
-			fields: 'name, email, phone, enquiryType, message',
-			errorMessage: 'There was a problem submitting your enquiry:'
+			errorMessage: 'Il y a un problème avec votre demande d\'inscription:'
 		}, function(err) {
 			if (err) {
 				locals.validationErrors = err.errors;
 			} else {
-				locals.enquirySubmitted = true;
+				locals.registrationSubmitted = true;
 			}
 			next();
 		});

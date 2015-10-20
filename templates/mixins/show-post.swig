@@ -9,12 +9,9 @@
 		<div class="timeline-item-inner">
 			<h4 class="text-caps text-danger">{{ post.title }}</h4>
 			<h6>{{post._.publishedDate.format('DD/MM/YYYY')}}</h6>
-			{% if post.categories and post.categories.length %}
-			<br>in
-				{% for cat in post.categories %}
-					<a href="/blog/{{ cat.key }}">{{ cat.name }}</a>
-					{% if loop.index < post.categories.length - 1 %}, {% endif %}
-				{% endfor %}
+			{% if post.category %}
+			<br>Catégorie : 
+				{{ post.category.name }}
 			{% endif %}
 			<p>{{ post.content.brief | safe }}</p>
 			{% if post.content.extended %}

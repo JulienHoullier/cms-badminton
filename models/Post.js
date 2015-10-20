@@ -66,43 +66,24 @@ Post.schema.methods.sendNotificationEmail = function(callback) {
 					email: 'contact@occ-badminton.org'
 				},
 				subject: 'Info importante',
-				Post: post
+				post: post
 			}, callback);
 	};
-	
-	var sendToPlayers = function(){
-		keystone.list('Player').model.find().exec(function(err, players){
-			if(err){
-				return callback(err);
-			}
-			send(players);
-		});
-	}
-	
+
 	if(post.category){	
 		Post.model.populate(this, 'category', function (err, post) {
 
-			keystone.list('Team').model.findOne({name: post.category.name}, function (err, team) {
+			post.category.populateRelated('followers', function(err){
 				if (err) {
 					return callback(err);
 				}
-				if(!team){
-					sendToPlayers();
-				}
-				else {
-					team.populateRelated('players', function (err) {
-						if (err) { 
-							return callback(err);
-						}
-						send(team.players)
-					});
-				}
+				send(post.category.followers)
 			});
+			
 		});
 	}
 	else{
-		//no category send to whole players
-		sendToPlayers();
+		return callback({err : 'No category no mail'});//no category no send
 	}
 };
 

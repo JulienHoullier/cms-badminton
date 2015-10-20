@@ -5,6 +5,7 @@ require('dotenv').load();
 // Require keystone
 var keystone = require('keystone');
 require('keystone-nodemailer');
+
 var swig = require('swig');
 
 // Disable swig's bulit-in template caching, express handles it
@@ -37,6 +38,9 @@ keystone.init({
 	'user model': 'User',
 
 	'wysiwyg images': true,
+
+	'signin redirect' : '/'
+
 });
 
 // Load your project's Models
@@ -102,6 +106,10 @@ keystone.set('email rules', [{
 }, {
 	find: '/keystone/',
 	replace: (keystone.get('env') == 'production') ? 'http://www.your-server.com/keystone/' : 'http://localhost:3000/keystone/'
+},
+{
+	find: '/#',
+	replace: (keystone.get('env') == 'production') ? 'http://www.your-server.com/#' : 'http://localhost:3000/#'
 }]);
 
 keystone.Email.defaults.templateExt =  'swig';
@@ -119,7 +127,16 @@ keystone.set('nav', {
 	'Photos': 'galleries',
 	'Demandes': 'enquiries',
 	'Club': ['teams', 'players','matches'],
-	'Utilisateurs': 'users'
+	'Utilisateurs': 'users',
+    'Tournois' : ['tournaments', 'registrations']
+});
+
+keystone.post('signin', function (callback) {
+	//user is passed as context
+	if(!this.isValid){
+		return callback({message: 'Your account is not yet validated by an administrator'});
+	}
+	callback();
 });
 
 // Start Keystone to connect to your database and initialise the web server

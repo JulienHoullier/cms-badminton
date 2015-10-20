@@ -45,7 +45,7 @@ exports.initLocals = function(req, res, next) {
 	];
 	
 	//add link to connected users
-	if(req.user){
+	if(req.user && req.user.isValid){
 		locals.navLinks.push({ 
 			label: 'Joueurs',        
 			key: 'player',      
@@ -60,38 +60,37 @@ exports.initLocals = function(req, res, next) {
 		if(results){
 
 			var divers;
-			results.forEach(function(result){ 
+			results.forEach(function(result){
 				var pageArray;
 				if(locals.navLinks.length < 8){
 					pageArray = locals.navLinks;
 				} else{
 					if(!divers){
 						divers = {
-							label: 'Divers', 
-							key: 'divers', 
+							label: 'Divers',
+							key: 'divers',
 							pages : []
 						}
 					}
 					pageArray = divers.pages;
-					
 				}
 
 				pageArray.push(
-					{ 
+					{
 						label: result.title,
 						key: result.slug,
-						href: result.url 
+						href: result.url
 					});
 			});
 		}
 
 		//Contact is the last link
 		locals.navLinks.push({
-			label: 'Contact', 
-			key: 'contact',		
-			href: '/contact' 
+			label: 'Contact',
+			key: 'contact',
+			href: '/contact'
 		});
-		
+
 		next(err);
 	});
 };
@@ -137,10 +136,15 @@ exports.flashMessages = function(req, res, next) {
 exports.requireUser = function(req, res, next) {
 	
 	if (!req.user) {
-		req.flash('error', 'Please sign in to access this page.');
+		req.flash('error', 'Connectez-vous pour accéder à cet page');
 		res.redirect('/keystone/signin');
 	} else {
-		next();
+		if(!req.user.isValid){
+			req.flash('warn', 'Votre compte n\'est pas encore validé');
+			res.redirect('/');
+		}
+		else{
+			next();
+		}
 	}
-	
 };
