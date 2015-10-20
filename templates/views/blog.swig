@@ -2,48 +2,37 @@
 {% import "../mixins/panel_title.swig" as PanelTitle %}
 
 {% macro showPost(post, index, first) %}
-	{% set className = "timeline-item--even" %}
+	{% set className = "even" %}
 	{% if index % 2 == 1 %}
-		{% set className = "timeline-item--odd" %}
+		{% set className = "odd" %}
 	{% endif %}
-	<div class="timeline-item {{className}}">
+	<div class="timeline-item timeline-item--{{className}}">
 		<div class="timeline-item-node"></div>
 		<div class="timeline-item-inner">
-			<div class="row">
-					<div class="articleDate visible-md-block visible-lg-block">
-						<div class="day">{{ post.publishedDate.toString().split(' ')[2] }}</div>
-						<div class="month">{{ post.publishedDate.toString().split(' ')[1] }}</div>
-						<div class="year">{{ post.publishedDate.toString().split(' ')[3] }}</div>
-					</div>
-
-					<div class="col-md-7">
-						{% set urlImg = '/images/defaultnews.jpg' %}
-						{% if post.image.exists %}
-							{% set urlImg = post.image.url %}
-						{% endif %}
-
-						<img src="{{ urlImg }}" class="visible-md-block visible-lg-block img-responsive">
-					</div>
-
-					<div class="col-md-5">
-						<h3 class="articleHead">
-							{{ post.title }}
-						</h3>
-
-						<div class="articleContent">
-							{{ post.content.brief | safe}}
-						</div>
-
-						<span class="visible-xs-inline visible-sm-inline articleDateXs">
-							Le {{ post.publishedDate.toString().split(' ')[2] }} {{ post.publishedDate.toString().split(' ')[1] }} {{ post.publishedDate.toString().split(' ')[3] }}
-						</span>
-
-						<p class="text-right articleContent">
-							<a href="/blog/post/{{ post.slug }}">Lire plus...</a>
-						</p>
-					</div>
-
+			<article class="occ-article-blog">
+				<div class="occ-article-date occ-article-date-{{className}} visible-md-block visible-lg-block">
+					<div class="day">{{ post.publishedDate.toString().split(' ')[2] }}</div>
+					<div class="month">{{ post.publishedDate.toString().split(' ')[1] }}</div>
+					<div class="year">{{ post.publishedDate.toString().split(' ')[3] }}</div>
 				</div>
+
+				
+					<h2 class="occ-article-head">
+						{{ post.title }}
+					</h2>
+
+					<div class="occ-article-content">
+						{{ post.content.brief | safe}}							
+					</div>
+
+					<span class="visible-xs-inline visible-sm-inline occ-article-date-xs">
+						Le {{ post.publishedDate.toString().split(' ')[2] }} {{ post.publishedDate.toString().split(' ')[1] }} {{ post.publishedDate.toString().split(' ')[3] }}
+					</span>
+
+					<p class="text-right occ-article-content">
+						<a href="/blog/post/{{ post.slug }}">Lire plus...</a>
+					</p>				
+			</article>
 		</div>
 	</div>
 {% endmacro %}

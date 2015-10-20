@@ -49,14 +49,15 @@
 
 						<div class="occ-article-content">
 							{{ article.content.brief | safe}}
-							<p class="text-right">
-								<a href="/blog/post/{{ article.slug }}">Lire plus...</a>
-							</p>
 						</div>
 
 						<span class="visible-xs-inline visible-sm-inline occ-article-date-xs">
 							Le {{ article.publishedDate.toString().split(' ')[2] }} {{ article.publishedDate.toString().split(' ')[1] }} {{ article.publishedDate.toString().split(' ')[3] }}
 						</span>
+
+						<p class="text-right occ-article-content">
+							<a href="/blog/post/{{ post.slug }}">Lire plus...</a>
+						</p>
 					</div>
 				</div>
 			</article>
