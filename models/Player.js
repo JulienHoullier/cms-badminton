@@ -1,5 +1,6 @@
 var keystone = require('keystone');
 var Types = keystone.Field.Types;
+var utils = keystone.utils;
 
 /**
  * Player Model
@@ -50,7 +51,6 @@ Player.schema.pre('save', function(next) {
 			console.log(err);
 		}
 		if(category){
-			console.log('category on new');
 			player.interests = [category];
 		}
 		next();
@@ -59,8 +59,8 @@ Player.schema.pre('save', function(next) {
 
 //add competitor interest 
 Player.schema.pre('save', function(next) {
-
-	if(!this.type === 'competitor'){
+	//force Compétiteur only if not editing interests
+	if(!this.type === 'competitor' || (!this.isNew && this.isModified('interests'))){
 		return next();
 	}
 
@@ -71,16 +71,18 @@ Player.schema.pre('save', function(next) {
 	
 //add current team interest
 Player.schema.pre('save', function(next) {
-	if(!this.team || (!this.isNew && (!this.isModified('team') || this.isModified('interests')))) {
+	//force Team category only if not editing interests and a team if present
+	if(!this.team || (!this.isNew && this.isModified('interests'))) {
 		return next();
 	}
+
 	var player = this;
 	var Team = keystone.list('Team');
 	//find team by its id to get name
 	Team.model.findById(this.team).exec(function(err, team){
 		if(err){
 			console.log(err);
-			return next();
+			return next(err);
 		}
 		if(team){
 			//Add category of team name if exists and not present
@@ -97,18 +99,47 @@ var addCategoryIfNotPresent = function(player, categoryName, next){
 	PostCategory.model.findOne({name : categoryName}, function (err, category){
 		if(err){
 			console.log(err);
+			return next(err);
 		}
 		if(category) {
-			//add category if not present
-			var interests = player.interests ? player.interests : new Array();
-			console.log('interests: '+interests);
-			if (interests.indexOf(category.name) == -1) {
-				interests.push(category);
-				player.interests = interests;
+
+			player.populate('interests', function(err, player) {
+				if(err){
+					console.log(err);
+					return next(err);
+				}
+				//add category if not present
+				var interests = player.interests ? player.interests : new Array();
+				
+				if (!categoryAlreadyPresent(category.name, interests)) {
+					interests.push(category);
+					player.interests = interests;
+				}
+
+				return next();
+			});
+		}
+		else{
+			return next();
+		}
+		
+	});
+};
+
+var categoryAlreadyPresent = function(categoryName, interests){
+	if(utils.isObject(interests)){
+		return interests.name === categoryName;
+	}
+	if(utils.isArray(interests)){
+		var exists = false;
+		for(var i = 0; (i<interests.length && !exists); i++){
+			if(interests[i].name === categoryName){
+				exists = true;
 			}
 		}
-		return next();
-	});
+		return exists;
+	}
+	return false;
 };
 
 Player.defaultColumns = 'name, email, type, state, team';
