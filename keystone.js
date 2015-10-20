@@ -123,7 +123,7 @@ keystone.set('email tests', require('./routes/emails'));
 keystone.set('nav', {
 	'Actualités': ['posts', 'post-categories'],
 	'Photos': 'galleries',
-	'Demandes': ['tournaments','enquiries'],
+	'Demandes': ['registrations','enquiries'],
 	'Club': ['teams', 'players','matches'],
 	'Utilisateurs': 'users'
 });

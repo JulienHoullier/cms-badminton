@@ -41,14 +41,14 @@ module.exports = {
 		
 	},
 
-	'tournament-notification': function(req, res, callback) {
+	'registration-notification': function(req, res, callback) {
 
 		// To test enquiry notifications we create a dummy enquiry that
 		// is not saved to the database, but passed to the template.
 
-		var Tournament = keystone.list('Tournament');
+		var Registration = keystone.list('Registration');
 
-		var newSubscription = new Tournament.model({
+		var newRegistration = new Registration.model({
 			tournament: 'Saint Jacques le 07/11',
 			category : 'SH',
 			player1: { first: 'Julien', last: 'Houllier' },
@@ -58,7 +58,7 @@ module.exports = {
 		});
 
 		callback(null, {
-			subscription: newSubscription,
+			registration: newRegistration,
 			subject: 'Inscription Tournoi'
 		});
 	},
