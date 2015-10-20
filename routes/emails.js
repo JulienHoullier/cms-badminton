@@ -29,7 +29,7 @@ module.exports = {
 			email: 'contact@occ-badminton.com',
 			phone: '+61 2 1234 5678',
 			enquiryType: 'message',
-			message: { md: 'Nice enquiry notification.' }
+			message: { md: 'Super message de test' }
 		});
 		
 		callback(null, {

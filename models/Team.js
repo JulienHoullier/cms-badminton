@@ -50,18 +50,7 @@ Team.schema.post('save', function() {
 				return console.log(err);
 			}
 			captain.team = team;
-
-			findCategory(team, function(category){
-				if(category){
-					var interests = captain.interests ? captain.interests : new Array();
-					
-					if (interests.indexOf(category.name) == -1) {
-						interests.push(category);
-						captain.interests = interests;
-					}
-				}
-				captain.save();
-			});
+			captain.save();
 		});
 	}
 });
@@ -74,7 +63,7 @@ var findCategory = function(team, callback){
 		}
 		callback(category);
 	});
-}
+};
 
 Team.defaultColumns = 'name, order, captain';
 Team.register();

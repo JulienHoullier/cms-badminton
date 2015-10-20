@@ -5,6 +5,7 @@ require('dotenv').load();
 // Require keystone
 var keystone = require('keystone');
 require('keystone-nodemailer');
+
 var swig = require('swig');
 
 // Disable swig's bulit-in template caching, express handles it
@@ -37,8 +38,9 @@ keystone.init({
 	'user model': 'User',
 
 	'wysiwyg images': true,
-
+	
 	'signin redirect' : '/'
+
 });
 
 // Load your project's Models
@@ -123,9 +125,10 @@ keystone.set('email tests', require('./routes/emails'));
 keystone.set('nav', {
 	'Actualités': ['posts', 'post-categories'],
 	'Photos': 'galleries',
-	'Demandes': ['registrations','enquiries'],
+	'Demandes': 'enquiries',
 	'Club': ['teams', 'players','matches'],
-	'Utilisateurs': 'users'
+	'Utilisateurs': 'users',
+    'Tournois' : ['tournaments', 'registrations']
 });
 
 keystone.post('signin', function (callback) {

@@ -60,38 +60,37 @@ exports.initLocals = function(req, res, next) {
 		if(results){
 
 			var divers;
-			results.forEach(function(result){ 
+			results.forEach(function(result){
 				var pageArray;
 				if(locals.navLinks.length < 8){
 					pageArray = locals.navLinks;
 				} else{
 					if(!divers){
 						divers = {
-							label: 'Divers', 
-							key: 'divers', 
+							label: 'Divers',
+							key: 'divers',
 							pages : []
 						}
 					}
 					pageArray = divers.pages;
-					
 				}
 
 				pageArray.push(
-					{ 
+					{
 						label: result.title,
 						key: result.slug,
-						href: result.url 
+						href: result.url
 					});
 			});
 		}
 
 		//Contact is the last link
 		locals.navLinks.push({
-			label: 'Contact', 
-			key: 'contact',		
-			href: '/contact' 
+			label: 'Contact',
+			key: 'contact',
+			href: '/contact'
 		});
-		
+
 		next(err);
 	});
 };

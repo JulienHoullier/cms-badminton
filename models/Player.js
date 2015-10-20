@@ -32,7 +32,7 @@ Player.add({
 		{ value: 'monday_middle', label: 'Lundi intermédiaire 19h/20h30' },
 		{ value: 'monday_newbie', label: 'Lundi débutant  20h30/22h' },
 		{ value: 'wednesday_strong', label: 'Mercredi confirmé 20h30/22h' },
-		{ value: 'friday_middle', label: 'Vendredi intermédiaire 20h/21h30' },
+		{ value: 'friday_middle', label: 'Vendredi intermédiaire 20h/21h30' }
 	], required: true, initial: true },
 	team: { type: Types.Relationship, label:'Equipe', ref: 'Team', index: true },
 	interests : { type: Types.Relationship, label:'Libellés', ref: 'PostCategory', many:true }
@@ -40,7 +40,6 @@ Player.add({
 
 //add club interest 
 Player.schema.pre('save', function(next) {
-
 	if(!this.isNew){
 		return next();
 	}
@@ -109,7 +108,7 @@ var addCategoryIfNotPresent = function(player, categoryName, next){
 					return next(err);
 				}
 				//add category if not present
-				var interests = player.interests ? player.interests : new Array();
+				var interests = player.interests ? player.interests : [];
 				
 				if (!categoryAlreadyPresent(category.name, interests)) {
 					interests.push(category);

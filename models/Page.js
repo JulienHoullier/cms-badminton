@@ -17,7 +17,7 @@ Page.add({
 		{value:'show', label:'Afficher dans le menu'}, 
 		{value:'hide', label:'Masquer'}
 	], default: 'show', index: true },
-		content: { type: Types.Html, label:'Contenu', wysiwyg: true, height: 800 },
+	content: { type: Types.Html, label:'Contenu', wysiwyg: true, height: 800 }
 });
 
 Page.schema.virtual('url').get(function() {
