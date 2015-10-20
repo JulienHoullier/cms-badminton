@@ -22,10 +22,6 @@ exports = module.exports = function(req, res) {
     .sort('-publishedDate')
     .limit(4));
 
-    locals.tournaments = {
-        incoming : require('../../lib/tournois.json')
-    }
-
     view.on('init', function(next) {
         Team.model.find()
         .sort('name')
@@ -50,26 +46,7 @@ exports = module.exports = function(req, res) {
             }
         });
     });
-	
-    // view.on('render', function(next){
-    	
-    // 	var hasBeanCalled  = false;
-    // 	ffbadnews(function(err,data){
-    // 		if(err){
-    // 			console.log(err);	
-    // 			locals.ffbadNews = [];
-    // 		}
-    // 		else{
-    // 			locals.ffbadNews = data;
-    // 		}
- 
-    // 		if(!hasBeanCalled){
-    // 			hasBeanCalled = true;
-    // 			next();
-    // 		}
-    // 	});
-    // });
-	
+
 	// Render the view
 	view.render('newIndex');
 };

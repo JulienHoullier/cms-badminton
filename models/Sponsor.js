@@ -13,10 +13,10 @@ var Sponsor = new keystone.List('Sponsor', {
 });
 
 Sponsor.add({
-	name: { type: String, required: true },
-	url: { type: Types.Url , required: true, initial: true },
-	img_url: { type: Types.Url },
-	amount: { type: Number }
+	name: { type: String, label:'Nom', required: true },
+	url: { type: Types.Url, label:'URL', required: true, initial: true },
+	img_url: { type: Types.Url, label:'Image URL' },
+	amount: { type: Number, label:'Somme versée' }
 });
 
 Sponsor.defaultSort = '-amount';

@@ -1,10 +1,4 @@
-{% macro showPost(post, index, first, path) %}
-	{% set url = "" %}
-
-	{% if path %}
-		{% set url = path %}
-	{% endif %}
-
+{% macro showPost(post, index, first) %}
 
 	{% set className = "timeline-item--even" %}
 	{% if index % 2 == 1 %}
@@ -18,7 +12,7 @@
 			{% if post.categories and post.categories.length %}
 			<br>in
 				{% for cat in post.categories %}
-					<a href="{{url}}/blog/{{ cat.key }}">{{ cat.name }}</a>
+					<a href="/blog/{{ cat.key }}">{{ cat.name }}</a>
 					{% if loop.index < post.categories.length - 1 %}, {% endif %}
 				{% endfor %}
 			{% endif %}

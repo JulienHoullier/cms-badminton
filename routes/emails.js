@@ -35,9 +35,50 @@ module.exports = {
 		callback(null, {
 			admin: 'Admin User',
 			enquiry: newEnquiry,
-			enquiry_url: '/keystone/enquiries/'
+			enquiry_url: '/keystone/enquiries/',
+			mandrill:{}
 		});
 		
+	},
+
+	'tournament-notification': function(req, res, callback) {
+
+		// To test enquiry notifications we create a dummy enquiry that
+		// is not saved to the database, but passed to the template.
+
+		var Tournament = keystone.list('Tournament');
+
+		var newSubscription = new Tournament.model({
+			tournament: 'Saint Jacques le 07/11',
+			category : 'Simple',
+			player1: 'j.houllier@gmail.com',
+			player1_licence : 06794300,
+			player2: 'j.houllier@gmail.com',
+			player2_licence : 06794315
+		});
+
+		callback(null, {
+			subscription: newSubscription,
+			mandrill:{}
+		});
+	},
+
+	'match-notification': function(req, res, callback) {
+
+		// To test enquiry notifications we create a dummy enquiry that
+		// is not saved to the database, but passed to the template.
+
+		var Match = keystone.list('Match');
+
+		var newMatch = new Match.model({
+			versus: 'US Liffré D3',
+			date: new Date()
+		});
+
+		callback(null, {
+			manager: 'Admin User',
+			match: newMatch,
+		});
 	}
 	
 };

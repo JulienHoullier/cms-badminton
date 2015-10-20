@@ -39,7 +39,11 @@ Enquiry.schema.post('save', function() {
 Enquiry.schema.methods.sendNotificationEmail = function(callback) {
 	
 	if ('function' !== typeof callback) {
-		callback = function() {};
+		callback = function(err) {
+			if (err) {
+				console.log(err);
+			}
+		};
 	}
 	
 	var enquiry = this;
