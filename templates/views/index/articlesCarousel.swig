@@ -1,14 +1,20 @@
-<section id="myCarousel" class="carousel slide" data-ride="carousel">
+<section id="newsCarousel" class="carousel slide" data-ride="carousel">
 	<h2>
-		<img src="/images/shuttlecock.png">
+		<img src="/images/shuttlecock.png" class="occ-section-img">
 		Dernières actus
+		<a href="/blog" class="pull-right">
+			<img src="/images/plus.png" width="16px" height="16px" />
+		</a>
 	</h2>
 	<!-- Indicators -->
 	<ol class="carousel-indicators">
-			<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-			<li data-target="#myCarousel" data-slide-to="1"></li>
-			<li data-target="#myCarousel" data-slide-to="2"></li>
-			<li data-target="#myCarousel" data-slide-to="3"></li>
+		 {% for article in articles %}
+	    	{% set linkClass = '' %}
+			{% if loop.first %}
+				{% set linkClass = 'class="active"' %}
+			{% endif %}
+	      <li data-target="#newsCarousel" data-slide-to="{{ loop.index0 }}" {{ linkClass | safe }}></li>
+	    {% endfor %}
 	</ol>
 
 	<!-- Wrapper for slides -->
@@ -18,32 +24,53 @@
 					{% if loop.first %}
 						{% set activeClass = 'active' %}
 					{% endif %}
-			<article class="occ-article item {{ activeClass }}">
-				<h3 class="articleHead">
-					<img src="/images/ffbad.png" height="24" width="24">
-					{{ article.title }}
-				</h3>
-				<div class="articleContent">
-					<div class="pull-left">
-						<div class="large">29</div>
-						<div class="month small">SEPT</div>
-						<div class="year small">2015</div>
+			<article class="item {{ activeClass }}">
+
+				<div class="row">
+					<div class="articleDate visible-md-block visible-lg-block">
+						<div class="day">{{ article.publishedDate.toString().split(' ')[2] }}</div>
+						<div class="month">{{ article.publishedDate.toString().split(' ')[1] }}</div>
+						<div class="year">{{ article.publishedDate.toString().split(' ')[3] }}</div>
 					</div>
-					{{ article.content.brief | safe}}
-					<p class="text-right">
-						<a href="">Lire plus...</a>
-					</p>
+
+					<div class="col-md-7">
+						{% set urlImg = '/images/defaultnews.jpg' %}
+						{% if article.image.exists %}
+							{% set urlImg = article.image.url %}
+						{% endif %}
+
+						<img src="{{ urlImg }}" class="visible-md-block visible-lg-block" width="100%" height="300">
+					</div>
+
+					<div class="col-md-5">
+						<h3 class="articleHead">
+							{{ article.title }}
+						</h3>
+
+						<div class="articleContent">
+							{{ article.content.brief | safe}}
+						</div>
+
+						<span class="visible-xs-inline visible-sm-inline articleDateXs">
+							Le {{ article.publishedDate.toString().split(' ')[2] }} {{ article.publishedDate.toString().split(' ')[1] }} {{ article.publishedDate.toString().split(' ')[3] }}
+						</span>
+
+						<p class="text-right articleContent">
+							<a href="/blog/post/{{ article.slug }}">Lire plus...</a>
+						</p>
+					</div>
+
 				</div>
 			</article>
 		{% endfor %}
 	</div>
 
-<!-- Left and right controls -->
-	<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+	<!-- Left and right controls -->
+	<a class="left carousel-control" href="#newsCarousel" role="button" data-slide="prev">
 		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
 		<span class="sr-only">Previous</span>
 	</a>
-	<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+	<a class="right carousel-control" href="#newsCarousel" role="button" data-slide="next">
 		<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 		<span class="sr-only">Next</span>
 	</a>

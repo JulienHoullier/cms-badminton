@@ -25,6 +25,25 @@
 			<!-- Colonne droite (Twitter, tournoi...) -->
 			<div class="col-md-3">
 
+				<div class="row occ-section-social">
+					<div class="col-xs-4 text-center">
+						<a href="https://twitter.com/OCCBadminton" target="_blank">
+							<img src="/images/twitter.png" />
+						</a>
+					</div>
+					<div class="col-xs-4 text-center">
+						<a href="https://www.youtube.com/bwf" target="_blank">
+							<img src="/images/youtube.png" />
+						</a>
+					</div>
+					<div class="col-xs-4 text-center">
+						<a href="https://www.facebook.com/groups/449683501877406/?fref=ts" target="_blank"	>
+							<img src="/images/facebook.png" />
+						</a>
+					</div>
+				</div>
+				
+
 				{% include "./index/twitter.swig" %}
 
 				{% include "./index/video.swig" %}

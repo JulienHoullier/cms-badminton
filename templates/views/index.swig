@@ -320,3 +320,80 @@
 			{% endif %}
 		</div>					
 {%- endmacro -%}
+
+
+
+{%- block js -%}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+    <script type="text/javascript">
+
+        jQuery(function($) {
+            var rowHeight = 37;     //hauteur d'une ligne du tableau
+            var matchDisplay = 5;   //nombre de match à afficher
+
+            {% for team in teams %}
+
+                //Initialisation des variables
+                var matches{{loop.index}} = {{matches[team.id].length}};
+                var rowNumber{{loop.index}} = matches{{loop.index}}-matchDisplay;
+
+                {% if  matches[team.id].length == 0 %}
+                    var i{{loop.index}} = 0;
+                {% else %}
+                    {% set lastResult = lastResults[team.id] %}
+                    var i{{loop.index}} = {{lastResult.matchNumber}};
+                {% endif %}
+
+                if({{matches[team.id].length}} < matchDisplay){
+                    i{{loop.index}} = 0;
+                }else if(matches{{loop.index}} > matches{{loop.index}} - matchDisplay){
+                    i{{loop.index}} = matches{{loop.index}} - matchDisplay;
+                }
+
+                //positionnement du tableau
+                $('#rencontresList{{loop.index}}').css('margin-top',-i{{loop.index}}*rowHeight+'px');
+
+                //au click sur suivant
+                $('#nextResults{{loop.index}}').click(_.throttle(function(){
+                    console.log(i{{loop.index}});
+                    if(i{{loop.index}}+1 <= rowNumber{{loop.index}}){
+                        var currentMargin = parseInt($('#rencontresList{{loop.index}}').css('margin-top').replace("px", ""))-rowHeight;
+                        $('#rencontresList{{loop.index}}').css('margin-top',currentMargin+'px');
+                        i{{loop.index}}++;
+                    }
+                    return false;
+                },500));
+
+                //au click sur précédent
+                $('#previousResults{{loop.index}}').click(_.throttle(function(){
+                    console.log(i{{loop.index}});
+                    if(i{{loop.index}}-1 >= 0){
+                        var currentMargin = parseInt($('#rencontresList{{loop.index}}').css('margin-top').replace("px", ""))+rowHeight;
+                        $('#rencontresList{{loop.index}}').css('margin-top',currentMargin+'px');
+                        i{{loop.index}}--;
+                    }
+                    return false;
+                },500));
+
+            {% endfor %}
+
+        });
+    </script>
+{%- endblock -%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,5 +1,6 @@
 body{
 	background-image: url('/images/bg-content.png');
+	font-family: 'Roboto';
 }
 
 footer .container {
@@ -9,7 +10,7 @@ footer .container {
 
 main {
 	padding-top: 20px;
-	min-height: 800px;
+	min-height: 600px;
 	padding-bottom: 20px;
 }
 
@@ -38,7 +39,7 @@ main {
 
 .occ-bg{
 	background-color : @flag-bar-color;
-	color: @gray-light;
+	color: #555;
 }
 
 .occ-container{
@@ -75,8 +76,7 @@ main {
 		margin-left: 10px;
 	  
 	  	img{
-		  height: 100px;
-		  width: 100px;
+		  height: 50px;
 		}
 	  }
 	}
@@ -103,60 +103,21 @@ main {
 			}
 		}
 
-		.home{
+		.linkMenu{
 			&:hover,
 			&.active{
 				border-top: 2px solid transparent;
-    			border-color:  @home-color;
-    		}			
-		}
-
-		.club{
-			&:hover,
-			&.active{
-				border-top: 2px solid transparent;
-    			border-color:  @club-color;
-    		}
-		}
-
-		.subscribe{
-			&:hover,
-			&.active{
-				border-top: 2px solid transparent;
-    			border-color:  @subscribe-color;
-    		}
-		}
-
-		.blog{
-			&:hover,
-			&.active{
-				border-top: 2px solid transparent;
-    			border-color:  @blog-color;
-    		}			
-		}
-
-		.gallery{
-			&:hover,
-			&.active{
-				border-top: 2px solid transparent;
-    			border-color:  @gallery-color;
-    		}			
-		}
-		
-		.player{
-			&:hover,
-			&.active{
-				border-top: 2px solid transparent;
-    			border-color:  @player-color;
-    		}			
-		}
-
-		.contact{
-			&:hover,
-			&.active{
-				border-top: 2px solid transparent;
-    			border-color:  @contact-color;
+    			border-color:  @theme-color;
     		}			
 		}
 }
 
+.occ-title-panel{
+	color: @theme-color;
+	margin-bottom: 20px;
+	font-weight: bold;
+	h1{
+		font-weight: 900;
+		padding-top: 20px;
+	}
+}

@@ -52,7 +52,7 @@ exports.initLocals = function(req, res, next) {
 			href: '/player' 
 		});
 	}
-		
+	
 	//store user to access it in the web page
 	locals.user = req.user;
 	
