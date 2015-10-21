@@ -29,15 +29,22 @@ Team.schema.pre('save', function(next) {
 	if(this.isNew){
 		var team = this;
 		var PostCategory = keystone.list('PostCategory');
-		findCategory(team, function(category){
-			if(!category) {
+		findCategory(team, function(err, category){
+			if(err){
+				console.log(err);
+			}
+			else if(!category) {
 				category = new PostCategory.model({name: team.name});
 				category.save();
 			}
+			next();
 		});
 		this.wasNew = true;
 	}
-	next();
+	else {
+		next();
+	}
+
 });
 
 Team.schema.post('save', function() {
@@ -59,9 +66,9 @@ var findCategory = function(team, callback){
 	var PostCategory = keystone.list('PostCategory');
 	PostCategory.model.findOne({name : team.name}, function (err, category){
 		if(err){
-			return console.log(err);
+			callback(err, category);
 		}
-		callback(category);
+		callback(null, category);
 	});
 };
 

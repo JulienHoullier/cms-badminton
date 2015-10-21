@@ -25,7 +25,7 @@ User.add({
 	isAdmin: { type: Types.Boolean, label:'Administrateur' },
 	isUser: { type: Types.Boolean, label:'Utilisateur' },
 	isEditor: { type: Types.Boolean, label:'Editeur' },
-	isTournamentManager: { type: Types.Boolean, label:'Gère les tournois' },
+	isTournamentManager: { type: Types.Boolean, label:'Gère les tournois' }
 });
 
 User.schema.virtual('canAccessKeystone').get(function() {
