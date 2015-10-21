@@ -15,66 +15,60 @@ Match.add({
     matchNumber: { type: Number, required: true, initial: true, index: true},
 	versus: { type: Types.Text, required: true, initial: true, index: true },
 	date: { type: Date },
-    home: { type: Types.Select, options: 'Yes,No' },
+    home: { type: Types.Select, options: [
+		{ value: 'Yes', label: 'Oui' },
+		{ value: 'No', label: 'Non' }
+	] },
 	location: { type: Types.Location },
     result: { type: Types.LocalFile, dest: '/data/files' },
     occResult: { type: Number },
-    versusResult: { type: Number },
-    resultDetails: {
-        sh1: {type: Types.Select, options: 'Win,Loose' },
-        sh2: {type: Types.Select, options: 'Win,Loose' },
-        sd1: {type: Types.Select, options: 'Win,Loose' },
-        sd2: {type: Types.Select, options: 'Win,Loose' },
-        dh: {type: Types.Select, options: 'Win,Loose' },
-        dd: {type: Types.Select, options: 'Win,Loose' },
-        dx1: {type: Types.Select, options: 'Win,Loose' },
-        dx2: {type: Types.Select, options: 'Win,Loose' }
-    }
+    versusResult: { type: Number }
 });
 
-
-/*
 Match.schema.pre('save', function(next) {
-	if (this.isModified('date')) {
-		this.needNofif;
-	}
+	this.needNotif = (!this.isNew && this.isModified('date'));
+	next();
 });
-*/
 
-/*Match.schema.post('save', function() {
+Match.schema.post('save', function() {
 	if (this.needNotif) {
 		this.sendNotificationEmail();
 	}
 });
-*/
 
-/*Match.schema.methods.sendNotificationEmail = function(callback) {
+Match.schema.methods.sendNotificationEmail = function(callback) {
 	
 	if ('function' !== typeof callback) {
-		callback = function() {};
+		callback = function(err) {
+			if (err) {
+				console.log(err);
+			}
+		};
 	}
 	
 	var Match = this;
 	
-	keystone.list('Team').model.findById(this.team).populate('players').exec(function(err, team) {
+	keystone.list('Team').model.findById(this.team).exec(function(err, team) {
 		
 		if (err) return callback(err);
 		
-		console.log("will send mail to :"+team.players);
-		new keystone.Email('Match-notification').send({
-			to: team.players,
-			from: {
-				name: 'OCC-Badminton',
-				email: 'contact@occ-badminton.com'
-			},
-			subject: 'Match de championnat - OCC-Badminton',
-			Match: Match
-		}, callback);
-		
+		team.populateRelated('players', function (err) {
+			if (err) {
+				return callback(err);
+			}
+			new keystone.Email('match-notification').send({
+				to: team.players,
+				from: {
+					name: 'OCC-Badminton',
+					email: 'contact@occ-badminton.com'
+				},
+				subject: 'Journée de championnat',
+				match: Match
+			}, callback);
+		});
 	});
-
 };
-*/
+
 Match.defaultSort = '-matchNumber';
 Match.defaultColumns = 'team, versus, date';
 Match.register();

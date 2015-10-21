@@ -108,7 +108,7 @@
 				<div id="occ-sponsor-bar" class="scroll-text">
 					<ul>
 					{% for sponsor in sponsors %}
-						<li><a href="{{sponsor.url}}" class="thumbnail"><img src="{{sponsor.img_url}}" alt=""/></a></li>
+						<li><a href="{{sponsor.url}}" class="thumbnail"><img src="{{sponsor.img_url}}" alt="" width="100" height="100" /></a></li>
 					{% endfor %}
 					</ul>
 				</div>

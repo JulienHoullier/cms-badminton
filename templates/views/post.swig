@@ -9,7 +9,7 @@
 				<hr>
 				<article class="occ-post occ-bg">
 					{% if not data.post %}
-						<h2>Article inconnue.</h2>
+						<h2>Article inconnu.</h2>
 					{% else %}
 						<header>
 							<h1 class="text-caps text-danger">{{ data.post.title }}</h1>

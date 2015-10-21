@@ -25,23 +25,38 @@ exports.initLocals = function(req, res, next) {
 
 	var locals = res.locals;
 
-		locals.navLinks = [
-		{ label: 'Accueil',		 key: 'home',		href: '/' },
-		{ label: 'Actualités',	 key: 'blog',		href: '/blog' },
-		{ label: 'Photos',		 key: 'gallery',	href: '/gallery' },
-		{ label: 'Résultats',	 key: 'results',	href: '/resultats' }
+	locals.navLinks = [
+		{
+			label: 'Accueil',
+			 key: 'home',
+			 href: '/'
+		},
+		{
+			label: 'Actualités',
+			key: 'blog',
+			href: '/blog'
+		},
+		{
+			label: 'Photos',
+			key: 'gallery',
+			href: '/gallery'
+		}
 
 	];
-
+	
 	//add link to connected users
-	if(req.user){
-		locals.navLinks.push({ label: 'Joueurs',        key: 'player',      href: '/player' });
+	if(req.user && req.user.isValid){
+		locals.navLinks.push({ 
+			label: 'Joueurs',        
+			key: 'player',      
+			href: '/player' 
+		});
 	}
-
+	
 	//store user to access it in the web page
 	locals.user = req.user;
-
-	Page.model.find().exec(function(err, results) {
+	
+	Page.model.find().where('state', 'show').exec(function(err, results) {
 		if(results){
 
 			var divers;
@@ -70,7 +85,11 @@ exports.initLocals = function(req, res, next) {
 		}
 
 		//Contact is the last link
-		locals.navLinks.push({ label: 'Contact',		key: 'contact',		href: '/contact' });
+		locals.navLinks.push({
+			label: 'Contact',
+			key: 'contact',
+			href: '/contact'
+		});
 
 		next(err);
 	});
@@ -117,10 +136,15 @@ exports.flashMessages = function(req, res, next) {
 exports.requireUser = function(req, res, next) {
 	
 	if (!req.user) {
-		req.flash('error', 'Please sign in to access this page.');
+		req.flash('error', 'Connectez-vous pour accéder à cet page');
 		res.redirect('/keystone/signin');
 	} else {
-		next();
+		if(!req.user.isValid){
+			req.flash('warn', 'Votre compte n\'est pas encore validé');
+			res.redirect('/');
+		}
+		else{
+			next();
+		}
 	}
-	
 };
