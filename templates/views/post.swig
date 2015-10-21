@@ -3,31 +3,33 @@
 {% block content %}
 		<div class="row">
 			<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
-				<article class="occ-post">
-					<p>
-						<a href="/blog">&larr; Retour aux actualités</a>
-					</p>
-					<hr>
+				<p>
+					<a href="/blog" class="occ-theme-color">&larr; Retour aux actualités</a>
+				</p>
+				<hr>
+				<article class="occ-post occ-bg">
 					{% if not data.post %}
 						<h2>Article inconnue.</h2>
 					{% else %}
 						<header>
-							<h1 class="text-caps text-danger">{{ data.post.title }}</h1>							
+							<h1 class="text-caps text-danger">{{ data.post.title }}</h1>
+							<span>
 							{% if data.post.publishedDate %}
 								le {{ data.post._.publishedDate.format('DD/MM/YYYY') }}
 							{% endif %}
 							{% if data.post.categories and data.post.categories.length %}
 								dans la catégorie :
 								{% for cat in data.post.categories %}
-									<a href="/blog/{{ cat.key }}">{{ cat.name }}</a>
+									<a href="/blog/{{ cat.key }}" class="occ-theme-color">{{ cat.name }}</a>
 									{% if loop.index < data.post.categories.length - 1 %}, {% endif %}
 								{% endfor %}
 							{% endif %}
 							{% if data.post.author %}
 								par {{ data.post.author.name.first }}
 							{% endif %}
+							<span>
 						</header>
-						<div class="post">
+						<div class="occ-post-content">
 							{% if data.post.image.exists %}
 								<div class="image-wrap">
 									<img src="{{ data.post._.image.fit(750,450) }}" class="img-responsive">

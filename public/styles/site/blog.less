@@ -6,6 +6,21 @@
 	}
 }
 
+.occ-list-categorie .btn-primary{
+		background-color: @theme-color;
+		border: 0px;
+}
+
+.occ-list-categorie a:first-child {
+	border-top-left-radius: 30px;
+	border-bottom-left-radius: 30px;
+}
+
+.occ-list-categorie a:last-child {
+	border-top-right-radius: 30px;
+	border-bottom-right-radius: 30px;
+}
+
 .occ-blog-posts {
 	margin-bottom : 20px;
 }
@@ -15,7 +30,6 @@
 		font-size: 24px;
 	}
 
-	
 	a{
 		color: @theme-color;
 		text-decoration: underline;
@@ -39,12 +53,21 @@
 	&.occ-article-date-odd{
 		position: absolute;
 		left: auto;
-		right: 58px;	
+		right: 58px;
 	}
 
 	&.occ-article-date-even{
 		position: absolute;
 		right: auto;
-		left: 60px;	
+		left: 60px;
 	}
+}
+
+.occ-post {
+	padding: 10px;
+}
+
+.occ-post-content{
+	padding-top: 25px;
+	font-size: 16px;
 }

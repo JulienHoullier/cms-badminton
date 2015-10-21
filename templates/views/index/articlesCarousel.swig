@@ -51,12 +51,12 @@
 							{{ article.content.brief | safe}}
 						</div>
 
-						<span class="visible-xs-inline visible-sm-inline occ-article-date-xs">
+						<span class="visible-xs-inline visible-sm-inline occ-theme-color">
 							Le {{ article.publishedDate.toString().split(' ')[2] }} {{ article.publishedDate.toString().split(' ')[1] }} {{ article.publishedDate.toString().split(' ')[3] }}
 						</span>
 
 						<p class="text-right occ-article-content">
-							<a href="/blog/post/{{ post.slug }}">Lire plus...</a>
+							<a href="/blog/post/{{ article.slug }}">Lire plus...</a>
 						</p>
 					</div>
 				</div>
