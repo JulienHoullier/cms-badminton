@@ -30,12 +30,15 @@
 							<span>
 						</header>
 						<div class="occ-post-content">
+
+							{{ data.post.content.full | raw }}
+
 							{% if data.post.image.exists %}
 								<div class="image-wrap">
 									<img src="{{ data.post._.image.fit(750,450) }}" class="img-responsive">
 								</div>
 							{% endif %}
-							{{ data.post.content.full | raw }}
+							
 						</div>
 					{% endif %}
 				</article>
