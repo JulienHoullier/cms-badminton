@@ -36,7 +36,7 @@
 		{# HEADER #}
 		<header class="occ-bg">
 			<div id="occ-header-flag" class="container visible-md visible-lg">
-				<img src="/images/occ-logo.png" alt="" id="occ-logo">
+				<img src="/images/occ-logo.png" alt="" class="img-rounded" id="occ-logo">
 			</div>
 		</header>
 

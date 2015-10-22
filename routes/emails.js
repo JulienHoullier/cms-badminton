@@ -94,9 +94,10 @@ module.exports = {
 				brief: 'Resume de la news',
 				extended: 'Version longue de la news',
 			},
+			publishedDate : new Date(),
 			important: true
 		});
-
+		console.log('post :'+newPost);
 		callback(null, {
 			post: newPost,
 			subject: 'News importante'
