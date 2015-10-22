@@ -5,6 +5,7 @@ require('dotenv').load();
 // Require keystone
 var keystone = require('keystone');
 require('keystone-nodemailer');
+
 var swig = require('swig');
 
 // Disable swig's bulit-in template caching, express handles it
@@ -29,7 +30,7 @@ keystone.init({
 	
 	'emails': 'templates/emails',
 
-	'cookie secret': process.env.COOKIE_SECRET || 'a super long random string needed for occ-badminton 54398753946308208',
+	'cookie secret': process.env.COOKIE_SECRET,
 	'auto update': true,
 	'session': true,
 	'session store': 'mongo',
@@ -38,13 +39,8 @@ keystone.init({
 
 	'wysiwyg images': true,
 
-	'email nodemailer': {
-		service: 'Gmail',
-		auth: {
-			user: process.env.GMAIL_USER,
-			pass: process.env.GMAIL_PWD
-		}
-	}
+	'signin redirect' : '/'
+
 });
 
 // Load your project's Models
@@ -66,23 +62,36 @@ keystone.set('locals', {
 
 keystone.set('routes', require('./routes'));
 
+//prepare nodemailer config
+
+keystone.set('email nodemailer' , {
+host: process.env.MAIL_HOST,
+	port : 587,
+	auth: {
+	user: process.env.MAIL_USR,
+		pass: process.env.MAIL_PWD
+},
+authMethod : 'PLAIN'
+});
 
 // Setup common locals for your emails. The following are required by Keystone's
 // default email templates, you may remove them if you're using your own.
 
 keystone.set('email locals', {
-	logo_src: '/images/logo-email.gif',
-	logo_width: 194,
+	logo_src: '/images/occ-logo.png',
+	logo_width: 100,
 	logo_height: 76,
 	theme: {
 		email_bg: '#f9f9f9',
+		email_header_bg: '#BF1E2D',
 		link_color: '#2697de',
 		buttons: {
 			color: '#fff',
 			background_color: '#2697de',
 			border_color: '#1a7cb7'
 		}
-	}
+	},
+	mandrill: {}
 });
 
 // Setup replacement rules for emails, to automate the handling of differences
@@ -97,7 +106,15 @@ keystone.set('email rules', [{
 }, {
 	find: '/keystone/',
 	replace: (keystone.get('env') == 'production') ? 'http://www.your-server.com/keystone/' : 'http://localhost:3000/keystone/'
+},
+{
+	find: '/#',
+	replace: (keystone.get('env') == 'production') ? 'http://www.your-server.com/#' : 'http://localhost:3000/#'
 }]);
+
+keystone.Email.defaults.templateExt =  'swig';
+keystone.Email.defaults.templateEngine =  swig;
+keystone.Email.defaults.mandrill =  {};
 
 // Load your project's email test routes
 
@@ -110,7 +127,16 @@ keystone.set('nav', {
 	'Photos': 'galleries',
 	'Demandes': 'enquiries',
 	'Club': ['teams', 'players','matches'],
-	'Utilisateurs': 'users'
+	'Utilisateurs': 'users',
+    'Tournois' : ['tournaments', 'registrations']
+});
+
+keystone.post('signin', function (callback) {
+	//user is passed as context
+	if(!this.isValid){
+		return callback({message: 'Your account is not yet validated by an administrator'});
+	}
+	callback();
 });
 
 // Start Keystone to connect to your database and initialise the web server

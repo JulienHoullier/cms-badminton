@@ -49,7 +49,7 @@
 			</div>
 			{% endfor %}
 		{% else %}
-			<h3 class="text-muted">There are no image galleries yet.</h3>
+			<h3 class="text-muted">Aucun album photos pour le moment.</h3>
 		{% endif %}
 	</div>
 {% endblock %}

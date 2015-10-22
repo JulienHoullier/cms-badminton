@@ -1,5 +1,6 @@
 body{
 	background-image: url('/images/bg-content.png');
+	font-family: 'Roboto';
 }
 
 footer .container {
@@ -9,15 +10,15 @@ footer .container {
 
 main {
 	padding-top: 20px;
-	min-height: 800px;
+	min-height: 600px;
 	padding-bottom: 20px;
 }
 
 #occ-header-flag{
-	background: #f8f8f8 url('/images/index2.jpg');
+	background: #f8f8f8 url('/images/occ-header.jpg');
 	background-position: center;
 	background-repeat: no-repeat;
-	padding:10px;
+	padding: 20px;
 }
 
 .affix {
@@ -32,13 +33,33 @@ main {
 
 
 #occ-logo{
-	width: 180px;
-	height: 180px;
+	width: 160px;
+	height: 160px;
+  	transform: rotate(-7deg);
+  	border: 5px #F8F8F8 solid;
 }
 
 .occ-bg{
 	background-color : @flag-bar-color;
-	color: @gray-light;
+	color: #555;
+}
+
+.occ-container{
+  padding: 10px 15px 10px 15px;
+}
+
+.occ-title-panel{
+  margin-bottom: 20px;
+}
+
+.occ-title-string{
+  height:1px;
+  background-color:@gray-light;
+}
+
+.occ-title-text {
+  text-align:center;
+  color: @gray-light
 }
 
 #occ-sponsor-bar {
@@ -48,21 +69,21 @@ main {
   	ul {
 	  width: 100%;
 	  padding-left: 0px;
-
+	  
 	  &:first-child{
 		margin-left: -10px;
 	  }
 	  li {
 		display: inline-block;
 		margin-left: 10px;
-
+	  
 	  	img{
 		  height: 100px;
 		  width: 100px;
 		}
 	  }
 	}
-
+  
   	.thumbnail{
 	  margin-bottom : 0px;
 	}
@@ -78,67 +99,45 @@ main {
 }
 
 #occ-header-navbar {
-		
+
 		.active{
 			a {
 				font-weight: bold;
 			}
 		}
 
-		.home{
+		.linkMenu{
 			&:hover,
 			&.active{
-				border-top: 2px solid transparent;
-    			border-color:  @home-color;
-    		}			
-		}
-
-		.club{
-			&:hover,
-			&.active{
-				border-top: 2px solid transparent;
-    			border-color:  @club-color;
-    		}
-		}
-
-		.subscribe{
-			&:hover,
-			&.active{
-				border-top: 2px solid transparent;
-    			border-color:  @subscribe-color;
-    		}
-		}
-
-		.blog{
-			&:hover,
-			&.active{
-				border-top: 2px solid transparent;
-    			border-color:  @blog-color;
-    		}			
-		}
-
-		.gallery{
-			&:hover,
-			&.active{
-				border-top: 2px solid transparent;
-    			border-color:  @gallery-color;
-    		}			
-		}
-		
-		.player{
-			&:hover,
-			&.active{
-				border-top: 2px solid transparent;
-    			border-color:  @player-color;
-    		}			
-		}
-
-		.contact{
-			&:hover,
-			&.active{
-				border-top: 2px solid transparent;
-    			border-color:  @contact-color;
+				border-bottom: 2px solid transparent;
+    			border-color:  @theme-color;
     		}			
 		}
 }
 
+.occ-title-panel{
+	color: @theme-color;
+	margin-bottom: 20px;
+	font-weight: bold;
+	h1{
+		font-weight: 900;
+		padding-top: 20px;
+	}
+}
+
+.occ-theme-color{
+	color: @theme-color;
+}
+
+.btn-primary{
+	background-color: @theme-color;
+	border: 0px;
+
+	&:hover{
+		background-color: @theme-color;
+	}
+}
+
+h1{
+	color: @theme-color;
+}
