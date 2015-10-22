@@ -33,7 +33,7 @@
 						<div class="year">{{ article.publishedDate.toString().split(' ')[3] }}</div>
 					</div>
 
-					<div class="col-md-7">
+					<div class="col-md-6">
 						{% set urlImg = '/images/defaultnews.jpg' %}
 						{% if article.image.exists %}
 							{% set urlImg = article.image.url %}
@@ -42,7 +42,7 @@
 						<img src="{{ urlImg }}" class="visible-md-block visible-lg-block" width="100%" height="300">
 					</div>
 
-					<div class="col-md-5">
+					<div class="col-md-6">
 						<h3 class="occ-article-head">
 							{{ article.title }}
 						</h3>

@@ -1,13 +1,13 @@
 <section class="occ-section">
 	<h2>
 		<img src="/images/tournament-cup2.png" class="occ-section-img">
-		Tournois
-		<a href="/tournois" class="pull-right">
+		Tournois à venir
+		{# <a href="/tournois" class="pull-right">
 			<img src="/images/plus.png" width="16px" height="16px" />
-		</a>
+		</a> #}
 	</h2>
 	<div class="occ-section-little">
-		{% if tournaments %}
+		{% if tournaments.length %}
 		<table class="table table-striped">
 			<thead>
 				<tr>
@@ -18,8 +18,8 @@
 			</thead>
 			{% for tournament in tournaments %}
 			<tr>
-				<td>{{ tournament.date }}</td>
-				<td>{{ tournament.city }}</td>
+				<td>{{ tournament._.date.format("DD-MM-YYYY") }}</td>
+				<td>{{ tournament.name }}</td>
 				<td class="text-right">
 					<a href="/tournois#{{tournament.city}}">{{ tournament.registration.length }}</a>
 				</td>

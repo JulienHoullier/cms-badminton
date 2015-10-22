@@ -2,9 +2,9 @@
 	<h2>
 		<img src="/images/resultats.png" class="occ-section-img">
 		Derniers résultats
-		<a href="/resultats" title="Voir tous les résultats" class="pull-right">
+		{# <a href="/resultats" title="Voir tous les résultats" class="pull-right">
 			<img src="/images/plus.png" width="16px" height="16px" />
-		</a>
+		</a> #}
 	</h2>
 	<div class="occ-section-little">
 		{% if lastResults %}

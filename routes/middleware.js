@@ -13,7 +13,6 @@ var keystone = require('keystone');
 var Sponsor = keystone.list('Sponsor');
 var Page = keystone.list('Page');
 
-
 /**
 	Initialises the standard view locals
 
@@ -43,19 +42,19 @@ exports.initLocals = function(req, res, next) {
 		}
 
 	];
-	
+
 	//add link to connected users
 	if(req.user && req.user.isValid){
-		locals.navLinks.push({ 
-			label: 'Joueurs',        
-			key: 'player',      
-			href: '/player' 
+		locals.navLinks.push({
+			label: 'Joueurs',
+			key: 'player',
+			href: '/player'
 		});
 	}
-	
+
 	//store user to access it in the web page
 	locals.user = req.user;
-	
+
 	Page.model.find().where('state', 'show').exec(function(err, results) {
 		if(results){
 
