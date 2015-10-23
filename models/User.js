@@ -44,7 +44,9 @@ User.relationship({ ref: 'Player' });
 
 User.schema.pre('save', function(next) {
 	this.wasNew = this.isNew;
-	if(this.isModified('group') && this.group != 'unauthorized'){
+	if((this.isModified('isAdmin') || this.isModified('isUser') 
+		|| this.isModified('isEditor') || this.isModified('isTournamentManager')) 
+		&& this.isValid) {
 		this.sendUserNotif = true;
 	}
 	next();
@@ -71,7 +73,7 @@ User.schema.methods.sendAdminNotificationEmail = function(callback) {
 	
 	var User = this;
 	
-	keystone.list('User').model.find().where('group', 'admin').exec(function(err, admins) {
+	keystone.list('User').model.find().where('isAdmin', true).exec(function(err, admins) {
 		
 		if (err) return callback(err);
 		
@@ -83,7 +85,7 @@ User.schema.methods.sendAdminNotificationEmail = function(callback) {
 				name: 'OCC-Badminton',
 				email: 'contact@occ-badminton.org'
 			},
-			subject: 'Demande d`\'inscription',
+			subject: 'Demande d\'inscription',
 			user: User
 		}, callback);
 	});
