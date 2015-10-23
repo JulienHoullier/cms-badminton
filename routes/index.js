@@ -41,6 +41,7 @@ exports = module.exports = function(app) {
 	app.get('/blog/post/:post', routes.views.post);
 	app.get('/pages/:page', routes.views.page);
 	app.get('/gallery', routes.views.gallery);
+	app.get('/tournois', routes.views.tournois);
 	app.get('/player', middleware.requireUser, routes.views.player);
 	app.all('/registration', middleware.requireUser, routes.views.registration);
 	app.get('/resultats', routes.views.resultat);
