@@ -7,7 +7,7 @@
 		</a> #}
 	</h2>
 	<div class="occ-section-little">
-		{% if lastResults %}
+		{% if lastResults.length %}
 			<table class="table table-striped">
 				{% for result in lastResults %}
 					{% set img = 'good' %}

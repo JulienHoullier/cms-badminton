@@ -1,7 +1,8 @@
 var keystone = require('keystone'),
 	Post = keystone.list('Post'),
 	Tournament = keystone.list('Tournament'),
-	Match = keystone.list('Match');
+	Match = keystone.list('Match'),
+	async = require('async');
 	//ffbadnews = require('../../lib/ffbadnews'),
 
 exports = module.exports = function(req, res) {
@@ -21,15 +22,29 @@ exports = module.exports = function(req, res) {
 		.sort('-publishedDate')
 		.limit(4));
 
+	// Sélection des 6 derniers matchs, toutes équipes confondues
 	view.query('lastResults', Match.model.find()
 		.populate('team')
 		.sort('-date')
 		.limit(6));
 
-	view.query('tournaments', Tournament.model.find()
+	// Sélection des 5 prochains tournois
+	view.on('init', function(next){
+		Tournament.model.find()
 		.where('registrationDeadLine').gte(today)
 		.sort('date')
-		.limit(5));
+		.limit(5)
+		.exec(function(err, tournaments){
+			if(err) next(err);
+			async.each(tournaments,function(tournament, next){
+				tournament.populateRelated('registrations', function (err) {
+				next(err);
+				});
+			});
+			locals.tournaments = tournaments;
+			next(err);
+		});
+	});
 
 	// Render the view
 	view.render('newIndex');

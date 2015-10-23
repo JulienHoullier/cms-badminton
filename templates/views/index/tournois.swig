@@ -21,7 +21,7 @@
 				<td>{{ tournament._.date.format("DD-MM-YYYY") }}</td>
 				<td>{{ tournament.name }}</td>
 				<td class="text-right">
-					<a href="/tournois#{{tournament.city}}">{{ tournament.registration.length }}</a>
+					{{ tournament.registrations.length }}
 				</td>
 			</tr>
 			{% endfor %}
