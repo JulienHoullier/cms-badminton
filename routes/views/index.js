@@ -21,15 +21,18 @@ exports = module.exports = function(req, res) {
 		.sort('-publishedDate')
 		.limit(4));
 
+	// Sélection des 6 derniers matchs, toutes équipes confondues
 	view.query('lastResults', Match.model.find()
 		.populate('team')
 		.sort('-date')
 		.limit(6));
 
+	// Sélection des 5 prochains tournois
 	view.query('tournaments', Tournament.model.find()
 		.where('registrationDeadLine').gte(today)
 		.sort('date')
 		.limit(5));
+	// TODO : Peupler les registrations
 
 	// Render the view
 	view.render('newIndex');

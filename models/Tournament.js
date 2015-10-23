@@ -23,5 +23,7 @@ Tournament.add({
     location : {type : Types.Location, label: 'Lieu'}
 });
 
+Tournament.relationship({ ref: 'Registration', path: 'registrations', refPath: 'tournament' });
+
 Tournament.defaultColums = 'name, club, date';
 Tournament.register();
