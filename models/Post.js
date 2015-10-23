@@ -50,38 +50,60 @@ Post.schema.methods.sendNotificationEmail = function(callback) {
 	}
 
 	var post = this;
-	console.log('post :'+post);
-	Post.model.populate(this, {path : 'category'}, function(err, post){
-	console.log('post2 :'+post);
+	
+	var send = function(to){
+		
+		new keystone.Email({
+			templateName: 'Post-notification',
+			templateExt: 'swig',
+			templateEngine: require('swig')
+		}).send({
+				to: 'contact@occ-badminton.org',
+				cc: to,
+				from: {
+					name: 'OCC-Badminton',
+					email: 'webmaster@occ-badminton.org'
+				},
+				subject: 'Info importante',
+				Post: post,
+				mandrill: {}
+			}, callback);
+	};
+	
+	var sendToPlayers = function(){
+		keystone.list('Player').model.find().exec(function(err, players){
+			if(err){
+				return callback(err);
+			}
+			send(players);
+		});
+	}
+	
+	if(post.category){	
+		Post.model.populate(this, 'category', function (err, post) {
 
-		keystone.list('Team').model.findOne({ name: post.category.name}, function(err, team) {
-			
-			if (err) return callback(err);
-			console.log('team :'+team);
-			keystone.list('Team').model.populate(team, {path: 'players'}, function(err, callback){
-				
-				console.log('team2 :'+team);
-				new keystone.Email({
-					templateName:'Post-notification',
-					templateExt: 'swig',
-					templateEngine: require('swig')
-					}).send({
-					to: team.players,
-					from: {
-						name: 'OCC-Badminton',
-						email: 'webmaster@occ-badminton.org'
-					},
-					subject: 'Info importante',
-					Post: post,
-					mandrill : {}
-				}, callback);
+			keystone.list('Team').model.findOne({name: post.category.name}, function (err, team) {
+				if (err) {
+					return callback(err);
+				}
+				if(!team){
+					sendToPlayers();
+				}
+				else {
+					team.populateRelated('players', function (err) {
+						if (err) { 
+							return callback(err);
+						}
+						send(team.players)
+					});
+				}
 			});
 		});
-	});
-
-	/*keystone.list('PostCategory').model.findById(post.category).exec(function(err, category){
-		
-	});*/
+	}
+	else{
+		//no category send to whole players
+		sendToPlayers();
+	}
 };
 
 Post.defaultColumns = 'title, state|20%, author|20%, publishedDate|20%';
