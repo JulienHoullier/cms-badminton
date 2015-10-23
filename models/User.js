@@ -85,7 +85,7 @@ User.schema.methods.sendAdminNotificationEmail = function(callback) {
 				name: 'OCC-Badminton',
 				email: 'contact@occ-badminton.org'
 			},
-			subject: 'Demande d`\'inscription',
+			subject: 'Demande d\'inscription',
 			user: User
 		}, callback);
 	});
