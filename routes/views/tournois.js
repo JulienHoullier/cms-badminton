@@ -20,14 +20,59 @@ exports = module.exports = function(req, res) {
 		.sort('date')
 		.exec(function(err, tournaments){
 			if(err) next(err);
+			var tournois = [];
+			// [
+			// 	{
+			// 		tournoi: 'test',
+			// 		categories: [
+			// 			{
+			// 				categorie : 'SH',
+			// 				niveaux:[
+			// 					{
+			// 						niveau: 'D8',
+			// 						inscrits: ["bla", "bla"]
+			// 					},
+			// 					{
+			// 						niveau: 'D9',
+			// 						inscrits: ["bla"]
+			// 					},
+			// 				]
+			// 			},
+			// 			{
+			// 				categorie : 'DH',
+			// 				niveaux:[
+			// 					{
+			// 						niveau: 'D8',
+			// 						inscrits: ["bla - bla", "bla"]
+			// 					},
+			// 					{
+			// 						niveau: 'D9',
+			// 						inscrits: ["bla - bla"]
+			// 					},
+			// 				]
+			// 			}
+			// 		]
+			// 	}
+			// ]
 			async.each(tournaments,function(tournament, next){
+				var tournoi = {};
+				tournois.push(tournoi);
+
+				tournoi.tournoi  = tournament.name;
+				tournoi.date = tournament.date;
 				// Peuple la relations avec les inscriptions
 				tournament.populateRelated('registrations', function (err) {
 					// Regroupe par catégorie / niveau
-					var mapCategory = [];
-					var mapRanking = [];
-					async.each(tournament.registrations, function(err, registration){
-
+					async.each(tournament.registrations, function(registration, next){
+						if(!_.has(tournoi,'categories')){
+							table.categories = [];
+						}
+						var category = {};
+						category.rankings = [];
+						category.table = registration.category;
+						category.rankings.push(registration.ranking);
+						table.categories.push(category);
+						next();
 					});
 					next(err);
 				});
