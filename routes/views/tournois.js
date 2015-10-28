@@ -1,5 +1,5 @@
 var keystone = require('keystone'),
-	Tournament = keystone.list('Tournament'),
+	Registration = keystone.list('Registration'),
 	_ = require('underscore');
 	async = require('async');
 
@@ -15,13 +15,38 @@ exports = module.exports = function(req, res) {
 
 	// Sélection des 5 prochains tournois
 	view.on('init', function(next){
-		Tournament.model.find()
-		.where('registrationDeadLine').gte(today)
-		.sort('date')
-		.exec(function(err, tournaments){
+		Registration.model.find()
+		.populate('tournament')
+		.exec(function(err, registrations){
 			if(err) next(err);
-			var tournois = [];
-			// [
+			var tournois = {};
+			async.each(registrations,function(registration, next){
+				if(registration.tournament.registrationDeadLine > today){
+					// Si l'inscription fait parti d'un prochain tournoi
+					if(tournois[registration.tournament.name] == null){
+						tournois[registration.tournament.name] = {date : registration.tournament.date, categories : {}};
+					}
+					if(tournois[registration.tournament.name]['categories'][registration.category] == null){
+						tournois[registration.tournament.name]['categories'][registration.category] = {rankings : {}} ;
+					}
+					if(tournois[registration.tournament.name]['categories'][registration.category]['rankings'][registration.ranking] == null){
+						tournois[registration.tournament.name]['categories'][registration.category]['rankings'][registration.ranking] = [];
+					}
+					tournois[registration.tournament.name]['categories'][registration.category]['rankings'][registration.ranking].push(registration.player1.first);
+				}
+				next();
+			});
+			console.log(tournois);
+			locals.tournois = tournois;
+			next(err);
+		});
+	});
+
+	// Render the view
+	view.render('tournois');
+}
+
+// [
 			// 	{
 			// 		tournoi: 'test',
 			// 		categories: [
@@ -54,33 +79,3 @@ exports = module.exports = function(req, res) {
 			// 		]
 			// 	}
 			// ]
-			async.each(tournaments,function(tournament, next){
-				var tournoi = {};
-				tournois.push(tournoi);
-
-				tournoi.tournoi  = tournament.name;
-				tournoi.date = tournament.date;
-				// Peuple la relations avec les inscriptions
-				tournament.populateRelated('registrations', function (err) {
-					// Regroupe par catégorie / niveau
-					async.each(tournament.registrations, function(registration, next){
-						if(!_.has(tournoi,'categories')){
-							table.categories = [];
-						}
-						var category = {};
-						category.rankings = [];
-						category.table = registration.category;
-						category.rankings.push(registration.ranking);
-						table.categories.push(category);
-						next();
-					});
-					next(err);
-				});
-			});
-			next(err);
-		});
-	});
-
-	// Render the view
-	view.render('tournois');
-}

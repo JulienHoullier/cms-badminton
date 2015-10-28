@@ -7,5 +7,9 @@
 
 		{{ PanelTitle.renderTitle("Liste des tournois et inscrits") }}
 
+		{% for tournoi in tournois %}
+			{{ tournoi }} <br/>
+		{% endfor %}
+
 	</div>
 {% endblock %}
