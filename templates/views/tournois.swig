@@ -7,7 +7,7 @@
 
 		{{ PanelTitle.renderTitle("Liste des tournois et inscrits") }}
 
-		<table class="table" id="occ-table-inscrit">
+		<table class="table table-bordered" id="occ-table-inscrit">
 			<thead>
 				<tr>
 					<th>Tournoi</th>
@@ -17,7 +17,7 @@
 					<th>Inscrits</th>
 				</tr>
 			</thead>
-			<tbody class="occ-table-inscrit">
+			<tbody>
 				{% for tournoiKey, tournoiValue in tournois %}
 					{% set loopTournoi = loop %}
 					{% set tournoiChanged = true %}
