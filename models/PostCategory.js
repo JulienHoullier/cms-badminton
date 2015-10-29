@@ -1,4 +1,5 @@
 var keystone = require('keystone');
+var Types = keystone.Field.Types;
 
 /**
  * PostCategory Model
@@ -11,7 +12,8 @@ var PostCategory = new keystone.List('PostCategory', {
 });
 
 PostCategory.add({
-	name: { type: String, label:'Nom', required: true }
+	name: { type: String, label:'Nom', required: true },
+	default_image: { type: Types.CloudinaryImage, label:'Image par défaut' },
 });
 
 PostCategory.relationship({ ref: 'Post', path: 'posts', refPath: 'category', label:'Catégories' });

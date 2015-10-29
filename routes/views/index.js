@@ -18,7 +18,7 @@ exports = module.exports = function(req, res) {
 	view.query('articles', Post.model.find()
 		.where('state', 'published')
 		.populate('author')
-		.populate('categories')
+		.populate('category')
 		.sort('-publishedDate')
 		.limit(4));
 

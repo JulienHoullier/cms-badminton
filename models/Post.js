@@ -43,6 +43,22 @@ Post.schema.pre('save', function(next) {
 	next();
 });
 
+Post.schema.pre('save', function(next) {
+	if(this.isNew && !this.category){
+		var Post = this;
+		var PostCategory = keystone.list('PostCategory');
+		PostCategory.model.findOne({name : 'Club'}, function (err, category) {
+			if (!err && category) {
+				Post.category = category;
+			}
+			next();
+		});
+	}
+	else {
+		next();
+	}
+});
+
 Post.schema.post('save', function() {
     if (this.needMail) {
     	this.sendNotificationEmail();

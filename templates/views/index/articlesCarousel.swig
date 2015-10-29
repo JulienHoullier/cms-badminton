@@ -37,6 +37,10 @@
 						{% set urlImg = '/images/defaultnews.jpg' %}
 						{% if article.image.exists %}
 							{% set urlImg = article.image.url %}
+						{% else %}
+							{% if article.category && article.category.default_image.exists %}
+								{% set urlImg = article.category.default_image.url %}
+							{% endif %}
 						{% endif %}
 
 						<img src="{{ urlImg }}" class="visible-md-block visible-lg-block" width="100%" height="300">
