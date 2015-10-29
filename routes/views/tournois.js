@@ -19,24 +19,31 @@ exports = module.exports = function(req, res) {
 		.populate('tournament')
 		.exec(function(err, registrations){
 			if(err) next(err);
+
 			var tournois = {};
 			async.each(registrations,function(registration, next){
 				if(registration.tournament.registrationDeadLine > today){
 					// Si l'inscription fait parti d'un prochain tournoi
+					// On gère une map des inscrits par division et catégorie.
+
 					if(tournois[registration.tournament.name] == null){
-						tournois[registration.tournament.name] = {date : registration.tournament.date, categories : {}};
+						tournois[registration.tournament.name] = {nbInscrit : 0, date : registration.tournament.date, categories : {}};
 					}
 					if(tournois[registration.tournament.name]['categories'][registration.category] == null){
-						tournois[registration.tournament.name]['categories'][registration.category] = {rankings : {}} ;
+						tournois[registration.tournament.name]['categories'][registration.category] = {nbInscrit: 0, divisions: {}} ;
 					}
-					if(tournois[registration.tournament.name]['categories'][registration.category]['rankings'][registration.ranking] == null){
-						tournois[registration.tournament.name]['categories'][registration.category]['rankings'][registration.ranking] = [];
+					if(tournois[registration.tournament.name]['categories'][registration.category]['divisions'][registration.ranking] == null){
+						tournois[registration.tournament.name]['categories'][registration.category]['divisions'][registration.ranking] = [];
 					}
-					tournois[registration.tournament.name]['categories'][registration.category]['rankings'][registration.ranking].push(registration.player1.first);
+					// Ajout du joueur au tournoi.
+					tournois[registration.tournament.name]['categories'][registration.category]['divisions'][registration.ranking].push(registration.player1.full);
+					// Incrémentation du nombre d'inscrit au tournoi et à la catégorie.
+					tournois[registration.tournament.name]['categories'][registration.category].nbInscrit ++;
+					tournois[registration.tournament.name].nbInscrit ++;
 				}
 				next();
 			});
-			console.log(tournois);
+
 			locals.tournois = tournois;
 			next(err);
 		});
@@ -45,37 +52,3 @@ exports = module.exports = function(req, res) {
 	// Render the view
 	view.render('tournois');
 }
-
-// [
-			// 	{
-			// 		tournoi: 'test',
-			// 		categories: [
-			// 			{
-			// 				categorie : 'SH',
-			// 				niveaux:[
-			// 					{
-			// 						niveau: 'D8',
-			// 						inscrits: ["bla", "bla"]
-			// 					},
-			// 					{
-			// 						niveau: 'D9',
-			// 						inscrits: ["bla"]
-			// 					},
-			// 				]
-			// 			},
-			// 			{
-			// 				categorie : 'DH',
-			// 				niveaux:[
-			// 					{
-			// 						niveau: 'D8',
-			// 						inscrits: ["bla - bla", "bla"]
-			// 					},
-			// 					{
-			// 						niveau: 'D9',
-			// 						inscrits: ["bla - bla"]
-			// 					},
-			// 				]
-			// 			}
-			// 		]
-			// 	}
-			// ]

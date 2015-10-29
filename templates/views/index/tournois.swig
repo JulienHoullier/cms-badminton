@@ -18,7 +18,7 @@
 			</thead>
 			{% for tournament in tournaments %}
 			<tr>
-				<td>{{ tournament._.date.format("DD-MM-YYYY") }}</td>
+				<td>{{ tournament.date|date("d-m-Y") }}</td>
 				<td>{{ tournament.name }}</td>
 				<td class="text-right">
 					{{ tournament.registrations.length }}
