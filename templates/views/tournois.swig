@@ -10,11 +10,11 @@
 		<table class="table table-bordered" id="occ-table-inscrit">
 			<thead>
 				<tr>
-					<th>Tournoi</th>
-					<th>Date</th>
-					<th>Categorie</th>
-					<th>Division</th>
-					<th>Inscrits</th>
+					<th class="text-center">Tournoi</th>
+					<th class="text-center">Date</th>
+					<th class="text-center">Categorie</th>
+					<th class="text-center">Division</th>
+					<th class="text-center">Inscrits</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -37,11 +37,11 @@
 								{% set nbPlayerDivision = loopPlayer.revindex %}
 
 								{% if tournoiChanged and categorieChanged and rankingChanged and loop.first %}
-									<tr>
-										<td rowspan="{{ tournoiValue.nbInscrit }}">{{ tournoiKey }}</td>
-										<td rowspan="{{ tournoiValue.nbInscrit }}">{{ tournamentDate|date('d-m-Y') }}</td>
-										<td rowspan="{{ nbPlayerCategorie }}">{{ categorieName }}</td>
-										<td rowspan="{{ nbPlayerDivision }}">{{ rankingKey }}</td>
+									<tr id="{{tournoiKey}}">
+										<td rowspan="{{ tournoiValue.nbInscrit }}"><strong>{{ tournoiKey }}</strong></td>
+										<td rowspan="{{ tournoiValue.nbInscrit }}"><strong>{{ tournamentDate|date('d-m-Y') }}</strong></td>
+										<td rowspan="{{ nbPlayerCategorie }}" class="occ-theme-color text-center">{{ categorieName }}</td>
+										<td rowspan="{{ nbPlayerDivision }}" class="occ-theme-color text-center">{{ rankingKey }}</td>
 										<td>{{ player }}</td>
 									</tr>
 									{% set tournoiChanged = false %}
@@ -50,8 +50,8 @@
 
 								{% elseif categorieChanged %}
 									<tr>
-										<td rowspan="{{ nbPlayerCategorie }}">{{ categorieName }}</td>
-										<td rowspan="{{ nbPlayerDivision }}">{{ rankingKey }}</td>
+										<td rowspan="{{ nbPlayerCategorie }}" class="occ-theme-color text-center">{{ categorieName }}</td>
+										<td rowspan="{{ nbPlayerDivision }}" class="occ-theme-color text-center">{{ rankingKey }}</td>
 										<td>{{ player }}</td>
 									</tr>
 									{% set categorieChanged = false %}
@@ -59,7 +59,7 @@
 
 								{% elseif rankingChanged %}
 									<tr>
-										<td rowspan="{{ nbPlayerDivision }}">{{ rankingKey }}</td>
+										<td rowspan="{{ nbPlayerDivision }}" class="occ-theme-color text-center">{{ rankingKey }}</td>
 										<td>{{ player }}</td>
 									</tr>
 									{% set rankingChanged = false %}
