@@ -117,7 +117,6 @@ var addCategoryIfNotPresent = function(player, categoryName, next){
 					interests.push(category);
 					player.interests = interests;
 					player.ignoreInterestsModified = true;
-					console.log('passe interests: '+player.interests);
 				}
 
 				return next();

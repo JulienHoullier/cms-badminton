@@ -17,12 +17,9 @@
 							{% if data.post.publishedDate %}
 								le {{ data.post._.publishedDate.format('DD/MM/YYYY') }}
 							{% endif %}
-							{% if data.post.categories and data.post.categories.length %}
+							{% if data.post.category %}
 								dans la catégorie :
-								{% for cat in data.post.categories %}
-									<a href="/blog/{{ cat.key }}" class="occ-theme-color">{{ cat.name }}</a>
-									{% if loop.index < data.post.categories.length - 1 %}, {% endif %}
-								{% endfor %}
+								<a href="/blog/{{ data.post.category.key }}" class="occ-theme-color">{{ data.post.category.name }}</a>
 							{% endif %}
 							{% if data.post.author %}
 								par {{ data.post.author.name.first }}

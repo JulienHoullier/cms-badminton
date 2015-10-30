@@ -9,7 +9,9 @@
 				<div class="occ-list-categorie">
 					<a href="/blog" class="btn {% if not data.category %}btn-primary{% else %}btn-default{% endif %}">Toutes catégories</a>
 					{% for cat in data.categories %}
-						<a href="/blog/{{ cat.key }}" class="btn {% if data.category and data.category.id == cat.id %}btn-primary{% else %}btn-default{% endif %}">{{ cat.name }}</a>
+						{% if cat.postCount > 0 %}
+						<a href="/blog/{{ cat.key }}" class="btn {% if data.category and data.category.id == cat.id %}btn-primary{% else %}btn-default{% endif %}">{{ cat.name }}   <span class="badge">{{cat.postCount }}</span></a>
+						{% endif %}
 					{% endfor %}
 				</div>
 			</div>
