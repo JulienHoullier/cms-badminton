@@ -43,8 +43,11 @@ exports = module.exports = function(req, res) {
 				}
 				next();
 			});
-
-			locals.tournois = tournois;
+			// Tri par dates des tournois
+			var sortedTournois = _.sortBy(_.pairs(tournois), function (tournoi){
+				return tournoi[1].date;
+			});
+			locals.tournois = sortedTournois;
 			next(err);
 		});
 	});

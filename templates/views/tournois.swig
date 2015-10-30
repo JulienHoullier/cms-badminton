@@ -17,8 +17,11 @@
 					<th class="text-center">Inscrits</th>
 				</tr>
 			</thead>
-			<tbody>
-				{% for tournoiKey, tournoiValue in tournois %}
+				{% for tournoi in tournois %}
+				{% set tournoiKey = tournoi[0] %}
+				{% set tournoiValue = tournoi[1] %}
+
+				<tbody id="{{tournoiKey}}">
 					{% set loopTournoi = loop %}
 					{% set tournoiChanged = true %}
 					{% set tournamentDate = tournoiValue.date %}
@@ -35,45 +38,37 @@
 							{% for player in rankingValue %}
 								{% set loopPlayer = loop %}
 								{% set nbPlayerDivision = loopPlayer.revindex %}
-
+								<tr>
 								{% if tournoiChanged and categorieChanged and rankingChanged and loop.first %}
-									<tr id="{{tournoiKey}}">
 										<td rowspan="{{ tournoiValue.nbInscrit }}"><strong>{{ tournoiKey }}</strong></td>
 										<td rowspan="{{ tournoiValue.nbInscrit }}"><strong>{{ tournamentDate|date('d-m-Y') }}</strong></td>
 										<td rowspan="{{ nbPlayerCategorie }}" class="occ-theme-color text-center">{{ categorieName }}</td>
 										<td rowspan="{{ nbPlayerDivision }}" class="occ-theme-color text-center">{{ rankingKey }}</td>
 										<td>{{ player }}</td>
-									</tr>
 									{% set tournoiChanged = false %}
 									{% set categorieChanged = false %}
 									{% set rankingChanged = false %}
 
 								{% elseif categorieChanged %}
-									<tr>
 										<td rowspan="{{ nbPlayerCategorie }}" class="occ-theme-color text-center">{{ categorieName }}</td>
 										<td rowspan="{{ nbPlayerDivision }}" class="occ-theme-color text-center">{{ rankingKey }}</td>
 										<td>{{ player }}</td>
-									</tr>
 									{% set categorieChanged = false %}
 									{% set rankingChanged = false %}
 
 								{% elseif rankingChanged %}
-									<tr>
 										<td rowspan="{{ nbPlayerDivision }}" class="occ-theme-color text-center">{{ rankingKey }}</td>
 										<td>{{ player }}</td>
-									</tr>
 									{% set rankingChanged = false %}
 								{% else %}
-									<tr>
 										<td>{{ player }}</td>
-									</tr>
 								{% endif %}
-
+								</tr>
 							{% endfor %}
 						{% endfor %}
 					{% endfor %}
+					</tbody>
 				{% endfor %}
-			</tbody>
 		</table>
 	</div>
 {% endblock %}
