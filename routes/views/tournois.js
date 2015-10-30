@@ -1,6 +1,7 @@
 var keystone = require('keystone'),
 	Registration = keystone.list('Registration'),
-	_ = require('underscore');
+	Tournament = keystone.list('Tournament'),
+	_ = require('underscore'),
 	async = require('async');
 
 exports = module.exports = function(req, res) {
@@ -47,7 +48,18 @@ exports = module.exports = function(req, res) {
 			var sortedTournois = _.sortBy(_.pairs(tournois), function (tournoi){
 				return tournoi[1].date;
 			});
-			locals.tournois = sortedTournois;
+			locals.inscrits = sortedTournois;
+			next(err);
+		});
+	});
+
+	// Sélection des prochains tournois
+	view.on('init', function(next){
+		Tournament.model.find()
+		.where('registrationDeadLine').gte(today)
+		.sort('date')
+		.exec(function(err, tournaments){
+			locals.tournois = tournaments;
 			next(err);
 		});
 	});

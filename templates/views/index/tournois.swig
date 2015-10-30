@@ -2,7 +2,7 @@
 	<h2>
 		<img src="/images/tournament-cup2.png" class="occ-section-img">
 		Tournois à venir
-		<a href="/tournois" class="pull-right">
+		<a href="/tournois#tournois" class="pull-right">
 			<img src="/images/plus.png" width="16px" height="16px" />
 		</a>
 	</h2>

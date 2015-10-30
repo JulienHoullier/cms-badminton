@@ -52,6 +52,12 @@ exports.initLocals = function(req, res, next) {
 		});
 	}
 
+	locals.navLinks.push({
+			label: 'Tournois',
+			key: 'tournois',
+			href: '/tournois'
+	});
+
 	//store user to access it in the web page
 	locals.user = req.user;
 
