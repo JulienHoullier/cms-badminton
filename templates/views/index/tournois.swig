@@ -8,14 +8,8 @@
 	</h2>
 	<div class="occ-section-little">
 		{% if tournaments.length %}
+		<p class="text-right" style="margin-right: 5px"><strong>Nb d'inscrit</strong></p>
 		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th></th>
-					<th></th>
-					<th class="text-right">Nb d'inscrit</th>
-				</tr>
-			</thead>
 			{% for tournament in tournaments %}
 			<tr>
 				<td>{{ tournament.date|date("d-m-Y") }}</td>
