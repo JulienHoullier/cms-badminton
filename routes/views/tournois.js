@@ -41,7 +41,7 @@ exports = module.exports = function(req, res) {
 					// Incrémentation du nombre d'inscrit au tournoi et à la catégorie.
 					tournois[registration.tournament.name]['categories'][registration.category].nbInscrit ++;
 					tournois[registration.tournament.name].nbInscrit ++;
-					if(registration.player2 != null){
+					if(registration.player2.length){
 						tournois[registration.tournament.name]['categories'][registration.category]['divisions'][registration.ranking].push(registration.player2.full);
 						tournois[registration.tournament.name]['categories'][registration.category].nbInscrit ++;
 						tournois[registration.tournament.name].nbInscrit ++;
