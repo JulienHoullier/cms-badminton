@@ -22,34 +22,30 @@
 				{% set tournoiValue = tournoi[1] %}
 
 				<tbody id="{{tournoiKey}}">
-					{% set loopTournoi = loop %}
 					{% set isNewTournoi = true %}
 					{% set tournamentDate = tournoiValue.date %}
 
 					{% for categorieName, categorieValue in tournoiValue.categories %}
-						{% set loopCategorie = loop %}
 						{% set isNewCategorie = true %}
 						{% set nbPlayerCategorie = categorieValue.nbInscrit %}
 
 						{% for rankingKey, rankingValue in categorieValue.divisions %}
-							{% set loopRanking = loop %}
 							{% set isNewRanking = true %}
 
 							{% for player in rankingValue %}
-								{% set loopPlayer = loop %}
-								{% set nbPlayerDivision = loopPlayer.revindex %}
+								{% set nbPlayerDivision = loop.revindex %}
 								<tr>
 								{% if isNewTournoi %}
-										<td rowspan="{{ tournoiValue.nbInscrit }}"><strong>{{ tournamentDate|date('d-m-Y') }}</strong></td>
-										<td rowspan="{{ tournoiValue.nbInscrit }}"><strong>{{ tournoiKey }}</strong></td>
+									<td rowspan="{{ tournoiValue.nbInscrit }}"><strong>{{ tournamentDate|date('d-m-Y') }}</strong></td>
+									<td rowspan="{{ tournoiValue.nbInscrit }}"><strong>{{ tournoiKey }}</strong></td>
 									{% set isNewTournoi = false %}
 								{% endif %}		
 								{% if isNewCategorie %}
-										<td rowspan="{{ nbPlayerCategorie }}" class="occ-theme-color text-center">{{ categorieName }}</td>
+									<td rowspan="{{ nbPlayerCategorie }}" class="occ-theme-color text-center">{{ categorieName }}</td>
 									{% set isNewCategorie = false %}
 								{% endif %}
 								{% if isNewRanking %}
-										<td rowspan="{{ nbPlayerDivision }}" class="occ-theme-color text-center">{{ rankingKey }}</td>
+									<td rowspan="{{ nbPlayerDivision }}" class="occ-theme-color text-center">{{ rankingKey }}</td>
 									{% set isNewRanking = false %}
 								{% endif %}
 									<td>{{ player }}</td>
