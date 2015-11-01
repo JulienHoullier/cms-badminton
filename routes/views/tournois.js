@@ -36,11 +36,16 @@ exports = module.exports = function(req, res) {
 					if(tournois[registration.tournament.name]['categories'][registration.category]['divisions'][registration.ranking] == null){
 						tournois[registration.tournament.name]['categories'][registration.category]['divisions'][registration.ranking] = [];
 					}
-					// Ajout du joueur au tournoi.
+					// Ajout du joueur ou de l'équipe au tournoi.
 					tournois[registration.tournament.name]['categories'][registration.category]['divisions'][registration.ranking].push(registration.player1.full);
 					// Incrémentation du nombre d'inscrit au tournoi et à la catégorie.
 					tournois[registration.tournament.name]['categories'][registration.category].nbInscrit ++;
 					tournois[registration.tournament.name].nbInscrit ++;
+					if(registration.player2 != null){
+						tournois[registration.tournament.name]['categories'][registration.category]['divisions'][registration.ranking].push(registration.player2.full);
+						tournois[registration.tournament.name]['categories'][registration.category].nbInscrit ++;
+						tournois[registration.tournament.name].nbInscrit ++;
+					}
 				}
 				next();
 			});

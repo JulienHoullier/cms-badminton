@@ -23,43 +23,43 @@
 
 				<tbody id="{{tournoiKey}}">
 					{% set loopTournoi = loop %}
-					{% set tournoiChanged = true %}
+					{% set isNewTournoi = true %}
 					{% set tournamentDate = tournoiValue.date %}
 
 					{% for categorieName, categorieValue in tournoiValue.categories %}
 						{% set loopCategorie = loop %}
-						{% set categorieChanged = true %}
+						{% set isNewCategorie = true %}
 						{% set nbPlayerCategorie = categorieValue.nbInscrit %}
 
 						{% for rankingKey, rankingValue in categorieValue.divisions %}
 							{% set loopRanking = loop %}
-							{% set rankingChanged = true %}
+							{% set isNewRanking = true %}
 
 							{% for player in rankingValue %}
 								{% set loopPlayer = loop %}
 								{% set nbPlayerDivision = loopPlayer.revindex %}
 								<tr>
-								{% if tournoiChanged and categorieChanged and rankingChanged and loop.first %}
+								{% if isNewTournoi and isNewCategorie and isNewRanking and loop.first %}
 										<td rowspan="{{ tournoiValue.nbInscrit }}"><strong>{{ tournamentDate|date('d-m-Y') }}</strong></td>
 										<td rowspan="{{ tournoiValue.nbInscrit }}"><strong>{{ tournoiKey }}</strong></td>
 										<td rowspan="{{ nbPlayerCategorie }}" class="occ-theme-color text-center">{{ categorieName }}</td>
 										<td rowspan="{{ nbPlayerDivision }}" class="occ-theme-color text-center">{{ rankingKey }}</td>
 										<td>{{ player }}</td>
-									{% set tournoiChanged = false %}
-									{% set categorieChanged = false %}
-									{% set rankingChanged = false %}
+									{% set isNewTournoi = false %}
+									{% set isNewCategorie = false %}
+									{% set isNewRanking = false %}
 
-								{% elseif categorieChanged %}
+								{% elseif isNewCategorie %}
 										<td rowspan="{{ nbPlayerCategorie }}" class="occ-theme-color text-center">{{ categorieName }}</td>
 										<td rowspan="{{ nbPlayerDivision }}" class="occ-theme-color text-center">{{ rankingKey }}</td>
 										<td>{{ player }}</td>
-									{% set categorieChanged = false %}
-									{% set rankingChanged = false %}
+									{% set isNewCategorie = false %}
+									{% set isNewRanking = false %}
 
-								{% elseif rankingChanged %}
+								{% elseif isNewRanking %}
 										<td rowspan="{{ nbPlayerDivision }}" class="occ-theme-color text-center">{{ rankingKey }}</td>
 										<td>{{ player }}</td>
-									{% set rankingChanged = false %}
+									{% set isNewRanking = false %}
 								{% else %}
 										<td>{{ player }}</td>
 								{% endif %}
