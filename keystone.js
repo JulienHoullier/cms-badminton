@@ -8,11 +8,14 @@ if(process.env.NODE_ENV !== 'production'){
 var keystone = require('keystone');
 var _ = require('underscore');
 
-var swig = require('swig');
+var nunjucks = require('nunjucks');
+// Disable ninjuck's built-in template caching, express handles it
+nunjucks.configure({noCache : true});
+var dateFilter = require('nunjucks-date-filter');
+dateFilter.install();
+// Configuration des dates françaises.
 var moment = require('moment');
-
-// Disable swig's bulit-in template caching, express handles it
-swig.setDefaults({cache: false});
+moment.defineLocale('fr', require('./locales/fr'));
 
 // Initialise Keystone with your project's configuration.
 // See http://keystonejs.com/guide/config for available options
@@ -28,8 +31,7 @@ keystone.init({
 	'favicon': 'frontend/public/favicon.ico',
 	'views': 'frontend/templates/views',
 	'view engine': 'swig',
-
-	'custom engine': swig.renderFile,
+	'custom engine': nunjucks.render,
 
 	'emails': 'frontend/templates/emails',
 
@@ -87,7 +89,7 @@ keystone.set('email locals', {
 keystone.set('email options', {
 	transport: 'mailgun',
 	ext: keystone.get('view engine'),
-	engine: keystone.get('custom engine'),
+	engine: nunjucks
 });
 
 keystone.set('domain name', process.env.DOMAIN_NAME || 'http://localhost:3000');
@@ -135,10 +137,8 @@ var filterNav = function(req) {
 			addMenu(section);
 		}
 	});
-	console.log("user: "+JSON.stringify(req.user));
-	console.log("user: "+JSON.stringify(userNav));
 	return userNav;
-}
+};
 
 /**
  * Middleware to check Model permission against logged user
