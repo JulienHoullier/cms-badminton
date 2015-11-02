@@ -76,7 +76,7 @@ var sendMail = function(Registration, template, subject, callback){
 	Registration.populate('tournament player1 player2', function(err, registration){
 
 		if(err) return console.log('Error populating registration due to: '+err);
-		
+
 		var emails = [registration.player1];
 		if(registration.player2 != null){
 			emails.push(registration.player2);

@@ -43,7 +43,7 @@
                                             {% set resultClass = '' %}
                                             {% if lastResult.occResult > lastResult.versusResult %}
                                                 {% set resultClass = 'Win' %}
-                                            {% elseif lastResult.versusResult > lastResult.occResult%}
+                                            {% elif lastResult.versusResult > lastResult.occResult%}
                                                 {% set resultClass = 'Loose' %}
                                             {% endif %}
                                             <div class="row">
@@ -122,7 +122,7 @@
                                                         {% set resultClass = '' %}
                                                         {% if match.occResult > match.versusResult %}
                                                             {% set resultClass = 'success' %}
-                                                        {% elseif match.versusResult > match.occResult%}
+                                                        {% elif match.versusResult > match.occResult%}
                                                             {% set resultClass = 'danger' %}
                                                         {% endif %}
                                                         <tr class="{{resultClass}}">

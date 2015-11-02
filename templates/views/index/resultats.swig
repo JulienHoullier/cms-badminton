@@ -13,7 +13,7 @@
 					{% set img = 'good' %}
 					{% if result.occResult == result.versusResult %}
 						{% set img = 'neutral' %}
-					{% elseif result.occResult < result.versusResult %}
+					{% elif result.occResult < result.versusResult %}
 						{% set img = 'sad' %}
 					{% endif %}
 					<tr>

@@ -66,7 +66,7 @@
 								{% set nbPlayerDivision = loop.revindex %}
 								<tr>
 								{% if isNewTournoi %}
-									<td rowspan="{{ tournoiValue.nbInscrit }}"><strong>{{ tournamentDate }}</strong></td>
+									<td rowspan="{{ tournoiValue.nbInscrit }}"><strong>{{ tournamentDate|date('DD-MM-YYYY') }}</strong></td>
 									<td rowspan="{{ tournoiValue.nbInscrit }}"><strong>{{ tournoiKey }}</strong></td>
 									{% set isNewTournoi = false %}
 								{% endif %}

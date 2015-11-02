@@ -7,10 +7,14 @@ var keystone = require('keystone');
 require('keystone-nodemailer');
 var _ = require('underscore');
 
-var swig = require('swig');
-
-// Disable swig's bulit-in template caching, express handles it
-swig.setDefaults({ cache: false });
+var nunjucks = require('nunjucks');
+// Disable ninjuck's built-in template caching, express handles it
+nunjucks.configure({noCache : true});
+var dateFilter = require('nunjucks-date-filter');
+dateFilter.install();
+// Configuration des dates françaises.
+var moment = require('moment');
+moment.locale('fr');
 
 // Initialise Keystone with your project's configuration.
 // See http://keystonejs.com/guide/config for available options
@@ -20,15 +24,14 @@ keystone.init({
 
 	'name': 'OCC-Badminton',
 	'brand': 'OCC-Badminton',
-	
+
 	'less': 'public',
 	'static': 'public',
 	'favicon': 'public/favicon.ico',
 	'views': 'templates/views',
 	'view engine': 'swig',
-	
-	'custom engine': swig.renderFile,
-	
+	'custom engine': nunjucks.render,
+
 	'emails': 'templates/emails',
 
 	'cookie secret': process.env.COOKIE_SECRET,
@@ -119,14 +122,14 @@ keystone.set('email rules', [{
 }]);
 
 keystone.Email.defaults.templateExt =  'swig';
-keystone.Email.defaults.templateEngine =  swig;
+keystone.Email.defaults.templateEngine = nunjucks;
 keystone.Email.defaults.mandrill =  {};
 
 // Load your project's email test routes
 
 keystone.set('email tests', require('./routes/emails'));
 
-// Configure the navigation bar in Keystone's Admin UI
+// Configure the navigation bar in Keystone's Admin UInpm
 
 var nav= {
 	'Actualités': ['posts', 'post-categories', 'post-comments'],
@@ -134,8 +137,8 @@ var nav= {
 	'Demandes': 'enquiries',
 	'Club': ['teams', 'players','matches'],
 	'Utilisateurs': 'users',
-    'Tournois' : ['tournaments', 'registrations'],
-    'Plan du site' : ['pages', 'media', 'sponsors']
+  'Tournois' : ['tournaments', 'registrations'],
+  'Plan du site' : ['pages', 'media', 'sponsors']
 };
 
 keystone.post('signin', function (callback) {
@@ -157,7 +160,7 @@ keystone.render = function(req, res, view, ext){
 	 * @param view
 	 * @param ext
 	 */
-	
+
 	_.each(nav, function(section, key){
 		console.log("key: "+key);
 		var addMenu = function(list){
@@ -169,7 +172,7 @@ keystone.render = function(req, res, view, ext){
 				userNav[key].push(list);
 			}
 		};
-		
+
 		if(section instanceof Array) {
 			_.each(section, function (list) {
 				addMenu(list);
@@ -179,7 +182,7 @@ keystone.render = function(req, res, view, ext){
 			addMenu(section);
 		}
 	});
-	
+
 	var locals = { nav : keystone.initNav(userNav)};
 	_.extend(ext, locals);
 	//call keystone render

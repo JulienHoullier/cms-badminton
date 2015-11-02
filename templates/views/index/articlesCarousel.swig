@@ -38,8 +38,10 @@
 						{% if article.image.exists %}
 							{% set urlImg = article._.image.pad(379, 300) %}
 						{% else %}
+
 							{% if article.category && article.category.default_image.exists %}
 								{% set urlImg = article.category._.default_image.pad(379, 300) %}
+
 							{% endif %}
 						{% endif %}
 
@@ -65,7 +67,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12">
-						<div class="text-right occ-article-content"> 
+						<div class="text-right occ-article-content">
 							<a href="/blog/post/{{ article.slug }}#comments">
 							{% set badgeClass = 'badge' %}
 							{% if article.nbComment > 0 %}

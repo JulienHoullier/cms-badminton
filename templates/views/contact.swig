@@ -49,7 +49,7 @@
 									<option value="">(Choissiez en une)</option>
 									{% for type in enquiryTypes %}
 										{% set selected = "" %}
-										{% if formData.enquiryType === type.value %}
+										{% if formData.enquiryType == type.value %}
 											{% set selected = " selected" %}
 										{% endif %}
 										<option value="{{ type.value }}"{{ selected }}>{{ type.label }}</option>

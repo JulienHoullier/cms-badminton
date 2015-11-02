@@ -6,7 +6,7 @@
 
 		{{ PanelTitle.renderTitle(page.title) }}
 
-		{{ page.content | raw }}
+		{{ page.content | safe }}
 
 	</div>
 {% endblock %}

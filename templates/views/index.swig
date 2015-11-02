@@ -8,21 +8,21 @@
 			<div class="col-md-8 col-xs-12">
 				<div id="occ-last-news" class="occ-container occ-bg">
 					{{ PanelTitle.renderTitle('Dernières Actualités') }}
-			
-					<div> 
+
+					<div>
 					{% if lastPosts.length %}
 						<div id="occ-last-news-carousel" class="carousel occ-panel slide" data-ride="carousel" data-interval="3000">
 							<!-- Indicators -->
 							<ol class="carousel-indicators">
 							{% for post in lastPosts %}
 								{% set linkClass = '' %}
-								{% if loop.first %}					
+								{% if loop.first %}
 									{% set linkClass = 'class="active"' %}
 								{% endif %}
 							  <li data-target="#occ-last-news-carousel" data-slide-to="{{ loop.index0 }}" {{ linkClass | safe }}></li>
 							{% endfor %}
 							</ol>
-			
+
 							<!-- Wrapper for slides -->
 							<div class="carousel-inner" role="listbox">
 							{% for post in lastPosts %}
@@ -126,7 +126,7 @@
 														{% set resultClass = '' %}
 														{% if lastResult.occResult > lastResult.versusResult %}
 															{% set resultClass = 'Win' %}
-														{% elseif lastResult.versusResult > lastResult.occResult%}
+														{% elif lastResult.versusResult > lastResult.occResult%}
 															{% set resultClass = 'Loose' %}
 														{% endif %}
 														<div class="row">
@@ -203,7 +203,7 @@
 																	{% set resultClass = '' %}
 																	{% if match.occResult > match.versusResult %}
 																		{% set resultClass = 'success' %}
-																	{% elseif match.versusResult > match.occResult%}
+																	{% elif match.versusResult > match.occResult%}
 																		{% set resultClass = 'danger' %}
 																	{% endif %}
 																	<tr class="{{resultClass}}">
