@@ -82,7 +82,6 @@
 								<li><a class="btn" href="/keystone/signout">Déconnexion</a></li>
 							{%- else -%}
 								<li><a class="btn" href="/keystone/signin">Connexion</a></li>
-								<li><a class="btn" href="/keystone/signin">Connexion</a></li>
 							{%- endif %}
 						</ul>
 					</div>
