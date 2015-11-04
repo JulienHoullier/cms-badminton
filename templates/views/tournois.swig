@@ -57,7 +57,7 @@
 				{% endfor %}
 		</table>
 
-		{{ PanelTitle.renderTitle("Autres tournois") }}
+		{{ PanelTitle.renderTitle("Prochains tournois") }}
 
 		<table class="table" id="occ-table-tournois">
 			<thead>
