@@ -1,11 +1,10 @@
 // Simulate config options from your production environment by
 // customising the .env file in your project's root folder.
-if(process.env.NODE_ENV !== 'production'){
-	require('dotenv').load();
-}
+require('dotenv').load();
 
 // Require keystone
 var keystone = require('keystone');
+require('keystone-nodemailer');
 var _ = require('underscore');
 
 var nunjucks = require('nunjucks');
@@ -50,13 +49,11 @@ keystone.init({
 });
 
 // Load your project's Models
-
-var models = keystone.import('models');
+keystone.import('models');
 
 // Setup common locals for your templates. The following are required for the
 // bundled templates and layouts. Any runtime locals (that should be set uniquely
 // for each request) should be added to ./routes/middleware.js
-
 keystone.set('locals', {
 	_: require('underscore'),
 	moment: moment,
@@ -68,8 +65,6 @@ keystone.set('locals', {
 		color: "#ded605"
 	}
 });
-
-moment.defineLocale('fr', require('./locales/fr'));
 
 // Load your project's Routes
 keystone.set('routes', require('./frontend/routes'));
