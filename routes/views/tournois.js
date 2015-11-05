@@ -17,7 +17,7 @@ exports = module.exports = function(req, res) {
 	// Sélection des 5 prochains tournois
 	view.on('init', function(next){
 		Registration.model.find()
-		.populate('tournament')
+		.populate('tournament player1 player2')
 		.exec(function(err, registrations){
 			if(err) next(err);
 
@@ -37,12 +37,12 @@ exports = module.exports = function(req, res) {
 						tournois[registration.tournament.name]['categories'][registration.category]['divisions'][registration.ranking] = [];
 					}
 					// Ajout du joueur ou de l'équipe au tournoi.
-					tournois[registration.tournament.name]['categories'][registration.category]['divisions'][registration.ranking].push(registration.player1.full);
+					tournois[registration.tournament.name]['categories'][registration.category]['divisions'][registration.ranking].push(registration.player1.name.full);
 					// Incrémentation du nombre d'inscrit au tournoi et à la catégorie.
 					tournois[registration.tournament.name]['categories'][registration.category].nbInscrit ++;
 					tournois[registration.tournament.name].nbInscrit ++;
-					if(!_.isEmpty(registration.player2.full)){
-						tournois[registration.tournament.name]['categories'][registration.category]['divisions'][registration.ranking].push(registration.player2.full);
+					if(registration.player2 != null){
+						tournois[registration.tournament.name]['categories'][registration.category]['divisions'][registration.ranking].push(registration.player2.name.full);
 						tournois[registration.tournament.name]['categories'][registration.category].nbInscrit ++;
 						tournois[registration.tournament.name].nbInscrit ++;
 					}

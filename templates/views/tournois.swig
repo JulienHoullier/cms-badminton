@@ -39,7 +39,7 @@
 									<td rowspan="{{ tournoiValue.nbInscrit }}"><strong>{{ tournamentDate|date('d-m-Y') }}</strong></td>
 									<td rowspan="{{ tournoiValue.nbInscrit }}"><strong>{{ tournoiKey }}</strong></td>
 									{% set isNewTournoi = false %}
-								{% endif %}		
+								{% endif %}
 								{% if isNewCategorie %}
 									<td rowspan="{{ nbPlayerCategorie }}" class="occ-theme-color text-center">{{ categorieName }}</td>
 									{% set isNewCategorie = false %}

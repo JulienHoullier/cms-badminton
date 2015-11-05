@@ -31,17 +31,13 @@ Registration.add(
 			default: 'in_progress'
 		}
 	},
-	{ heading: 'Joueur'},
+	{ heading: 'Joueur' },
 	{
-		player1: {type: Types.Name, label: 'Joueur 1', required: true, initial:true},
-		player1_email: {type: Types.Email, label: 'Joueur 1 mail', required: true, initial:true},
-		player1_licence: {type: Types.Number, label: 'Joueur 1 N° Licence', required: true, initial:true}
+		player1 : { type: Types.Relationship, label:'Joueur 1', ref: 'Player', required: true, initial: true}
 	},
 	{ heading: 'Partenaire', dependsOn: { category: ['DH', 'DD', 'DM'] } },
 	{
-		player2: {type: Types.Name, label:'Joueur 2', dependsOn: { category: ['DH', 'DD', 'DM'] }, initial:true},
-		player2_email: {type: Types.Email, label: 'Joueur 2 mail', dependsOn: { category: ['DH', 'DD', 'DM'] }, initial:true},
-		player2_licence: { type: Types.Number, label:'Joueur 2 N° Licence', dependsOn: { category: ['DH', 'DD', 'DM'] }, initial:true}
+		player2 : { type: Types.Relationship, label:'Joueur 2', ref: 'Player', dependsOn: { category: ['DH', 'DD', 'DM'] }, initial: true}
 	}
 );
 
@@ -57,27 +53,26 @@ Registration.schema.post('save', function() {
 });
 
 Registration.schema.methods.sendRegistrationManagerEmail = function(callback) {
-	
+
 	if ('function' !== typeof callback) {
 		callback = function() {};
 	}
-	
-	this.populate('tournament', function(err, registration){
-		
+
+	this.populate('tournament player1 player2', function(err, registration){
+
 		keystone.list('User').model.findOne().where('isTournamentManager', true).exec(function(err, manager) {
 
 			if (err) return callback(err);
 
-			var players = [registration.player1_email];
-			if(registration.player2){
-				players.push(registration.player2_email);
+			var emailPlayers = [registration.player1.email];
+			if(registration.player2 != null){
+				emailPlayers.push(registration.player2.email);
 			}
-
-			console.log("registration :"+registration);
-
+			
+			console.log("email : " + emailPlayers);
 			new keystone.Email('registration-notification').send({
 				to: manager,
-				cc: players,
+				cc: emailPlayers,
 				from: {
 					name: 'OCC-Badminton',
 					email: 'contact@occ-badminton.com'
@@ -88,9 +83,6 @@ Registration.schema.methods.sendRegistrationManagerEmail = function(callback) {
 
 		});
 	});
-	
-	
-	
 };
 
 Registration.defaultSort = '-createdAt';
