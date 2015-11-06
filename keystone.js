@@ -39,7 +39,8 @@ keystone.init({
 
 	'wysiwyg images': true,
 
-	'signin redirect' : '/'
+	'signin redirect' : '/',
+	'signin logo' : '/images/occ-logo.png'
 
 });
 

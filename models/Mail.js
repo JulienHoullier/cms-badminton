@@ -1,5 +1,6 @@
 var keystone = require('keystone');
 var Types = keystone.Field.Types;
+var async = require('async');
 
 /**
  * Mail Model
@@ -12,10 +13,10 @@ var Mail = new keystone.List('Mail', {
 });
 
 Mail.add({
-	subject: { type: String, required: true, initial: true },
-    categories: { type: Types.Relationship, initial: true, many:true },
-	players: { type: Types.Relationship, initial: true, many:true },
-	message: { type: Types.Html, label:"Message", required: true}
+	subject: { type: String, label:'Sujet', required: true, initial: true },
+    categories: { type: Types.Relationship, label:'Catégories', ref: 'PostCategory', initial: true, many:true },
+	players: { type: Types.Relationship, label:'Joueurs', ref:'Player', initial: true, many:true },
+	message: { type: Types.Html, label:"Message", required: true, initial:true }
 });
 
 Mail.schema.pre('save', function(next) {
@@ -25,24 +26,25 @@ Mail.schema.pre('save', function(next) {
 
 Mail.schema.post('save', function() {
 	if (this.wasNew) {
+		
 		this.sendNotificationEmail();
 	}
 });
 
-var sendMail = function(to, mail){
+var sendMail = function(callback, to, mail){
 	var cat = null;
-	if(arguments.length == 2){
-		cat = arguments[2];
+	if(arguments.length == 4){
+		cat = arguments[3];
 	}
-	new keystone.Email('mail-notification').send({
+	new keystone.Email('email-notification').send({
 				to: to,
 				from: {
 					name: 'OCC-Badminton',
 					email: 'contact@occ-badminton.com'
 				},
-				subject: Mail.subject,
-				mail: Mail,
-				category, cat
+				subject: mail.subject,
+				mail: mail,
+				category: cat
 			}, callback);
 };
 
@@ -62,21 +64,43 @@ Mail.schema.methods.sendNotificationEmail = function(callback) {
 	if(this.categories && this.categories.length){
 		var PostCategory = keystone.list('PostCategory');
 
-		async.each(this.categories,function(cat, next){
-                    PostCategory.model.findById()
+		async.each(this.categories,function(cat, callback){
+                    PostCategory.model.findById(cat)
                     .exec(function(err, cat) {
-                    	cat.populateRelated('followers', function(cat){
-                    		sendMail(cat.followers, Mail, cat);
-                    		next();	
-                    	});
-                        
+						if (err) {
+							console.log('test err: '+err);
+							return callback(err);
+						}
+						if (cat) {
+							console.log('test cat');
+							cat.populateRelated('followers', function (err) {
+								if(err){
+									return callback(err);
+								}
+								console.log('cat: '+cat);
+								sendMail(callback, cat.followers, Mail, cat);
+							});
+						}
+						else{
+							console.log('test no cat');
+							return callback({err: 'No category founded with _id set'});	
+						}
                     });
                 }, function(err) {
-                    next(err);
+					callback(err);
                 });
 	}
-	else{
-		sendMail(this.players, Mail);
+	if(this.players && this.players.length){
+		var Player = keystone.list('Player');
+		Player.model.find({ _id: { $in: this.players}}).exec(function(err, players){
+			if(err){
+				callback(err);
+			}
+			else {
+				console.log('players :'+ players);
+				sendMail(callback, players, Mail);
+			}
+		});		
 	}
 };
 
