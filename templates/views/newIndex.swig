@@ -42,7 +42,6 @@
 						</a>
 					</div>
 				</div>
-				
 
 				{% include "./index/twitter.swig" %}
 

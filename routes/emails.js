@@ -49,12 +49,12 @@ module.exports = {
 		var Registration = keystone.list('Registration');
 
 		var newRegistration = new Registration.model({
-			tournament: 'Saint Jacques le 07/11',
+			tournament: { name: 'Saint Jacques le 07/11'},
 			category : 'SH',
 			player1: { first: 'Julien', last: 'Houllier' },
 			player1_email: 'j.houllier@gmail.com',
 			player1_licence : 06794300,
-			level: 'R6/D7'
+			ranking: 'D7'
 		});
 
 		callback(null, {

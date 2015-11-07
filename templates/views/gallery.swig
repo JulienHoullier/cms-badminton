@@ -5,6 +5,7 @@
 	<div class="container occ-bg">
 
 		{{ PanelTitle.renderTitle('Photos') }}
+
 		{% if galleries.length %}
 			{% for gallery in galleries %}
 			{% set relname = "gallery"+loop.index %}
@@ -20,7 +21,7 @@
 			<div  class="occ-panel occ-album {{className}}">
 				<h2>{{ gallery.name }}
 					{% if gallery.publishedDate %}
-						<span class="pull-right">{{ gallery._.publishedDate.format("Do MMM YYYY") }}</span>
+						<span class="pull-right">{{ gallery.publishedDate|date('d-M-Y') }}</span>
 					{% endif %}
 				</h2>
 

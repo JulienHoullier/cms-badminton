@@ -10,23 +10,23 @@
 	{% else %}
 		<p>Je souhaiterais m'inscrire au tournoi de : 
 	{% endif %}
-		<strong>{{ registration.tournament }}</strong>
+		<strong>{{ registration.tournament.name }}</strong>
 	</p>
 	
-	<p>Dans la catégorie : <strong>{{ registration.category }} {{ registration.level }}</strong> </p>
+	<p>Dans la catégorie : <strong>{{ registration.category }} {{ registration.ranking }}</strong> </p>
 	
 	
-	{% if registration.player2.exists %}
-		<p>Nos numéros de licence sont : </p>
+	{% if registration.player2_licence %}
+		<p>Nos informations de licence sont : </p>
 		<ul>
 			<li>{{ registration.player1.full }}: <strong>{{ registration.player1_licence }}</strong></li>
 			<li>{{ registration.player2.full }}: <strong>{{ registration.player2_licence }}</strong></li>
 		</ul>
 
 	{% else %}
-		<p>Mon numéro de licence est : </p>
+		<p>Mes informations de licence sont : </p>
     		<ul>
-    			<li>{{ registration.player1_licence }}</li>
+    			<li>{{ registration.player1.full }}: <strong>{{ registration.player1_licence }}</strong></li>
     		</ul>
 	{% endif %}
 	

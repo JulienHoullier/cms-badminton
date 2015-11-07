@@ -39,18 +39,18 @@ exports.initLocals = function(req, res, next) {
 			label: 'Photos',
 			key: 'gallery',
 			href: '/gallery'
-		}
-
-	];
-
-	//add link to connected users
-	if(req.user && req.user.isValid){
-		locals.navLinks.push({
+		},
+		{
 			label: 'Joueurs',
 			key: 'player',
 			href: '/player'
-		});
-	}
+		},
+		{
+			label: 'Tournois',
+			key: 'tournois',
+			href: '/tournois'
+		}
+	];
 
 	//store user to access it in the web page
 	locals.user = req.user;
