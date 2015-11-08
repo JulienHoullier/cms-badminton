@@ -68,21 +68,17 @@ Mail.schema.methods.sendNotificationEmail = function(callback) {
                     PostCategory.model.findById(cat)
                     .exec(function(err, cat) {
 						if (err) {
-							console.log('test err: '+err);
 							return callback(err);
 						}
 						if (cat) {
-							console.log('test cat');
 							cat.populateRelated('followers', function (err) {
 								if(err){
 									return callback(err);
 								}
-								console.log('cat: '+cat);
 								sendMail(callback, cat.followers, Mail, cat);
 							});
 						}
 						else{
-							console.log('test no cat');
 							return callback({err: 'No category founded with _id set'});	
 						}
                     });
@@ -94,12 +90,10 @@ Mail.schema.methods.sendNotificationEmail = function(callback) {
 		var Player = keystone.list('Player');
 		Player.model.find({ _id: { $in: this.players}}).exec(function(err, players){
 			if(err){
-				callback(err);
+				return callback(err);
 			}
-			else {
-				console.log('players :'+ players);
-				sendMail(callback, players, Mail);
-			}
+
+			sendMail(callback, players, Mail);
 		});		
 	}
 };
