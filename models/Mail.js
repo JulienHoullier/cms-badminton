@@ -16,7 +16,7 @@ Mail.add({
 	subject: { type: String, label:'Sujet', required: true, initial: true },
     categories: { type: Types.Relationship, label:'Catégories', ref: 'PostCategory', initial: true, many:true },
 	players: { type: Types.Relationship, label:'Joueurs', ref:'Player', initial: true, many:true },
-	message: { type: Types.Html, label:"Message", required: true, initial:true }
+	message: { type: Types.Html, label:"Message", wysiwyg: true, required: true, initial:true }
 });
 
 Mail.schema.pre('save', function(next) {

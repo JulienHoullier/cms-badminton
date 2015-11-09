@@ -6,6 +6,6 @@
 	<p>Destinataires: Membres de <strong>{{category.name}}</strong></p>
 	{% endif %}
 
-	<p>{{ mail.message | safe}}</p>
+	{{ mail.message | safe}}
 
 {% endblock %}
