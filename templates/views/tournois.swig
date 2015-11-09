@@ -62,13 +62,19 @@
 		<table class="table" id="occ-table-tournois">
 			<thead>
 				<th width="30%">Date</th>
-				<th width="70%">Tournoi</th>
+				<th width="50%">Tournoi</th>
+				<th class="text-center" width="20%">Inscription</th>
 			</thead>
 			<tbody>
 				{% for tournoi in tournois %}
 					<tr>
 						<td>{{tournoi.date|date('d-m-Y')}}</td>
 						<td>{{tournoi.name}}</td>
+						<td class="text-center">
+							<a class="occ-theme-color" href="/tournoi/inscription">
+								<img src="/images/inscription.png" />
+							</a>
+						</td>
 					</tr>
 				{% endfor %}
 			</tbody>
