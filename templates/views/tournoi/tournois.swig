@@ -88,5 +88,21 @@
 				{% endfor %}
 		</table>
 
+		{{ PanelTitle.renderTitle("Prochains tournois") }}
+
+		<table class="table" id="occ-table-tournois">
+			<thead>
+				<th width="30%">Date</th>
+				<th width="70%">Tournoi</th>
+			</thead>
+			<tbody>
+				{% for tournoi in tournois %}
+					<tr>
+						<td>{{tournoi.date|date('d-m-Y')}}</td>
+						<td>{{tournoi.name}}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
 	</div>
 {% endblock %}
