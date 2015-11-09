@@ -100,6 +100,11 @@
 					<tr>
 						<td>{{tournoi.date|date('d-m-Y')}}</td>
 						<td>{{tournoi.name}}</td>
+						<td class="text-center">
+							<a class="occ-theme-color" href="/tournois/{{tournoi.id}}/inscription">
+								<img src="/images/inscription.png" />
+							</a>
+						</td>
 					</tr>
 				{% endfor %}
 			</tbody>
