@@ -36,7 +36,7 @@
 					<div class="col-md-6">
 						{% set urlImg = '/images/defaultnews.jpg' %}
 						{% if article.image.exists %}
-							{% set urlImg = article.image.url %}
+							{% set urlImg = article._.image.pad(379, 300) %}
 						{% else %}
 							{% if article.category && article.category.default_image.exists %}
 								{% set urlImg = article.category.default_image.url %}

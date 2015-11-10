@@ -7,7 +7,7 @@
 	<blockquote style='border-width: 1px 1px 1px 5px; border-style: solid; border-color: #EEE;border-left-color:#BF1E2D; padding-left:10px'>
 		{{ showPost(post) }}
 	</blockquote>
-	<p>Bonne journée<p>
+	<p>Sportivement<p>
 {% endblock %}
 
 {% macro showPost(post) %}
