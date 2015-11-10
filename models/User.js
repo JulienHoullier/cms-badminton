@@ -29,7 +29,7 @@ User.add({
 });
 
 User.schema.virtual('canAccessKeystone').get(function() {
-	return this.isAdmin; 
+	return this.isAdmin || this.isTournamentManager || this.isEditor; 
 });
 User.schema.virtual('isValid').get(function() {
 	return this.isUser || this.isEditor || this.isTournamentManager || this.isAdmin;
