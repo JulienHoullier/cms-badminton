@@ -49,6 +49,13 @@ exports = module.exports = function(req, res) {
 				next(err);
 			});
 	});
+	
+	view.on('render', function(next){
+		req.user.populate('player', function(err, user){
+			locals.playerName = user.player.name.full;
+			next(err);
+			});
+	});
 
     // Récupération du joueur lié à l'utilisateur
 	view.on('render', function(next){
