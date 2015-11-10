@@ -20,6 +20,13 @@ exports = module.exports = function(req, res) {
 				next(err);
 			});
 	});
+	
+	view.on('render', function(next){
+		req.user.populate('player', function(err, user){
+			locals.playerName = user.player.name.full;
+			next(err);
+			});
+	});
 
 	view.render("tournoi/inscription");
 }
