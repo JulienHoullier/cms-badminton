@@ -18,6 +18,10 @@ Player.add({
 	email: { type: Types.Email, label:'Email', required: true, initial: true },
 	phone: { type: String , label:'Téléphone'},
 	licence: {type: Number , label:'N° Licence'},
+    sex: {type: Types.Select , label:'Sexe',  options: [
+        { value: 'h', label: 'Homme' },
+        { value: 'f', label: 'Femme' }
+        ], default: 'h'},
 	type: { type: Types.Select, label:'Type', options: [
 		{ value: 'competitor', label: 'Licence compétition' },
 		{ value: 'leisure', label: 'Licence loisir' },
