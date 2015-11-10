@@ -14,7 +14,7 @@ var Registration = new keystone.List('Registration', {
 Registration.add(
 	{
 		tournament : {type : Types.Relationship, ref : 'Tournament', label: 'Tournoi', required : true, initial : true},
-		ranking : {type : Types.Select, options: 'D9,D8,D7,R6,R5,R4,N3,N2,N1', default: 'D9', label: 'Niveau', required : true, initial : true},
+		ranking : {type : Types.Select, options: 'NC,P1,P2,P3,D9,D8,D7,R6,R5,R4,N3,N2,N1', default: 'NC', label: 'Niveau', required : true, initial : true},
 		category: {
 			type: Types.Select, label:'Catégorie', options: ['SH','SD','DH','DD','DM'],
 			required: true, default: 'SH', initial:true},
