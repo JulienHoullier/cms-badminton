@@ -20,12 +20,13 @@ var User = new keystone.List('User', {
 User.add({
 	name: { type: Types.Name, label:'Nom', required: true, index: true },
 	email: { type: Types.Email, label:'Email', initial: true, required: true, index: true },
-	password: { type: Types.Password, label:'Mot de passe', initial: true, required: true }
+	password: { type: Types.Password, label:'Mot de passe', initial: true, required: true },
+	player: { type: Types.Relationship, label:'Joueur', ref: 'Player', initial: true}
 }, 'Permissions', {
 	isAdmin: { type: Types.Boolean, label:'Administrateur' },
 	isUser: { type: Types.Boolean, label:'Utilisateur' },
 	isEditor: { type: Types.Boolean, label:'Editeur' },
-	isTournamentManager: { type: Types.Boolean, label:'Gère les tournois' }
+	isTournamentManager: { type: Types.Boolean, label:'Gère les tournois' },
 });
 
 User.schema.virtual('canAccessKeystone').get(function() {
@@ -40,12 +41,11 @@ User.schema.virtual('isValid').get(function() {
  */
 
 User.relationship({ ref: 'Post', path: 'posts', refPath: 'author' });
-User.relationship({ ref: 'Player' });
 
 User.schema.pre('save', function(next) {
 	this.wasNew = this.isNew;
-	if((this.isModified('isAdmin') || this.isModified('isUser') 
-		|| this.isModified('isEditor') || this.isModified('isTournamentManager')) 
+	if((this.isModified('isAdmin') || this.isModified('isUser')
+		|| this.isModified('isEditor') || this.isModified('isTournamentManager'))
 		&& this.isValid) {
 		this.sendUserNotif = true;
 	}
@@ -62,7 +62,7 @@ User.schema.post('save', function() {
 });
 
 User.schema.methods.sendAdminNotificationEmail = function(callback) {
-	
+
 	if ('function' !== typeof callback) {
 		callback = function(err) {
 			if (err) {
@@ -70,15 +70,15 @@ User.schema.methods.sendAdminNotificationEmail = function(callback) {
 			}
 		};
 	}
-	
+
 	var User = this;
-	
+
 	keystone.list('User').model.find().where('isAdmin', true).exec(function(err, admins) {
-		
+
 		if (err) return callback(err);
-		
+
 		console.log('admins :'+JSON.stringify(admins));
-		
+
 		new keystone.Email('userAdmin-notification').send({
 			to: admins,
 			from: {
@@ -92,7 +92,7 @@ User.schema.methods.sendAdminNotificationEmail = function(callback) {
 };
 
 User.schema.methods.sendUserNotificationEmail = function(callback) {
-	
+
 	if ('function' !== typeof callback) {
 		callback = function(err) {
 			if (err) {
@@ -104,7 +104,7 @@ User.schema.methods.sendUserNotificationEmail = function(callback) {
 	var User = this;
 
 	console.log('admins :'+JSON.stringify(User));
-	
+
 	new keystone.Email('user-notification').send({
 			to: User.email,
 			from: {
