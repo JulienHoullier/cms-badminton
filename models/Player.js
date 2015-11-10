@@ -59,7 +59,7 @@ Player.schema.pre('save', function(next) {
 //add competitor interest 
 Player.schema.pre('save', function(next) {
 	//force Compétiteur only if not editing interests
-	if(!this.type === 'competitor' || (!this.isNew && !this.ignoreInterestsModified && this.isModified('interests'))){
+	if(this.type !== 'competitor' || (!this.isNew && !this.ignoreInterestsModified && this.isModified('interests'))){
 		return next();
 	}
 
@@ -71,27 +71,23 @@ Player.schema.pre('save', function(next) {
 //add current team interest
 Player.schema.pre('save', function(next) {
 	//force Team category only if not editing interests and a team if present
-	console.log('team : '+this.team);
 	if(!this.team || (!this.isNew && !this.ignoreInterestsModified && this.isModified('interests'))) {
 		return next();
 	}
-	console.log('team passe ici');
+	
 	var player = this;
 	var Team = keystone.list('Team');
 	//find team by its id to get name
-	console.log('team : '+this.team);
 	Team.model.findById(this.team).exec(function(err, team){
 		if(err){
 			console.log(err);
 			return next(err);
 		}
-		console.log('team passe la');
 		if(team){
 			//Add category of team name if exists and not present
 			addCategoryIfNotPresent(player, team.name, next);
 		}
 		else{
-			console.log('No team');
 			return next();
 		}
 	});	
