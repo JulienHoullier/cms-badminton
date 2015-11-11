@@ -5,7 +5,7 @@
 
 	<div class="container occ-bg">
 
-		{{ PanelTitle.renderTitle("Liste des joueurs licenciés de l'OCC") }}
+		{{ PanelTitle.renderTitle("Liste des joueurs adultes de l'OCC") }}
 
 		<table class="table">
 			<thead>
