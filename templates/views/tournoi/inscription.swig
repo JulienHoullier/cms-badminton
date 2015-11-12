@@ -54,14 +54,17 @@
 					<div class="form-group">
 						<label for="categorie" class="col-sm-2 control-label">Joueur 2</label>
 						<div class="col-sm-10">
-							<input class="form-control" type="text" placeholder="{{ playerName }}" readonly>
+							<select class="form-control" id="division">
+                                <option value="">-- Sélectionnez votre partenaire --</option>
+                                {% for joueur2 in listJoueur2 %}
+                                    <option value="{{joueur2.id}}">{{joueur2.name.full}}</option>
+                                {% endfor %}
+                            </select>
 						</div>
-					</div>
-					<div class="form-actions">
-						<button type="submit" class="btn btn-primary">Envoyer</button>
 					</div>
 				</div>
 			</div>
+            <button type="submit" class="btn btn-primary">Envoyer</button>
 		</form>
 
 	</div>

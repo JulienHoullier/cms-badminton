@@ -1,5 +1,6 @@
 var keystone = require('keystone');
 	Registration = keystone.list('Registration'),
+    Player = keystone.list('Player'),
 	Tournament = keystone.list('Tournament'),
 	_ = require('underscore'),
 	async = require('async');
@@ -27,6 +28,8 @@ exports = module.exports = function(req, res) {
 			next(err);
 			});
 	});
+
+    view.query('listJoueur2', Player.model.find());
 
 	view.render("tournoi/inscription");
 }
