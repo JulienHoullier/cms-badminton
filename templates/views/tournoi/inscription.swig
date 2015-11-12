@@ -8,19 +8,20 @@
 
 		<h2 class="text-center">{{ tournoi.name }} ({{ tournoi.club }})</h2>
 
-		<form class="form-horizontal form-inscription">
+		<form class="form-horizontal form-inscription" method="POST">
 			<div class="row">
 				<div class="col-sm-6">
 					<div class="form-group">
 						<label for="categorie" class="col-sm-2 control-label">Joueur</label>
 						<div class="col-sm-10">
-							<input class="form-control" type="text" placeholder="{{ playerName }}" readonly>
+							<input class="form-control" type="text" placeholder="{{ player.name.full }}" readonly>
 						</div>
+                        <input type="hidden" name="player1" value="{{ player.id }}">
 					</div>
 					 <div class="form-group">
-						<label for="categorie" class="col-sm-2 control-label">Catégorie</label>
+						<label for="category" class="col-sm-2 control-label">Catégorie</label>
 						<div class="col-sm-10">
-							<select class="form-control">
+							<select class="form-control" name="category">
 								<option value="SH">Simple Homme</option>
 								<option value="SD">Simple Dame</option>
 								<option value="DH">Double Homme</option>
@@ -30,9 +31,9 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="division" class="col-sm-2 control-label">Division</label>
+						<label for="ranking" class="col-sm-2 control-label">Division</label>
 						<div class="col-sm-10">
-							<select class="form-control" id="division">
+							<select class="form-control" id="ranking" name="ranking">
 								<option value="NC">NC</option>
 								<option value="P1">P1</option>
 								<option value="P2">P2</option>
@@ -52,9 +53,9 @@
 				</div>
 				<div class="col-sm-6">
 					<div class="form-group">
-						<label for="categorie" class="col-sm-2 control-label">Joueur 2</label>
+						<label for="player2" class="col-sm-2 control-label">Partenaire</label>
 						<div class="col-sm-10">
-							<select class="form-control" id="division">
+							<select class="form-control" id="player2" name="player2">
                                 <option value="">-- Sélectionnez votre partenaire --</option>
                                 {% for joueur2 in listJoueur2 %}
                                     <option value="{{joueur2.id}}">{{joueur2.name.full}}</option>
@@ -62,6 +63,13 @@
                             </select>
 						</div>
 					</div>
+                    <div class="form-group">
+                        <label for="message" class="col-sm-2 control-label">Message</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="3" name="message" placeholder="Facultatif"></textarea>
+                        </div>
+                        
+                    </div>
 				</div>
 			</div>
             <button type="submit" class="btn btn-primary">Envoyer</button>
