@@ -57,6 +57,8 @@ exports = module.exports = function(req, res) {
 			});
 	});
 
+    view.query('listJoueur2', Player.model.find());
+
     // Récupération du joueur lié à l'utilisateur
 	view.on('render', function(next){
 		req.user.populate('player', function(err, user){
