@@ -14,7 +14,7 @@ exports = module.exports = function(req, res) {
 	// item in the header navigation.
 	locals.section = 'tournois';
 
-	// Sélection des 5 prochains tournois
+	// Chargement des prochaines inscriptions
 	view.on('init', function(next){
 		Registration.model.find()
 		.populate('tournament player1 player2')
@@ -28,7 +28,7 @@ exports = module.exports = function(req, res) {
 				if(registrations) {
 					var tournois = {};
 					async.each(registrations, function (registration, next) {
-						if (registration.tournament.date > today) {
+						if (registration.tournament && registration.tournament.date > today) {
 							// Si l'inscription fait parti d'un prochain tournoi
 							// On gère une map des inscrits par division et catégorie.
 	
@@ -87,7 +87,6 @@ exports = module.exports = function(req, res) {
 		.where('date').gte(today)
 		.sort('date')
 		.exec(function(err, tournaments){
-				console.log('tournaments:'+tournaments)
 			locals.tournois = tournaments;
 			next(err);
 		});
