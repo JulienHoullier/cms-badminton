@@ -47,7 +47,6 @@ exports = module.exports = function(app) {
 	app.all('/tournois/:idTournoi/inscription', middleware.requireUser, routes.views.tournoi.inscription);
 
 	app.get('/player', routes.views.player);
-	app.all('/registration', middleware.requireUser, routes.views.registration);
 	app.get('/resultats', routes.views.resultat);
 	app.all('/contact', routes.views.contact);
 
