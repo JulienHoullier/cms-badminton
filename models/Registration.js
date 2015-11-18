@@ -7,7 +7,6 @@ var Types = keystone.Field.Types;
  */
 
 var Registration = new keystone.List('Registration', {
-	noedit: true,
 	label: 'Inscriptions'
 });
 
