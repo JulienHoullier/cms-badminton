@@ -7,19 +7,18 @@ var Types = keystone.Field.Types;
  */
 
 var Registration = new keystone.List('Registration', {
-	noedit: true,
 	label: 'Inscriptions'
 });
 
 Registration.add(
 	{
 		tournament : {type : Types.Relationship, ref : 'Tournament', label: 'Tournoi', required : true, initial : true},
-		ranking : {type : Types.Select, options: 'D9,D8,D7,R6,R5,R4,N3,N2,N1', default: 'D9', label: 'Niveau', required : true, initial : true},
+		ranking : {type : Types.Select, options: 'NC,P1,P2,P3,D9,D8,D7,R6,R5,R4,N3,N2,N1', default: 'NC', label: 'Niveau', required : true, initial : true},
 		category: {
 			type: Types.Select, label:'Catégorie', options: ['SH','SD','DH','DD','DM'],
 			required: true, default: 'SH', initial:true},
 		needPayment : {type : Boolean, required : true, label:'Payer par le club', default: true, initial : true},
-		message: { type: Types.Markdown, label:'Message', initial:true},
+		message: { type: Types.Markdown, label:'Message', initial:true, noedit : true},
 		createdAt: { type: Date, label:'Date de la demande', default: Date.now },
 		status: {
 			type: Types.Select, label:'Statut', options: [
@@ -68,8 +67,7 @@ Registration.schema.methods.sendRegistrationManagerEmail = function(callback) {
 			if(registration.player2 != null){
 				emailPlayers.push(registration.player2.email);
 			}
-			
-			console.log("email : " + emailPlayers);
+
 			new keystone.Email('registration-notification').send({
 				to: manager,
 				cc: emailPlayers,
