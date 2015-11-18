@@ -19,7 +19,7 @@ Registration.add(
 			type: Types.Select, label:'Catégorie', options: ['SH','SD','DH','DD','DM'],
 			required: true, default: 'SH', initial:true},
 		needPayment : {type : Boolean, required : true, label:'Payer par le club', default: true, initial : true},
-		message: { type: Types.Textarea, label:'Message', initial:true, noedit: true},
+		message: { type: Types.Markdown, label:'Message', initial:true, noedit : true},
 		createdAt: { type: Date, label:'Date de la demande', default: Date.now },
 		status: {
 			type: Types.Select, label:'Statut', options: [
