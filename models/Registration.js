@@ -18,7 +18,7 @@ Registration.add(
 			type: Types.Select, label:'Catégorie', options: ['SH','SD','DH','DD','DM'],
 			required: true, default: 'SH', initial:true},
 		needPayment : {type : Boolean, required : true, label:'Payer par le club', default: true, initial : true},
-		message: { type: Types.Markdown, label:'Message', initial:true},
+		message: { type: Types.Markdown, label:'Message', initial:true, noedit : true},
 		createdAt: { type: Date, label:'Date de la demande', default: Date.now },
 		status: {
 			type: Types.Select, label:'Statut', options: [
@@ -67,8 +67,7 @@ Registration.schema.methods.sendRegistrationManagerEmail = function(callback) {
 			if(registration.player2 != null){
 				emailPlayers.push(registration.player2.email);
 			}
-			
-			console.log("email : " + emailPlayers);
+
 			new keystone.Email('registration-notification').send({
 				to: manager,
 				cc: emailPlayers,
