@@ -5,14 +5,14 @@
 
 {% block content %}
 	<p>Bonjour,</p>
-	{% if registration.player2 %}
+	{% if registration.player2.exists %}
 		<p>Vous avez bien été inscrits
 	{% else %}
 		<p>Tu as bien été inscrit(e)
 	{% endif %}
 	 	au tournoi <strong>{{ registration.tournament.name }}</strong> 
 	 	dans le tableau <strong>{{ registration.category }} {{ registration.ranking }}</strong> </p>
-	 	(date: {{ registration.tournament._.date.format("DD/MM/YYYY") }}).
+	 	(date: {{ registration.tournament._.date.format("d/m/Y") }}).
 	</p>
 	<br/>
 	A bientot,<br/>
