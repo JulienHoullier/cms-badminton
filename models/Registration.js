@@ -18,7 +18,7 @@ Registration.add(
 			type: Types.Select, label:'Catégorie', options: ['SH','SD','DH','DD','DM'],
 			required: true, default: 'SH', initial:true},
 		needPayment : {type : Boolean, required : true, label:'Payer par le club', default: true, initial : true},
-		message: { type: Types.Markdown, label:'Message', initial:true, noedit : true},
+		message: { type: Types.Markdown, label:'Message', initial:true, noedit: true},
 		createdAt: { type: Date, label:'Date de la demande', default: Date.now },
 		status: {
 			type: Types.Select, label:'Statut', options: [
@@ -42,12 +42,16 @@ Registration.add(
 
 Registration.schema.pre('save', function(next) {
 	this.wasNew = this.isNew;
+	this.toValidate = this.isModified('status');
 	next();
 });
 
 Registration.schema.post('save', function() {
 	if (this.wasNew) {
 		this.sendRegistrationManagerEmail();
+	}
+	if(this.toValidate && this.status == 'validated'){
+		this.sendConfirmationPlayersEmail();
 	}
 });
 
@@ -67,7 +71,6 @@ Registration.schema.methods.sendRegistrationManagerEmail = function(callback) {
 			if(registration.player2 != null){
 				emailPlayers.push(registration.player2.email);
 			}
-
 			new keystone.Email('registration-notification').send({
 				to: manager,
 				cc: emailPlayers,
@@ -82,6 +85,38 @@ Registration.schema.methods.sendRegistrationManagerEmail = function(callback) {
 		});
 	});
 };
+
+Registration.schema.methods.sendConfirmationPlayersEmail = function(callback) {
+
+	if ('function' !== typeof callback) {
+		callback = function() {};
+	}
+
+	this.populate('tournament player1 player2', function(err, registration){
+
+		keystone.list('User').model.findOne().where('isTournamentManager', true).exec(function(err, manager) {
+
+			if (err) return callback(err);
+
+			var emailPlayers = [registration.player1.email];
+			if(registration.player2 != null){
+				emailPlayers.push(registration.player2.email);
+			}
+			new keystone.Email('registration-confirmation').send({
+				to: emailPlayers,
+				cc: manager,
+				from: {
+					name: 'OCC-Badminton',
+					email: 'contact@occ-badminton.com'
+				},
+				subject: 'Confirmation d\'inscription',
+				registration: registration
+			}, callback);
+
+		});
+	});
+};
+
 
 Registration.defaultSort = '-createdAt';
 Registration.defaultColumns = 'tournament, player1, category, ranking, status, createdAt';

@@ -49,11 +49,31 @@ module.exports = {
 		var Registration = keystone.list('Registration');
 
 		var newRegistration = new Registration.model({
-			tournament: { name: 'Saint Jacques le 07/11'},
+			tournament: { name: 'Saint Jacques le 07/11', date : Date.now},
 			category : 'SH',
 			player1: { first: 'Julien', last: 'Houllier' },
 			player1_email: 'j.houllier@gmail.com',
 			player1_licence : 06794300,
+			ranking: 'D7'
+		});
+
+		callback(null, {
+			registration: newRegistration,
+			subject: 'Inscription Tournoi'
+		});
+	},
+
+	'registration-confirmation': function(req, res, callback) {
+
+		// To test enquiry notifications we create a dummy enquiry that
+		// is not saved to the database, but passed to the template.
+
+		var Registration = keystone.list('Registration');
+
+		var newRegistration = new Registration.model({
+			tournament: { name: 'Saint Jacques'},
+			category : 'SH',
+			player1: { first: 'Julien', last: 'Houllier' },
 			ranking: 'D7'
 		});
 
