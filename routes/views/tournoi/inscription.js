@@ -16,30 +16,23 @@ exports = module.exports = function(req, res) {
 	};
 
     view.on('post', function(next) {
-    	if(keystone.security.csrf.validate(req)){
-    		var newRegistration = new Registration.model();
-	        newRegistration.tournament = locals.filters.idTournoi;
-	        var updater = newRegistration.getUpdateHandler(req);
+        var newRegistration = new Registration.model();
+        newRegistration.tournament = locals.filters.idTournoi;
+        var updater = newRegistration.getUpdateHandler(req);
 
-	        updater.process(req.body, {
-	            flashErrors: true,
-	            fields: 'player1, player2, ranking, category, message',
-	            errorMessage: "Problème lors de l'enregistrement de l'inscription..."
-	        }, function(err) {
-	            if (err) {
-	                locals.validationErrors = err.errors;
-	                keystone.security.csrf.validate(req,res);
-	                next();
-	            } else {
-	                req.flash('success', "Votre inscription a bien été prise en compte et est en attente de confirmation !");
-	    			res.redirect('/tournois');
-	            }
-	        });
-    	} else {
-    		req.flash('error', "Requête non autorisée.");
-    		keystone.security.csrf.validate(req,res);
-    		next();
-    	}
+        updater.process(req.body, {
+            flashErrors: true,
+            fields: 'player1, player2, ranking, category, message',
+            errorMessage: "Problème lors de l'enregistrement de l'inscription..."
+        }, function(err) {
+            if (err) {
+                locals.validationErrors = err.errors;
+                next();
+            } else {
+                req.flash('success', "Votre inscription a bien été prise en compte et est en attente de confirmation !");
+    			res.redirect('/tournois');
+            }
+        });
     });
 
     // Récupération du tournoi
@@ -49,9 +42,9 @@ exports = module.exports = function(req, res) {
 				next(err);
 			});
 	});
-	
+
     // Récupération du joueur lié à l'utilisateur
-	view.on('init', function(next){
+	view.on('render', function(next){
 		req.user.populate('player', function(err, user){
 			locals.player = user.player;
 			next(err);
@@ -59,26 +52,11 @@ exports = module.exports = function(req, res) {
 	});
 
     // Sélection des joueurs pour le partenaire
-    view.query('listJoueur2', Player.model.find().sort('name'));
-
-    view.on('post', function(next) {
-        var newRegistration = new Registration.model();
-        newRegistration.tournament = locals.filters.idTournoi;
-        var updater = newRegistration.getUpdateHandler(req);
-        
-        updater.process(req.body, {
-            flashErrors: true,
-            fields: 'player1, player2, ranking, category, message',
-            errorMessage: "Problème lors de l'enregistrement de l'inscription"
-        }, function(err) {
-            if (err) {
-                locals.validationErrors = err.errors;
-            } else {
-                console.log(newRegistration);
-                locals.registrationSubmitted = true;
-            }
-            next();
-        });
+    view.on('render', function(next){ 
+    	Player.model.find().sort('name').exec(function(err, result){
+    		locals.listJoueur2 = result;
+    		next(err);
+    	});
     });
 
     // Récupération du joueur lié à l'utilisateur
