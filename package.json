@@ -13,7 +13,7 @@
     "underscore": "^1.8.0",
     "xpath": "^0.0.9",
     "xmldom": "^0.1.19",
-    "keystone-nodemailer": "https://github.com/bgag/keystone-nodemailer.git"
+    "keystone-nodemailer": "https://github.com/JulienHoullier/keystone-nodemailer.git"
   },
   "devDependencies": {
     "gulp": "^3.7.0",

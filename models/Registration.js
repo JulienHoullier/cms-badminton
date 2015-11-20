@@ -63,14 +63,15 @@ Registration.schema.methods.sendRegistrationManagerEmail = function(callback) {
 
 			if (err) return callback(err);
 
-			var emailPlayers = [registration.player1.email];
+			var emailPlayers = [{'email': registration.player1.email, 'name': registration.player1.name.full}];
 			if(registration.player2 != null){
-				emailPlayers.push(registration.player2.email);
+				emailPlayers.push({'email':registration.player2.email, 'name': registration.player2.name.full});
 			}
 
 			new keystone.Email('registration-notification').send({
 				to: manager,
 				cc: emailPlayers,
+				mandrillOptions: {cc: emailPlayers},
 				from: {
 					name: 'OCC-Badminton',
 					email: 'contact@occ-badminton.com'
