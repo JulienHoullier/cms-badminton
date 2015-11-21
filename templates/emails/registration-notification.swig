@@ -19,14 +19,14 @@
 	{% if registration.player2_licence %}
 		<p>Nos informations de licence sont : </p>
 		<ul>
-			<li>{{ registration.player1.full }}: <strong>{{ registration.player1_licence }}</strong></li>
-			<li>{{ registration.player2.full }}: <strong>{{ registration.player2_licence }}</strong></li>
+			<li>{{ registration.player1.name.full }}: <strong>{{ registration.player1.licence }}</strong></li>
+			<li>{{ registration.player2.name.full }}: <strong>{{ registration.player2.licence }}</strong></li>
 		</ul>
 
 	{% else %}
 		<p>Mes informations de licence sont : </p>
     		<ul>
-    			<li>{{ registration.player1.full }}: <strong>{{ registration.player1_licence }}</strong></li>
+    			<li>{{ registration.player1.name.full }}: <strong>{{ registration.player1.licence }}</strong></li>
     		</ul>
 	{% endif %}
 	

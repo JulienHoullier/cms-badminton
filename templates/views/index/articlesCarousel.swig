@@ -39,7 +39,7 @@
 							{% set urlImg = article._.image.pad(379, 300) %}
 						{% else %}
 							{% if article.category && article.category.default_image.exists %}
-								{% set urlImg = article.category.default_image.url %}
+								{% set urlImg = article.category._.default_image.pad(379, 300) %}
 							{% endif %}
 						{% endif %}
 
