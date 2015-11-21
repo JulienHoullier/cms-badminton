@@ -24,27 +24,16 @@ exports = module.exports = function(req, res) {
 
 	// Sélection des 6 derniers matchs, toutes équipes confondues
 	view.query('lastResults', Match.model.find()
+		.where('date').lte(today)
 		.populate('team')
 		.sort('-date')
 		.limit(6));
 
 	// Sélection des 5 prochains tournois
-	view.on('init', function(next){
-		Tournament.model.find()
-		.where('registrationDeadLine').gte(today)
+	view.query('tournaments', Tournament.model.find()
+		.where('date').gte(today)
 		.sort('date')
-		.limit(5)
-		.exec(function(err, tournaments){
-			if(err) next(err);
-			async.each(tournaments,function(tournament, next){
-				tournament.populateRelated('registrations', function (err) {
-				next(err);
-				});
-			});
-			locals.tournaments = tournaments;
-			next(err);
-		});
-	});
+		.limit(5)).then('registrations');
 
 	// Render the view
 	view.render('newIndex');
