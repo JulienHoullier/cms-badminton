@@ -23,7 +23,7 @@ exports = module.exports = function(req, res) {
 
 			var tournois = {};
 			async.each(registrations,function(registration, next){
-				if(registration.tournament.registrationDeadLine > today){
+				if(registration.tournament.date > today){
 					// Si l'inscription fait parti d'un prochain tournoi
 					// On gère une map des inscrits par division et catégorie.
 

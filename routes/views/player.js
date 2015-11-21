@@ -24,7 +24,6 @@ exports = module.exports = function(req, res) {
 				});
 			},
 			function (err){
-				console.log('passe ici');
 				next(err);
 			});
 	}
