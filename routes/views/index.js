@@ -26,7 +26,7 @@ exports = module.exports = function(req, res) {
 
 	// Sélection des 6 derniers matchs, toutes équipes confondues
 	view.query('lastResults', Match.model.find()
-		.where('date').lt(today)
+		.where('date').lte(today)
 		.populate('team')
 		.sort('-date')
 		.limit(6));
