@@ -58,7 +58,7 @@ module.exports = {
 
 		callback(null, {
 			registration: newRegistration,
-			subject: 'Inscription Tournoi'
+			subject: 'Confirmation Tournoi'
 		});
 	},
 
