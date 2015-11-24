@@ -103,5 +103,6 @@ Post.schema.methods.sendNotificationEmail = function(callback) {
 	}
 };
 
+Post.defaultSort = 'state';
 Post.defaultColumns = 'title, state|20%, author|20%, publishedDate|20%';
 Post.register();
