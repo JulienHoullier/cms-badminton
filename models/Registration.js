@@ -22,12 +22,12 @@ Registration.add(
 		createdAt: { type: Date, label:'Date de la demande', default: Date.now },
 		status: {
 			type: Types.Select, label:'Statut', options: [
-				{value:'in_progress', label:'En cours'},
-				{value:'validated', label:'Confirmée'},
-				{value:'finished', label: 'Tournoi terminé'},
-				{value:'impossible', label:'Impossible'}
+				{value:'En cours', label:'En cours'},
+				{value:'Confirmée', label:'Confirmée'},
+				{value:'Terminé', label: 'Tournoi terminé'},
+				{value:'Impossible', label:'Impossible'}
 			],
-			default: 'in_progress'
+			default: 'En cours'
 		}
 	},
 	{ heading: 'Joueur' },
