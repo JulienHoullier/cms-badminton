@@ -1,5 +1,5 @@
-{% extends "../layouts/default.swig" %}
-{% import "../mixins/panel_title.swig" as PanelTitle%}
+{% extends "../../layouts/default.swig" %}
+{% import "../../mixins/panel_title.swig" as PanelTitle%}
 
 {% block content %}
 
@@ -15,6 +15,7 @@
 					<th class="text-center">Categorie</th>
 					<th class="text-center">Division</th>
 					<th class="text-center">Inscrits</th>
+					<th class="text-center">Statut</th>
 				</tr>
 			</thead>
 				{% for tournoi in inscrits %}
@@ -48,7 +49,14 @@
 									<td rowspan="{{ nbPlayerDivision }}" class="occ-theme-color text-center">{{ rankingKey }}</td>
 									{% set isNewRanking = false %}
 								{% endif %}
-									<td>{{ player }}</td>
+									<td>
+										{{ player.name[0] }}
+										{% if player.name[1] %}
+											<br/>
+											{{ player.name[1] }}
+										{% endif %}
+									</td>
+									<td>{{ player.status }}</td>
 								</tr>
 							{% endfor %}
 						{% endfor %}
@@ -62,13 +70,19 @@
 		<table class="table" id="occ-table-tournois">
 			<thead>
 				<th width="30%">Date</th>
-				<th width="70%">Tournoi</th>
+				<th width="50%">Tournoi</th>
+				<th class="text-center" width="20%">Inscription</th>
 			</thead>
 			<tbody>
 				{% for tournoi in tournois %}
 					<tr>
 						<td>{{tournoi.date|date('d-m-Y')}}</td>
 						<td>{{tournoi.name}}</td>
+						<td class="text-center">
+							<a class="occ-theme-color" href="/tournois/{{tournoi.id}}/inscription">
+								<img src="/images/inscription.png" />
+							</a>
+						</td>
 					</tr>
 				{% endfor %}
 			</tbody>
