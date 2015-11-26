@@ -14,12 +14,12 @@ var Post = new keystone.List('Post', {
 
 Post.add({
 	title: { type: String, label:'Titre', required: true },
-	state: { type: Types.Select, label:'Etat', options: 
+	state: { type: Types.Select, label:'Etat', options:
 		[
 			{value:'draft', label:'Ebauche'},
-			{value:'published', label:'Publiée'}, 
+			{value:'published', label:'Publiée'},
 			{value:'archived', label:'Archivée'},
-		], 
+		],
 		default: 'draft', index: true },
 	author: { type: Types.Relationship, label:'Auteur', ref: 'User', index: true },
 	publishedDate: { type: Types.Date, label:'date de publication', index: true, dependsOn: { state: 'published' } },
@@ -66,15 +66,15 @@ Post.schema.post('save', function() {
 });
 
 Post.schema.methods.sendNotificationEmail = function(callback) {
-	
+
 	if ('function' !== typeof callback) {
 		callback = function(err) {console.log(err);};
 	}
 
 	var post = this;
-	
+
 	var send = function(to){
-		
+
 		new keystone.Email('post-notification').send({
 				to: to,
 				from: {
@@ -86,7 +86,7 @@ Post.schema.methods.sendNotificationEmail = function(callback) {
 			}, callback);
 	};
 
-	if(post.category){	
+	if(post.category){
 		Post.model.populate(this, 'category', function (err, post) {
 
 			post.category.populateRelated('followers', function(err){
@@ -95,7 +95,7 @@ Post.schema.methods.sendNotificationEmail = function(callback) {
 				}
 				send(post.category.followers)
 			});
-			
+
 		});
 	}
 	else{

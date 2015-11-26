@@ -15,6 +15,7 @@
 					<th class="text-center">Categorie</th>
 					<th class="text-center">Division</th>
 					<th class="text-center">Inscrits</th>
+					<th class="text-center">Statut</th>
 				</tr>
 			</thead>
 				{% for tournoi in inscrits %}
@@ -48,7 +49,14 @@
 									<td rowspan="{{ nbPlayerDivision }}" class="occ-theme-color text-center">{{ rankingKey }}</td>
 									{% set isNewRanking = false %}
 								{% endif %}
-									<td>{{ player }}</td>
+									<td>
+										{{ player.name[0] }}
+										{% if player.name[1] %}
+											<br/>
+											{{ player.name[1] }}
+										{% endif %}
+									</td>
+									<td>{{ player.status }}</td>
 								</tr>
 							{% endfor %}
 						{% endfor %}
