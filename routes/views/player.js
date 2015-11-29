@@ -28,7 +28,7 @@ exports = module.exports = function(req, res) {
 			});
 	}
 	// Load the players by sortOrder
-	view.query('players', keystone.list('Player').model.find({type: { $ne: 'young' }}).populate('team').sort('name')).then(function(err, players, next){
+	view.query('players', keystone.list('Player').model.find({type: { $ne: 'young' }}).sort('name')).then(function(err, players, next){
 			if (err) return next(err);
 			fillPLayers(players, next);
 	});
