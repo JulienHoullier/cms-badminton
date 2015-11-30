@@ -122,8 +122,7 @@
 		{# FOOTER #}
 		<footer class="occ-bg">
 			<div class="container">
-			{# You don"t _have_ to include a link saying your site is powered by KeystoneJS, but we appreciate it! #}
-				<p class="text-right">Powered by <a href="http://keystonejs.com" target="_blank">KeystoneJS</a>.</p>
+				<p class="text-right"><a href="/pages/a-propos">À propos</a> du site web.</p>
 			</div>
 		</footer>
 
