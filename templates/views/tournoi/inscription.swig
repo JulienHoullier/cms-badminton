@@ -12,7 +12,7 @@
 			<div class="row">
 				<div class="col-sm-6">
 					<div class="form-group">
-						<label for="categorie" class="col-sm-2 control-label">Joueur</label>
+						<label for="name" class="col-sm-2 control-label">Joueur</label>
 						<div class="col-sm-10">
 							<input class="form-control" type="text" placeholder="{{ player.name.full }}" readonly>
 						</div>
@@ -68,7 +68,6 @@
                         <div class="col-sm-10">
                             <textarea class="form-control" rows="3" name="message" placeholder="Facultatif"></textarea>
                         </div>
-                        
                     </div>
 				</div>
 			</div>
