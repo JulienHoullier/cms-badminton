@@ -14,7 +14,7 @@
 	 	dans le tableau <strong>{{ registration.category }} {{ registration.ranking }}</strong> </p>
 	 	(date: {{ registration.tournament.date|date("d/m/Y") }}).
 	</p>
-
+	<br/>
 	A bientot,<br/>
 	Sylvain
 
