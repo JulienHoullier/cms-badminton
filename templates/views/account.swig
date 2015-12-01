@@ -4,9 +4,10 @@
 {% block content %}
 	<div class="container occ-bg">
 
-		{{ PanelTitle.renderTitle("Créez votre compte sur l'OCC Badminton") }}
+		{{ PanelTitle.renderTitle("Créez votre compte utilisateur") }}
 
 		<form class="form-horizontal form-inscription" method="POST">
+			<input type="hidden" name="_csrf" value="{{csrf_token_value}}">
 			<div class="form-group">
 				<label for="name.first" class="col-sm-2 control-label">Prénom</label>
 				<div class="col-sm-10">
