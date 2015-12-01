@@ -16,23 +16,30 @@ exports = module.exports = function(req, res) {
 	};
 
     view.on('post', function(next) {
-        var newRegistration = new Registration.model();
-        newRegistration.tournament = locals.filters.idTournoi;
-        var updater = newRegistration.getUpdateHandler(req);
+    	if(keystone.security.csrf.validate(req)){
+    		var newRegistration = new Registration.model();
+	        newRegistration.tournament = locals.filters.idTournoi;
+	        var updater = newRegistration.getUpdateHandler(req);
 
-        updater.process(req.body, {
-            flashErrors: true,
-            fields: 'player1, player2, ranking, category, message',
-            errorMessage: "Problème lors de l'enregistrement de l'inscription..."
-        }, function(err) {
-            if (err) {
-                locals.validationErrors = err.errors;
-                next();
-            } else {
-                req.flash('success', "Votre inscription a bien été prise en compte et est en attente de confirmation !");
-    			res.redirect('/tournois');
-            }
-        });
+	        updater.process(req.body, {
+	            flashErrors: true,
+	            fields: 'player1, player2, ranking, category, message',
+	            errorMessage: "Problème lors de l'enregistrement de l'inscription..."
+	        }, function(err) {
+	            if (err) {
+	                locals.validationErrors = err.errors;
+	                keystone.security.csrf.validate(req,res);
+	                next();
+	            } else {
+	                req.flash('success', "Votre inscription a bien été prise en compte et est en attente de confirmation !");
+	    			res.redirect('/tournois');
+	            }
+	        });
+    	} else {
+    		req.flash('error', "Requête non autorisée.");
+    		keystone.security.csrf.validate(req,res);
+    		next();
+    	}
     });
 
     // Récupération du tournoi
