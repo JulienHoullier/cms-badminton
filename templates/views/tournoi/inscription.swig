@@ -9,6 +9,7 @@
 		<h2 class="text-center">{{ tournoi.name }} ({{ tournoi.club }})</h2>
 
 		<form class="form-horizontal form-inscription" method="POST">
+			<input type="hidden" name="_csrf" value="{{csrf_token_value}}">
 			<div class="row">
 				<div class="col-sm-6">
 					<div class="form-group">
