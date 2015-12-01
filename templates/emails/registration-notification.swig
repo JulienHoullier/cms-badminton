@@ -29,7 +29,13 @@
     			<li>{{ registration.player1.name.full }}: <strong>{{ registration.player1.licence }}</strong></li>
     		</ul>
 	{% endif %}
-	
+
+	{% if registration.message %}
+		Message complémentaire : {{registration.message}}
+	{% endif %}
+
+	<br/>
+	<br/>
 	Merci d'avance.
 
 {% endblock %}

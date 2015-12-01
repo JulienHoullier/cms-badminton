@@ -51,9 +51,8 @@ module.exports = {
 		var newRegistration = new Registration.model({
 			tournament: { name: 'Saint Jacques le 07/11', date : Date.now},
 			category : 'SH',
-			player1: { first: 'Julien', last: 'Houllier' },
-			player1_email: 'j.houllier@gmail.com',
-			player1_licence : 06794300,
+			player1: { name : { first: 'Julien', last: 'Houllier' }, email : 'test@email.com', licence : '06060606' },
+			message: 'Mon message...',
 			ranking: 'D7'
 		});
 
