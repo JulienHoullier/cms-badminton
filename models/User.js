@@ -116,6 +116,6 @@ User.schema.methods.sendUserNotificationEmail = function(callback) {
  * Registration
  */
 
-User.defaultColumns = 'name, email, group';
+User.defaultColumns = 'name, email, player, isAdmin, isUser, isEditor, isTournamentManager';
 User.register();
 
