@@ -77,8 +77,6 @@ User.schema.methods.sendAdminNotificationEmail = function(callback) {
 
 		if (err) return callback(err);
 
-		console.log('admins :'+JSON.stringify(admins));
-
 		new keystone.Email('userAdmin-notification').send({
 			to: admins,
 			from: {
@@ -102,8 +100,6 @@ User.schema.methods.sendUserNotificationEmail = function(callback) {
 	}
 
 	var User = this;
-
-	console.log('admins :'+JSON.stringify(User));
 
 	new keystone.Email('user-notification').send({
 			to: User.email,
