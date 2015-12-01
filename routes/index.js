@@ -50,7 +50,6 @@ exports = module.exports = function(app) {
 	app.get('/resultats', routes.views.resultat);
 	app.all('/contact', routes.views.contact);
 
-	app.get('/account', keystone.security.csrf.middleware.init, routes.views.account);
-	app.post('/account', routes.views.account);
+	app.all('/account', keystone.security.csrf.middleware.init, routes.views.account);
 
 };
