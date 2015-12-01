@@ -23,7 +23,6 @@ exports = module.exports = function(req, res) {
 			        }, function(err) {
 			            if (err) {
 			                locals.validationErrors = err.errors;
-			                keystone.security.csrf.getToken(req,res);
 			                next();
 			            } else {
 			                req.flash('success', "Votre inscription a bien été prise en compte et est en attente de confirmation !");
@@ -34,8 +33,7 @@ exports = module.exports = function(req, res) {
 			});
 		} else {
 			req.flash('error', "Requête non autorisée.");
-			keystone.security.csrf.getToken(req,res);
-			next();
+			res.redirect('/account');
 		}
     });
 
