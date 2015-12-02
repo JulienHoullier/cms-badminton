@@ -5,7 +5,7 @@
 
 	<div class="container occ-bg">
 
-		{{ PanelTitle.renderTitle("Liste des inscrits") }}
+		{{ PanelTitle.renderTitle("Liste des inscrits du club") }}
 
 		<table class="table table-bordered" id="occ-table-inscrit">
 			<thead>

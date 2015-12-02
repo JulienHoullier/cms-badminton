@@ -29,6 +29,7 @@ keystone.pre('render', middleware.flashMessages);
 
 // Import Route Controllers
 var routes = {
+	feeds: importRoutes('./feeds'),
 	views: importRoutes('./views')
 };
 
@@ -41,15 +42,13 @@ exports = module.exports = function(app) {
 	app.get('/blog/post/:post', routes.views.post);
 	app.get('/pages/:page', routes.views.page);
 	app.get('/gallery', routes.views.gallery);
-
-	// Tournois
 	app.get('/tournois', routes.views.tournoi.tournois);
 	app.all('/tournois/:idTournoi/inscription', keystone.security.csrf.middleware.init, middleware.requireUser, routes.views.tournoi.inscription);
-
 	app.get('/player', routes.views.player);
 	app.get('/resultats', routes.views.resultat);
 	app.all('/contact', routes.views.contact);
-
 	app.all('/account', keystone.security.csrf.middleware.init, routes.views.account);
 
+	// Feeds
+	app.get('/feed', routes.feeds.feed);
 };
