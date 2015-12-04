@@ -41,8 +41,7 @@ exports = module.exports = function(req, res) {
 				if(err) res.status(500).send('Erreur de récupération des articles.');
 
 				_.each(results, addItem);
-	
-				res.type('application/rss+xml');
+			
 				res.send(feed.xml({indent: true}));
 			});
 };

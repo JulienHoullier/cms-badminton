@@ -147,3 +147,9 @@ exports.requireUser = function(req, res, next) {
 		}
 	}
 };
+
+/**ensure response content-type for rss**/
+exports.feedResponse = function(req, res, next) {
+	res.type('application/rss+xml');
+	next();
+};

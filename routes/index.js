@@ -50,5 +50,6 @@ exports = module.exports = function(app) {
 	app.all('/account', keystone.security.csrf.middleware.init, routes.views.account);
 
 	// Feeds
-	app.get('/feed', routes.feeds.feed);
+	app.get('/feed', middleware.feedResponse, routes.feeds.feed);
+	
 };
