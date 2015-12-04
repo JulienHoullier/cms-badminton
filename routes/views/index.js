@@ -2,8 +2,10 @@ var keystone = require('keystone'),
 	Post = keystone.list('Post'),
 	Tournament = keystone.list('Tournament'),
 	Match = keystone.list('Match'),
-	async = require('async');
-	//ffbadnews = require('../../lib/ffbadnews'),
+	async = require('async'),
+	Media = keystone.list('Media'),
+	mediaTypes = require('../../lib/MediaType');
+
 
 exports = module.exports = function(req, res) {
 
@@ -35,6 +37,9 @@ exports = module.exports = function(req, res) {
 		.sort('date')
 		.limit(5)).then('registrations');
 
+	// Sélection du Media 
+	view.query('media', Media.model.findOne({type : mediaTypes.Home.value}));
+	
 	// Render the view
 	view.render('newIndex');
 };
