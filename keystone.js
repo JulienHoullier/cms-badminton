@@ -70,7 +70,7 @@ host: process.env.MAIL_HOST,
 	port : 587,
 	auth: {
 	user: process.env.MAIL_USR,
-		pass: process.env.MAIL_PWD
+	pass: process.env.MAIL_PWD
 },
 authMethod : 'PLAIN'
 });
@@ -95,6 +95,9 @@ keystone.set('email locals', {
 	mandrill: {}
 });
 
+
+keystone.set('domain name',  process.env.DOMAIN_NAME || 'http://localhost:3000');
+
 // Setup replacement rules for emails, to automate the handling of differences
 // between development a production.
 
@@ -103,14 +106,14 @@ keystone.set('email locals', {
 
 keystone.set('email rules', [{
 	find: '/images/',
-	replace: (keystone.get('env') == 'production') ? 'http://www.your-server.com/images/' : 'http://localhost:3000/images/'
+	replace:  keystone.get('domain name')+'/images/'
 }, {
 	find: '/keystone/',
-	replace: (keystone.get('env') == 'production') ? 'http://www.your-server.com/keystone/' : 'http://localhost:3000/keystone/'
+	replace: keystone.get('domain name')+'/keystone/'
 },
 {
-	find: '/#',
-	replace: (keystone.get('env') == 'production') ? 'http://www.your-server.com/#' : 'http://localhost:3000/#'
+	find: '/#/',
+	replace: keystone.get('domain name')+'/'
 }]);
 
 keystone.Email.defaults.templateExt =  'swig';

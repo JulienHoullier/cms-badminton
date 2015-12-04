@@ -8,11 +8,11 @@ exports = module.exports = function(req, res) {
 
 	// Création du flux
 	var feed = new RSS({
-		title: 'OCC Badminton',
+		title: keystone.get('brand'),
 		description: "Toute l'actualité de l'OCC Badminton",
-		feed_url: 'http://www.occ-badminton.org/feed',
-		site_url: 'http://www.occ-badminton.org',
-		image_url: 'http://www.occ-badminton.org/images/occ-logo.png',
+		feed_url: keystone.get('domain name')+'/feed',
+		site_url: keystone.get('domain name'),
+		image_url: keystone.get('domain name')+'/images/occ-logo.png',
 		webMaster: 'Julien Houllier, Marc Bouteiller',
 		language: 'fr',
 		categories: ['Badminton','Cesson Sévigné'],
@@ -27,7 +27,7 @@ exports = module.exports = function(req, res) {
 		feed.item({
 			title: post.title,
 			description: post.content.brief,
-			url: 'http://www.occ-badminton.org/blog/post/' + post.slug,
+			url: keystone.get('domain name')+'/blog/post/' + post.slug,
 			author: post.author.name.full,
 			date: post.publishedDate,
 			enclosure: {url: post.image}
@@ -41,7 +41,8 @@ exports = module.exports = function(req, res) {
 				if(err) res.status(500).send('Erreur de récupération des articles.');
 
 				_.each(results, addItem);
-
+	
+				res.type('application/rss+xml');
 				res.send(feed.xml({indent: true}));
 			});
 };
