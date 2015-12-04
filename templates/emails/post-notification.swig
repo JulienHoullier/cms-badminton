@@ -24,7 +24,7 @@
 				<p>{{ post.content.brief | safe }}</p>
 				{% if post.content.extended %}
 					<p class="read-more">
-						<a href="/blog/post/{{ post.slug }}">Read more...</a>
+						<a href="/#/blog/post/{{ post.slug }}">Read more...</a>
 					</p>
 				{% endif %}
 			</article>
