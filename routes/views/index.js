@@ -31,7 +31,6 @@ exports = module.exports = function(req, res) {
 		.sort('-date')
 		.limit(6));
 
-
 	// Sélection des 5 prochains tournois
 	view.query('tournaments', Tournament.model.find()
 		.where('date').gte(today)
@@ -80,7 +79,7 @@ exports = module.exports = function(req, res) {
 			}
 			next();});
 	});
-
+	
 	// Render the view
 	view.render('newIndex');
 };
