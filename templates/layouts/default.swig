@@ -153,7 +153,7 @@
 		{%- block js -%}
 		<script type="text/javascript">
 			jQuery(function($) {
-				$('#occ-sponsor-bar').scrollBox(
+				$('#occ-sponsor-bar').scrollbox(
 				{
 				  direction: 'h',
 				  distance: 110
