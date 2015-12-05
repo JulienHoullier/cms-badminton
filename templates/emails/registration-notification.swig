@@ -5,7 +5,7 @@
 
 {% block content %}
 	<p>Bonjour,</p>
-	{% if registration.player2.exists %}
+	{% if registration.player2 %}
 		<p>Nous souhaiterions nous inscrire au tournoi de : 
 	{% else %}
 		<p>Je souhaiterais m'inscrire au tournoi de : 
@@ -16,7 +16,7 @@
 	<p>Dans la catégorie : <strong>{{ registration.category }} {{ registration.ranking }}</strong> </p>
 	
 	
-	{% if registration.player2_licence %}
+	{% if registration.player2 %}
 		<p>Nos informations de licence sont : </p>
 		<ul>
 			<li>{{ registration.player1.name.full }}: <strong>{{ registration.player1.licence }}</strong></li>

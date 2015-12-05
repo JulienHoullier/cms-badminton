@@ -64,11 +64,11 @@ Registration.schema.methods.sendRegistrationManagerEmail = function(callback) {
 	this.populate('tournament player1 player2', function(err, registration){
 
 		keystone.list('User').model.findOne().where('isTournamentManager', true).exec(function(err, manager) {
-
+			
 			if (err) return callback(err);
 
 			var emailPlayers = [{'email': registration.player1.email, 'name': registration.player1.name.full}];
-			if(registration.player2 != null){
+			if(registration.player2){
 				emailPlayers.push({'email':registration.player2.email, 'name': registration.player2.name.full});
 			}
 			new keystone.Email('registration-notification').send({
