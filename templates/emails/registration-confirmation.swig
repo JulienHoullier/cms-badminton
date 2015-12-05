@@ -5,7 +5,7 @@
 
 {% block content %}
 	<p>Bonjour,</p>
-	{% if registration.player2.exists %}
+	{% if registration.player2 %}
 		<p>Vous avez bien été inscrits
 	{% else %}
 		<p>Tu as bien été inscrit(e)
