@@ -30,7 +30,7 @@
 
 		{{ PanelTitle.renderTitle("Liste des inscrits du club") }}
 
-		<table id="inscrits" class="table table-bordered" id="occ-table-inscrit">
+		<table class="table table-bordered" id="occ-table-inscrit">
 			<thead>
 				<tr>
 					<th class="text-center">Date</th>
