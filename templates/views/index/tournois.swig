@@ -18,7 +18,7 @@
 					{% if tournament.registrations.length == 0 %}
 						{{ tournament.registrations.length }}
 					{% else %}
-						<a href="/tournois#inscrits">
+						<a href="/tournois#occ-table-inscrit">
 							{{ tournament.nbInscrit }}
 						</a>
 					{% endif %}
