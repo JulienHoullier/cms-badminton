@@ -12,14 +12,14 @@
 		<table class="table table-striped">
 			{% for tournament in tournaments %}
 			<tr>
-				<td>{{ tournament.date|date("d-m-Y") }}</td>
-				<td>{{ tournament.name }}</td>
-				<td class="text-right">
+				<td class="occ-tournament-date">{{ tournament.date|date("d-m-Y") }}</td>
+				<td class="occ-tournament-resume">{{ tournament.name }}</td>
+				<td class="occ-tournament-nb-inscrit text-right">
 					{% if tournament.registrations.length == 0 %}
 						{{ tournament.registrations.length }}
 					{% else %}
-						<a href="/tournois#{{tournament.name}}">
-							{{ tournament.registrations.length }}
+						<a href="/tournois#inscrits">
+							{{ tournament.nbInscrit }}
 						</a>
 					{% endif %}
 				</td>
@@ -27,7 +27,7 @@
 			{% endfor %}
 		</table>
 		{% else %}
-		<div class="occ-no-element">Aucun tournoi enregistré pour le moment...</div>
+		<div class="occ-no-element">Pas de tournoi à venir pour le moment...</div>
 		{% endif %}
 	</div>
 </section>

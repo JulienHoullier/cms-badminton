@@ -31,15 +31,37 @@ exports = module.exports = function(req, res) {
 		.sort('-date')
 		.limit(6));
 
+
 	// Sélection des 5 prochains tournois
 	view.query('tournaments', Tournament.model.find()
 		.where('date').gte(today)
 		.sort('date')
-		.limit(5)).then('registrations');
+		.limit(5))
+		.then('registrations');
 
-	// Sélection du Media 
+	// Sélection du Media
 	view.query('media', Media.model.findOne({type : mediaTypes.Home.value}));
-	
+
+
+	var countNbInscrit = function (tournament, next){
+		console.log(tournament);
+		var nbInscrit = 0;
+		if(tournament.registrations){
+			async.each(tournament.registrations, function (registration, next){
+				nbInscrit += (registration.player2 != null) ? 2 : 1;
+				next();
+			},
+			function (err){
+				tournament.nbInscrit = nbInscrit;
+				next(err);
+			});
+		}
+	}
+
+	view.on('render', function(next){
+		async.each(locals.tournaments, countNbInscrit, function(err){next(err)});
+	});
+
 	// Render the view
 	view.render('newIndex');
 };

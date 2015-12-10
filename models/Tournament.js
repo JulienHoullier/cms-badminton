@@ -25,5 +25,5 @@ Tournament.add({
 
 Tournament.relationship({ ref: 'Registration', path: 'registrations', refPath: 'tournament' });
 
-Tournament.defaultColums = 'name, club, date';
+Tournament.defaultColumns = 'name, club, date';
 Tournament.register();
