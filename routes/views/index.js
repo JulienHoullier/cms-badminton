@@ -31,6 +31,7 @@ exports = module.exports = function(req, res) {
 		.sort('-date')
 		.limit(6));
 
+
 	// Sélection des 5 prochains tournois
 	view.query('tournaments', Tournament.model.find()
 		.where('date').gte(today)
@@ -40,8 +41,7 @@ exports = module.exports = function(req, res) {
 
 	// Sélection du Media
 	view.query('media', Media.model.findOne({type : mediaTypes.Home.value}));
-
-
+	
 	var countNbInscrit = function (tournament, next){
 		var nbInscrit = 0;
 		if(tournament.registrations){

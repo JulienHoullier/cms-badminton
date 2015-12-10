@@ -16,7 +16,7 @@
 			<tbody>
 				{% for tournoi in tournois %}
 					<tr>
-						<td>{{tournoi._.date.format("DD-MM-YYYY")}}</td>
+						<td>{{tournoi.date|date('d-m-Y')}}</td>
 						<td>{{tournoi.name}}</td>
 						<td class="text-center">
 							<a class="occ-theme-color" href="/tournois/{{tournoi.id}}/inscription">
@@ -30,7 +30,7 @@
 
 		{{ PanelTitle.renderTitle("Liste des inscrits du club") }}
 
-		<table class="table table-bordered" id="occ-table-inscrit">
+		<table id="inscrits" class="table table-bordered" id="occ-table-inscrit">
 			<thead>
 				<tr>
 					<th class="text-center">Date</th>
@@ -88,26 +88,5 @@
 				{% endfor %}
 		</table>
 
-		{{ PanelTitle.renderTitle("Prochains tournois") }}
-
-		<table class="table" id="occ-table-tournois">
-			<thead>
-				<th width="30%">Date</th>
-				<th width="70%">Tournoi</th>
-			</thead>
-			<tbody>
-				{% for tournoi in tournois %}
-					<tr>
-						<td>{{tournoi.date|date('d-m-Y')}}</td>
-						<td>{{tournoi.name}}</td>
-						<td class="text-center">
-							<a class="occ-theme-color" href="/tournois/{{tournoi.id}}/inscription">
-								<img src="/images/inscription.png" />
-							</a>
-						</td>
-					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
 	</div>
 {% endblock %}

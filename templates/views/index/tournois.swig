@@ -12,13 +12,13 @@
 		<table class="table table-striped">
 			{% for tournament in tournaments %}
 			<tr>
-				<td class="occ-tournament-date">{{ tournament._.date.format("DD-MM-YYYY") }}</td>
+				<td class="occ-tournament-date">{{ tournament.date|date("d-m-Y") }}</td>
 				<td class="occ-tournament-resume">{{ tournament.name }}</td>
 				<td class="occ-tournament-nb-inscrit text-right">
 					{% if tournament.registrations.length == 0 %}
 						{{ tournament.registrations.length }}
 					{% else %}
-						<a href="/tournois#occ-table-inscrit">
+						<a href="/tournois#inscrits">
 							{{ tournament.nbInscrit }}
 						</a>
 					{% endif %}
