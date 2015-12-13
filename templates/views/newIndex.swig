@@ -32,13 +32,13 @@
 						</a>
 					</div>
 					<div class="col-xs-4 text-center">
-						<a href="https://www.youtube.com/bwf" target="_blank">
-							<img src="/images/youtube.png" />
+						<a href="https://www.facebook.com/groups/449683501877406/?fref=ts" target="_blank"	>
+							<img src="/images/facebook.png" />
 						</a>
 					</div>
 					<div class="col-xs-4 text-center">
-						<a href="https://www.facebook.com/groups/449683501877406/?fref=ts" target="_blank"	>
-							<img src="/images/facebook.png" />
+						<a href="/feed" target="_blank">
+							<img src="/images/rss.png" />
 						</a>
 					</div>
 				</div>

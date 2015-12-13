@@ -44,7 +44,6 @@ exports = module.exports = function(req, res) {
 
 
 	var countNbInscrit = function (tournament, next){
-		console.log(tournament);
 		var nbInscrit = 0;
 		if(tournament.registrations){
 			async.each(tournament.registrations, function (registration, next){
