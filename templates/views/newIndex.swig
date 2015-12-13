@@ -28,17 +28,17 @@
 				<div class="row occ-section-social">
 					<div class="col-xs-4 text-center">
 						<a href="https://twitter.com/OCCBadminton" target="_blank">
-							<img src="/images/twitter.png" />
+							<img alt="Twitter" src="/images/twitter.png" />
 						</a>
 					</div>
 					<div class="col-xs-4 text-center">
 						<a href="https://www.facebook.com/groups/449683501877406/?fref=ts" target="_blank"	>
-							<img src="/images/facebook.png" />
+							<img alt="Facebook" src="/images/facebook.png" />
 						</a>
 					</div>
 					<div class="col-xs-4 text-center">
 						<a href="/feed" target="_blank">
-							<img src="/images/rss.png" />
+							<img alt="RSS" src="/images/rss.png" />
 						</a>
 					</div>
 				</div>

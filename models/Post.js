@@ -1,5 +1,6 @@
 var keystone = require('keystone');
 var Types = keystone.Field.Types;
+var twitterClient = require('../lib/twitterClient');
 
 /**
  * Post Model
@@ -36,13 +37,14 @@ Post.schema.virtual('content.full').get(function() {
 	return this.content.extended || this.content.brief;
 });
 
+/************************* 
+ * PRE-SAVE 
+ ************************/
 Post.schema.pre('save', function(next) {
-	if(this.isModified('important') && this.important){
-		this.needMail = true;
-	}
+	this.needMail = this.isModified('important') && this.important;
+	this.stateModified = this.isModified('state');
 	next();
 });
-
 Post.schema.pre('save', function(next) {
 	if(this.isNew && !this.category){
 		var Post = this;
@@ -59,9 +61,21 @@ Post.schema.pre('save', function(next) {
 	}
 });
 
+/************************* 
+ * POST-SAVE 
+ ************************/
 Post.schema.post('save', function() {
     if (this.needMail) {
     	this.sendNotificationEmail();
+    }
+});
+Post.schema.post('save', function() {
+    if (this.stateModified && this.state == 'published') {
+    	this.populate('author', function (err, post){
+			var msg = "A lire : " + post.title + " par " + post.author.name.first + " -> " + process.env.DOMAIN_NAME+"/blog/post/"+post.slug;
+	    	twitterClient.tweet(msg);
+    	});
+    	
     }
 });
 
