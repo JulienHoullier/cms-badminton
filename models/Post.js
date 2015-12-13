@@ -77,6 +77,15 @@ Post.schema.post('save', function() {
     	this.sendNotificationEmail();
     }
 });
+Post.schema.post('save', function() {
+    if (this.stateModified && this.state == 'published') {
+    	this.populate('author', function (err, post){
+			var msg = "A lire : " + post.title + " par " + post.author.name.first + " -> " + process.env.DOMAIN_NAME+"/blog/post/"+post.slug;
+	    	twitterClient.tweet(msg);
+    	});
+    	
+    }
+});
 Post.schema.post('save', function(post) {
     if (this.socialVisible
     	&& !this.socialized ) {
