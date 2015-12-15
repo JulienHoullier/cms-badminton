@@ -106,6 +106,7 @@ function buildTweet(title, author, slug, category){
 	if(category){
 		tweet += " #" + category.replace(/\s+/g, '');
 	}
+	tweet += process.env.DOMAIN_NAME+"/blog/post/"+ slug
 	return tweet;
 }
 
