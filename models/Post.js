@@ -79,28 +79,12 @@ Post.schema.post('save', function() {
 });
 Post.schema.post('save', function() {
     if (this.stateModified && this.state == 'published') {
-    	this.populate('author', function (err, post){
-			var msg = "A lire : " + post.title + " par " + post.author.name.first + " -> " + process.env.DOMAIN_NAME+"/blog/post/"+post.slug;
-	    	twitterClient.tweet(msg);
-    	});
-    	
-    }
-});
-Post.schema.post('save', function(post) {
-    if (this.socialVisible
-    	&& !this.socialized ) {
-    	// Tweet si le statut passe à "published" ou que l'article n'a pas été publié sur les réseaux sociaux.
     	this.populate('author category', function (err, post){
 			var status = buildTweet(post.title, post.author.name.first, post.slug, post.category.name);
 			twitterClient.tweet(status, function(error){
 				if(error) {
 					console.log("Twitter Error : ");
 					console.log(error);
-				} else {
-					post.socialized = true;
-					post.save(function(err){
-						if(err) console.log(err);
-					});
 				}
 			});
     	});
