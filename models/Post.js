@@ -92,10 +92,11 @@ Post.schema.post('save', function() {
  * @return {String}          Statut à poster sur Twitter
  */
 function buildTweet(title, author, slug, category){
-	var tweet = "A lire : " + title + " par " + author + " // " + process.env.DOMAIN_NAME+"/blog/post/"+ slug;
+	var tweet = "A lire : " + title + " par " + author;
 	if(category){
-		tweet += " #" + category;
+		tweet += " #" + category.replace(/\s+/g, '') + " ";
 	}
+	tweet += process.env.DOMAIN_NAME+"/blog/post/"+ slug
 	return tweet;
 }
 
