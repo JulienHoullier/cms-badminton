@@ -16,7 +16,7 @@
 			<tbody>
 				{% for tournoi in tournois %}
 					<tr>
-						<td>{{tournoi.date|date('d-m-Y')}}</td>
+						<td>{{tournoi._.date.format("DD-MM-YYYY")}}</td>
 						<td>{{tournoi.name}}</td>
 						<td class="text-center">
 							<a class="occ-theme-color" href="/tournois/{{tournoi.id}}/inscription">
@@ -60,7 +60,7 @@
 								{% set nbPlayerDivision = loop.revindex %}
 								<tr>
 								{% if isNewTournoi %}
-									<td rowspan="{{ tournoiValue.nbInscrit }}"><strong>{{ tournamentDate|date('d-m-Y') }}</strong></td>
+									<td rowspan="{{ tournoiValue.nbInscrit }}"><strong>{{ tournamentDate }}</strong></td>
 									<td rowspan="{{ tournoiValue.nbInscrit }}"><strong>{{ tournoiKey }}</strong></td>
 									{% set isNewTournoi = false %}
 								{% endif %}

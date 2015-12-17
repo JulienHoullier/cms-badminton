@@ -36,7 +36,7 @@ exports = module.exports = function(req, res) {
 							if (tournois[registration.tournament.name] == null) {
 								tournois[registration.tournament.name] = {
 									nbInscrit: 0,
-									date: registration.tournament.date,
+									date: registration.tournament._.date.format("DD-MM-YYYY"), // Problème d'affichage des dates
 									categories: {}
 								};
 							}
