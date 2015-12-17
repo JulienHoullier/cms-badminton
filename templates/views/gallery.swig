@@ -21,7 +21,7 @@
 			<div  class="occ-panel occ-album {{className}}">
 				<h2>{{ gallery.name }}
 					{% if gallery.publishedDate %}
-						<span class="pull-right">{{ gallery.publishedDate|date('d-M-Y') }}</span>
+						<span class="pull-right">{{ gallery._.publishedDate.format('DD-MM-YYYY') }}</span>
 					{% endif %}
 				</h2>
 
