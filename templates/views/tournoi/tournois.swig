@@ -16,7 +16,7 @@
 			<tbody>
 				{% for tournoi in tournois %}
 					<tr>
-						<td>{{tournoi.date|date('d-m-Y')}}</td>
+						<td>{{tournoi._.date.format("DD-MM-YYYY")}}</td>
 						<td>{{tournoi.name}}</td>
 						<td class="text-center">
 							<a class="occ-theme-color" href="/tournois/{{tournoi.id}}/inscription">
