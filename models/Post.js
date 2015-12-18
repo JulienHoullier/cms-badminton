@@ -31,14 +31,17 @@ Post.add({
 	},
 	category: { type: Types.Relationship, label:'Catégorie', ref: 'PostCategory'},
 	important : {type : Types.Boolean, label:'Important'}
+	},'Réseaux sociaux', {
+	socialVisible : {type : Types.Boolean, label:'Visible sur réseaux sociaux'},
+	socialized : {type : Types.Boolean, label: 'Déjà publiée', noedit:true}, // Indique que le post a déjà été publié sur les réseaux sociaux.
 });
 
 Post.schema.virtual('content.full').get(function() {
 	return this.content.extended || this.content.brief;
 });
 
-/************************* 
- * PRE-SAVE 
+/*************************
+ * PRE-SAVE
  ************************/
 Post.schema.pre('save', function(next) {
 	this.needMail = this.isModified('important') && this.important;
@@ -49,6 +52,7 @@ Post.schema.pre('save', function(next) {
 	if(this.isNew && !this.category){
 		var Post = this;
 		var PostCategory = keystone.list('PostCategory');
+		// Ajout de la catégorie par défaut "Club", si pas de catégorie sélectionnée
 		PostCategory.model.findOne({name : 'Club'}, function (err, category) {
 			if (!err && category) {
 				Post.category = category;
@@ -61,22 +65,28 @@ Post.schema.pre('save', function(next) {
 	}
 });
 
-/************************* 
- * POST-SAVE 
+/*************************
+ * POST-SAVE
  ************************/
 Post.schema.post('save', function() {
     if (this.needMail) {
     	this.sendNotificationEmail();
     }
 });
-Post.schema.post('save', function() {
-    if (this.stateModified && this.state == 'published') {
+Post.schema.post('save', function(post) {
+    if (this.stateModified && this.state == 'published' && !this.socialized ) {
+    	// Tweet si le statut passe à "published" et que l'article n'a pas été publié sur les réseaux sociaux.
     	this.populate('author category', function (err, post){
 			var status = buildTweet(post.title, post.author.name.first, post.slug, post.category.name);
 			twitterClient.tweet(status, function(error){
 				if(error) {
 					console.log("Twitter Error : ");
 					console.log(error);
+				} else {
+					post.socialized = true;
+					post.save(function(err){
+						if(err) console.log(err);
+					});
 				}
 			});
     	});
@@ -92,11 +102,12 @@ Post.schema.post('save', function() {
  * @return {String}          Statut à poster sur Twitter
  */
 function buildTweet(title, author, slug, category){
-	var tweet = "A lire : " + title + " par " + author;
+	var tweet = title;
+	tweet += " " + process.env.DOMAIN_NAME+"/blog/post/"+ slug;
+	tweet += " par " + author;
 	if(category){
-		tweet += " #" + category.replace(/\s+/g, '') + " ";
+		tweet += " #" + category.replace(/\s+/g, '');
 	}
-	tweet += process.env.DOMAIN_NAME+"/blog/post/"+ slug
 	return tweet;
 }
 
