@@ -14,13 +14,14 @@
     "underscore": "^1.8.0",
     "xpath": "^0.0.9",
     "xmldom": "^0.1.19",
+    "twitter": "^1.2.5",
     "keystone-nodemailer": "https://github.com/JulienHoullier/keystone-nodemailer.git"
   },
   "devDependencies": {
     "gulp": "^3.7.0",
     "gulp-jshint": "^1.9.0",
-    "jshint-stylish": "^0.1.3",
-    "gulp-watch": "^0.6.5"
+    "gulp-watch": "^0.6.5",
+    "jshint-stylish": "^0.1.3"
   },
   "engines": {
     "node": ">=0.10.22",
