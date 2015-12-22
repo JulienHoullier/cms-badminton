@@ -47,7 +47,7 @@
 
 				<tbody id="{{tournoiKey}}">
 					{% set isNewTournoi = true %}
-					{% set tournamentDate = tournoiValue.date %}
+					{% set tournamentDate = tournoiValue.dateAffichable %}
 
 					{% for categorieName, categorieValue in tournoiValue.categories %}
 						{% set isNewCategorie = true %}
