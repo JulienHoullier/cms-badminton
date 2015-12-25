@@ -1,4 +1,5 @@
 {% extends "../layouts/default.swig" %}
+{% import "../mixins/commenting.swig" as Commenting%}
 
 {% block content %}
 		<div class="row">
@@ -8,34 +9,38 @@
 				</p>
 				<hr>
 				<article class="occ-post occ-bg">
-					{% if not data.post %}
+					{% if not post %}
 						<h2>Article inconnu.</h2>
 					{% else %}
 						<header>
-							<h1 class="text-caps text-danger">{{ data.post.title }}</h1>
+							<h1 class="text-caps text-danger">{{ post.title }}</h1>
 							<span>
-							{% if data.post.publishedDate %}
-								le {{ data.post._.publishedDate.format('DD/MM/YYYY') }}
+							{% if post.publishedDate %}
+								le {{ post._.publishedDate.format('DD/MM/YYYY') }}
 							{% endif %}
-							{% if data.post.category %}
+							{% if post.category %}
 								dans la catégorie :
-								<a href="/blog/{{ data.post.category.key }}" class="occ-theme-color">{{ data.post.category.name }}</a>
+								<a href="/blog/{{ post.category.key }}" class="occ-theme-color">{{ post.category.name }}</a>
 							{% endif %}
-							{% if data.post.author %}
-								par {{ data.post.author.name.first }}
+							{% if post.author %}
+								par {{ post.author.name.first }}
 							{% endif %}
 							<span>
 						</header>
 						<div class="occ-post-content">
 
-							{{ data.post.content.full | raw }}
+							{{ post.content.full | raw }}
 
-							{% if data.post.image.exists %}
+							{% if post.image.exists %}
 								<div class="image-wrap">
-									<img src="{{ data.post._.image.fit(750,450) }}" class="img-responsive">
+									<img src="{{ post._.image.fit(750,450) }}" class="img-responsive">
 								</div>
 							{% endif %}
 							
+						</div>
+						<div>
+							{{Commenting.comment-form()}}
+							{{Commenting.comment-thread(comments)}}
 						</div>
 					{% endif %}
 				</article>

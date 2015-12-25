@@ -13,14 +13,10 @@ exports = module.exports = function(req, res) {
 
 	locals.section = locals.filters.page;
 
-	// Load current page
-	view.on('init', function(next) {
+	var Page = keystone.list('Page');
 
-		keystone.list('Page').model.findOne({ slug: locals.filters.page }).exec(function(err, result) {
-				locals.page = result;
-				next(err);
-			});
-	});
+	// Load current page
+	view.query('page', Page.model.findOne({ slug: locals.filters.page }));
 
 	// Render the view
 	view.render('page');

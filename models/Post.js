@@ -122,7 +122,6 @@ Post.schema.methods.sendNotificationEmail = function(callback) {
 	var post = this;
 
 	var send = function(to){
-
 		new keystone.Email('post-notification').send({
 				to: to,
 				from: {
