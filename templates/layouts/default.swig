@@ -106,10 +106,10 @@
 			<div class="container">
 				<h4>Partenaires</h4>
 				{% if sponsors && sponsors.length > 0%}
-				<div id="occ-sponsor-bar" class="scroll-text">
+				<div id="occ-sponsor-bar">
 					<ul>
 					{% for sponsor in sponsors %}
-						<li><a href="{{sponsor.url}}" class="thumbnail"><img src="{{sponsor.img_url}}" alt="{{sponsor.name}}"/></a></li>
+						<li><a class="thumbnail" href="{{sponsor.url}}"><img src="{{sponsor.img_url}}" alt="{{sponsor.name}}"/></a></li>
 					{% endfor %}
 					</ul>
 				</div>
@@ -132,7 +132,7 @@
 		{# jQuery 1.11.1 is included by default, and required by both Bootstrap
 			and the KeystoneJS Content Editor. If you are not targeting IE8,
 			you can upgrade to 2.1.3 (also bundled) for better performance. #}
-		<script src="/js/jquery/jquery-2.1.3.min.js"></script>
+		<script src="/js/jquery/jquery-1.11.2.min.js"></script>
 
 		{# Customise which Bootstrap javascript files are served by including
 			them specifically here, instead of bootstrap-3.3.4.min.js #}
@@ -156,7 +156,8 @@
 				$('#occ-sponsor-bar').scrollbox(
 				{
 				  direction: 'h',
-				  distance: 110
+				  distance: 110,
+				  step: 110
 				});
 			});
 		</script>
