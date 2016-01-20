@@ -1,7 +1,7 @@
 var keystone = require('keystone');
 var Types = keystone.Field.Types;
 var async = require('async');
-
+var mailLib = require('../lib/mail');
 /**
  * Mail Model
  * =============
@@ -36,16 +36,7 @@ var sendMail = function(callback, to, mail){
 	if(arguments.length == 4){
 		cat = arguments[3];
 	}
-	new keystone.Email('email-notification').send({
-				to: to,
-				from: {
-					name: 'OCC-Badminton',
-					email: 'contact@occ-badminton.com'
-				},
-				subject: mail.subject,
-				mail: mail,
-				category: cat
-			}, callback);
+	mailLib.sendMail('email-notification', callback, mail.subject, to, {mail:mail, category:cat});
 };
 
 
