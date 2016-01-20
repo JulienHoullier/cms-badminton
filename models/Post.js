@@ -1,6 +1,7 @@
 var keystone = require('keystone');
 var Types = keystone.Field.Types;
 var twitterClient = require('../lib/twitterClient');
+var mailLib = require('../lib/mail');
 
 /**
  * Post Model
@@ -30,7 +31,7 @@ Post.add({
 		extended: { type: Types.Html, label:'En détail', wysiwyg: true, height: 400 }
 	},
 	category: { type: Types.Relationship, label:'Catégorie', ref: 'PostCategory'},
-	important : {type : Types.Boolean, label:'Important'}
+	important : {type : Types.Boolean, label:'Diffusion par mail'}
 	},'Réseaux sociaux', {
 	socialVisible : {type : Types.Boolean, label:'Visible sur réseaux sociaux'},
 	socialized : {type : Types.Boolean, label: 'Déjà publiée', noedit:true}, // Indique que le post a déjà été publié sur les réseaux sociaux.
@@ -115,41 +116,25 @@ function buildTweet(title, author, slug, category){
 
 Post.schema.methods.sendNotificationEmail = function(callback) {
 
-	if ('function' !== typeof callback) {
-		callback = function(err) {console.log(err);};
-	}
-
 	var post = this;
-
-	var send = function(to){
-		new keystone.Email('post-notification').send({
-				to: to,
-				from: {
-					name: 'OCC-Badminton',
-					email: 'contact@occ-badminton.org'
-				},
-				subject: 'Info importante',
-				post: post
-			}, callback);
-	};
 
 	if(post.category){
 		Post.model.populate(this, 'category', function (err, post) {
 
 			post.category.populateRelated('followers', function(err){
 				if (err) {
-					return callback(err);
+					return console.log('Error retriving followers due to: '+err);
 				}
-				send(post.category.followers)
+				mailLib.sendMail('post-notification', callback, 'Info importante', post.category.followers, {post: post});
 			});
 
 		});
 	}
 	else{
-		return callback({err : 'No category no mail'});//no category no send
+		return console.log('No category no mail');//no category no send
 	}
 };
 
-Post.defaultSort = 'state';
+Post.defaultSort = '-publishedDate';
 Post.defaultColumns = 'title, state|20%, author|20%, publishedDate|20%';
 Post.register();
