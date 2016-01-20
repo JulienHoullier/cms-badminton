@@ -63,7 +63,7 @@ Registration.schema.post('save', function() {
 	}
 });
 
-var sendMail = function(Registration, template, subject, callback){
+var sendMail = function(Registration, template, subject){
 	Registration.populate('tournament player1 player2', function(err, registration){
 		if(err) return console.log('Error populating registration due to: '+err);
 		
@@ -71,21 +71,14 @@ var sendMail = function(Registration, template, subject, callback){
 
 			if (err) return console.log('Error retrieving tournament manager user due to: '+err);
 
-			new keystone.Email('registration-notification').send({
-				to: manager,
-				cc: emailPlayers,
-				mandrillOptions: {cc: emailPlayers},
-				from: {
-					name: 'OCC-Badminton',
-					email: 'contact@occ-badminton.com'
-				},
-				subject: 'Demande d\'inscription',
-				registration: registration
-			}, callback);
-
+			var emails = [manager, registration.player1.email];
+			if(registration.player2 != null){
+				emails.push(registration.player2.email);
+			}
+			mailLib.sendMail(template, callback, subject, emails, {registration: registration});
 		});
 	});
-};
+}
 
 Registration.defaultSort = '-createdAt';
 Registration.defaultColumns = 'tournament, player1, category, ranking, status, createdAt';
