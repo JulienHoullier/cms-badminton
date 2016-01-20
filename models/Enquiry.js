@@ -1,5 +1,6 @@
 var keystone = require('keystone');
 var Types = keystone.Field.Types;
+var mailLib = require('../lib/mail');
 
 /**
  * Enquiry Model
@@ -38,30 +39,13 @@ Enquiry.schema.post('save', function() {
 
 Enquiry.schema.methods.sendNotificationEmail = function(callback) {
 	
-	if ('function' !== typeof callback) {
-		callback = function(err) {
-			if (err) {
-				console.log(err);
-			}
-		};
-	}
-	
 	var enquiry = this;
 	
 	keystone.list('User').model.find().where('group', 'admin').exec(function(err, admins) {
 		
 		if (err) return callback(err);
-		
-		new keystone.Email('enquiry-notification').send({
-			to: admins,
-			from: {
-				name: 'OCC-Badminton',
-				email: 'contact@occ-badminton.com'
-			},
-			subject: 'Nouvelle réclamation',
-			enquiry: enquiry
-		}, callback);
-		
+
+		mailLib.sendMail('enquiry-notification', callback, 'Nouvelle réclamation', admins, {enquiry: enquiry});
 	});
 	
 };
