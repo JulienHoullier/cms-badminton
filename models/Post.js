@@ -14,27 +14,31 @@ var Post = new keystone.List('Post', {
 	autokey: { path: 'slug', from: 'title', unique: true }
 });
 
-Post.add({
-	title: { type: String, label:'Titre', required: true },
-	state: { type: Types.Select, label:'Etat', options:
-		[
-			{value:'draft', label:'Ebauche'},
-			{value:'published', label:'Publiée'},
-			{value:'archived', label:'Archivée'},
-		],
-		default: 'draft', index: true },
-	author: { type: Types.Relationship, label:'Auteur', ref: 'User', index: true },
-	publishedDate: { type: Types.Date, label:'date de publication', index: true, dependsOn: { state: 'published' } },
-	image: { type: Types.CloudinaryImage, label:'Image' },
-	content: {
-		brief: { type: Types.Html, label:'En bref', wysiwyg: true, height: 150 },
-		extended: { type: Types.Html, label:'En détail', wysiwyg: true, height: 400 }
-	},
-	category: { type: Types.Relationship, label:'Catégorie', ref: 'PostCategory'},
-	important : {type : Types.Boolean, label:'Diffusion par mail'}
-	},'Réseaux sociaux', {
-	socialVisible : {type : Types.Boolean, label:'Visible sur réseaux sociaux'},
-	socialized : {type : Types.Boolean, label: 'Déjà publiée', noedit:true}, // Indique que le post a déjà été publié sur les réseaux sociaux.
+Post.add(
+	{
+		title: { type: String, label:'Titre', required: true },
+		state: { type: Types.Select, label:'Etat', options:
+			[
+				{value:'draft', label:'Ebauche'},
+				{value:'published', label:'Publiée'},
+				{value:'archived', label:'Archivée'},
+			],
+			default: 'draft', index: true },
+		author: { type: Types.Relationship, label:'Auteur', ref: 'User', index: true },
+		publishedDate: { type: Types.Date, label:'date de publication', index: true, dependsOn: { state: 'published' } },
+		image: { type: Types.CloudinaryImage, label:'Image' },
+		content: {
+			brief: { type: Types.Html, label:'En bref', wysiwyg: true, height: 150 },
+			extended: { type: Types.Html, label:'En détail', wysiwyg: true, height: 400 }
+		},
+		category: { type: Types.Relationship, label:'Catégorie', ref: 'PostCategory'}
+	}, 
+	{ heading:'Réseaux sociaux', dependsOn:{ state: 'published' }}, 
+	{
+		important : {type : Types.Boolean, label:'Diffusion par mail', dependsOn:{ state: 'published' }},
+		socialVisible : {type : Types.Boolean, label:'Visible sur réseaux sociaux', dependsOn:{ state: 'published' }},
+		socialized : {type : Types.Boolean, label: 'Déjà publiée', noedit:true, dependsOn:{ state: 'published' }}
+		 // Indique que le post a déjà été publié sur les réseaux sociaux.
 });
 
 Post.schema.virtual('content.full').get(function() {
@@ -46,8 +50,6 @@ Post.schema.virtual('content.full').get(function() {
  ************************/
 Post.schema.pre('save', function(next) {
 	this.needMail = this.isModified('important') && this.important;
-	this.stateModified = this.isModified('state');
-	this.socialIsModified = this.isModified('socialVisible');
 	next();
 });
 Post.schema.pre('save', function(next) {
@@ -76,8 +78,8 @@ Post.schema.post('save', function() {
     }
 });
 Post.schema.post('save', function(post) {
-    if (this.stateModified && this.state == 'published' && this.socialVisible
-    	|| this.socialIsModified && this.socialVisible && !this.socialized && this.state == 'published' ) {
+    if (this.socialVisible
+    	&& !this.socialized ) {
     	// Tweet si le statut passe à "published" ou que l'article n'a pas été publié sur les réseaux sociaux.
     	this.populate('author category', function (err, post){
 			var status = buildTweet(post.title, post.author.name.first, post.slug, post.category.name);

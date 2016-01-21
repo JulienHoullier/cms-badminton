@@ -63,7 +63,7 @@ Registration.schema.post('save', function() {
 	}
 });
 
-var sendMail = function(Registration, template, subject){
+var sendMail = function(Registration, template, subject, callback){
 	Registration.populate('tournament player1 player2', function(err, registration){
 		if(err) return console.log('Error populating registration due to: '+err);
 		

@@ -47,7 +47,7 @@ Match.schema.methods.sendNotificationEmail = function(callback) {
 		
 		team.populateRelated('players', function (err) {
 			if (err) {
-				return return console.log('Error retrieving players due to :'+err);
+				return console.log('Error retrieving players due to :'+err);
 			}
 			mailLib.sendMail('match-notification', callback, 'Journée de championnat', team.players, {match:Match});
 		});
