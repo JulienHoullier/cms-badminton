@@ -1,6 +1,7 @@
 var keystone = require('keystone');
 var Types = keystone.Field.Types;
 var _ = require('underscore');
+var mailLib = require('../lib/mail');
 
 /**
  * User Model
@@ -64,53 +65,21 @@ User.schema.post('save', function() {
 
 User.schema.methods.sendAdminNotificationEmail = function(callback) {
 
-	if ('function' !== typeof callback) {
-		callback = function(err) {
-			if (err) {
-				console.log(err);
-			}
-		};
-	}
-
 	var User = this;
 
 	keystone.list('User').model.find().where('isAdmin', true).exec(function(err, admins) {
 
-		if (err) return callback(err);
+		if (err) return console.log('Error retrieving admins due to :'+err);
 
-		new keystone.Email('userAdmin-notification').send({
-			to: admins,
-			from: {
-				name: 'OCC-Badminton',
-				email: 'contact@occ-badminton.org'
-			},
-			subject: 'Demande d\'inscription',
-			user: User
-		}, callback);
+		mailLib.sendMail('userAdmin-notification', callback, 'Demande d\'inscription', admins, {user: User});
 	});
 };
 
 User.schema.methods.sendUserNotificationEmail = function(callback) {
 
-	if ('function' !== typeof callback) {
-		callback = function(err) {
-			if (err) {
-				console.log(err);
-			}
-		};
-	}
-
 	var User = this;
 
-	new keystone.Email('user-notification').send({
-			to: User.email,
-			from: {
-				name: 'OCC-Badminton',
-				email: 'contact@occ-badminton.org'
-			},
-			subject: 'Inscription confirmée',
-			user: User
-		}, callback);
+	mailLib.sendMail('user-notification', callback, 'Inscription confirmée', [User], {user: User});
 };
 
 /**
