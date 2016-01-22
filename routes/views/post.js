@@ -18,14 +18,18 @@ exports = module.exports = function(req, res) {
 
 	// Load the current post
 	view.on('init', function (next) {
-
 		var q = Post.model.findOne({
 			state: 'published',
-			key: locals.filters.post,
+			slug: locals.filters.post,
 		}).populate('author categories');
 
 		q.exec(function (err, result) {
-			locals.post = result;
+			if(err) {
+				console.log(err);
+			}
+			else{
+				locals.post = result;
+			}
 			next(err);
 		});
 
@@ -44,7 +48,7 @@ exports = module.exports = function(req, res) {
 			.where('post', locals.post)
 			.where('commentState', 'published')
 			.where('author').ne(null)
-			.populate('author', 'name photo')
+			.populate('author', 'name')
 			.sort('-publishedOn'));
 	
 	// Create a Comment
@@ -111,7 +115,26 @@ exports = module.exports = function(req, res) {
 			});
 	});
 
-	console.log('locals: '+JSON.stringify(locals));
+	view.on('render', function(next) {
+		console.log('comments : '+locals.comments);
+		console.log('post : '+locals.post);
+		PostComment.model.find()
+			.where('post', locals.post)
+			.where('commentState', 'published')
+			.where('author').ne(null)
+			.populate('author', 'name')
+			.sort('-publishedOn').exec(function(err, comments){
+				if(err) {
+					console.log(err);
+				}
+				if(comments){
+					console.log('get comments');
+				}
+				console.log('passe ici');
+				next();
+			});
+	});
+		
 	// Render the view
 	view.render('post');
 	

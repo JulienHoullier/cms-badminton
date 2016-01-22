@@ -4,8 +4,8 @@ var keystone = require('keystone'),
 	Match = keystone.list('Match'),
 	async = require('async'),
 	Media = keystone.list('Media'),
-	mediaTypes = require('../../lib/MediaType');
-
+	mediaTypes = require('../../lib/MediaType'),
+ 	PostComment = keystone.list('PostComment');
 
 exports = module.exports = function(req, res) {
 
@@ -57,8 +57,28 @@ exports = module.exports = function(req, res) {
 		}
 	}
 
+	var addNbComments = function (article, next){
+		article.nbComment = 0;
+		PostComment.model.count()
+			.where('post', article)
+			.where('commentState', 'published')
+			.where('author').ne(null).exec(function(err, count){
+				if(!err && count){
+					article.nbComment = count;
+				}
+				next();
+			});
+	}
+
 	view.on('render', function(next){
-		async.each(locals.tournaments, countNbInscrit, function(err){next(err)});
+		async.parallel([
+			function(callback){async.each(locals.tournaments, countNbInscrit, function(err){callback(err)});},
+			function(callback){async.each(locals.articles, addNbComments, function(err){callback(err)});}
+		], function(err){
+			if(err) {
+				return console.log(err);
+			}
+			next();});
 	});
 
 	// Render the view
