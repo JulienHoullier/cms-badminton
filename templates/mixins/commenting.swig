@@ -52,18 +52,10 @@
 		</div>
 	{%- endif -%}
 {%- endmacro -%}
-<<<<<<< HEAD
 {%- macro commentThread(comments) -%}
 	{%- if comments.length -%}
 		{%- for comment in comments -%}
 			{{ commentPost(comment) }}
-=======
-{%- macro comment-thread(comments) -%}
-	<p>Test
-	{%- if comments.length -%}
-		{%- for comment in comments -%}
-			{{ comment-post(comment) }}
->>>>>>> add start comment dev
 		{%- endfor -%}
 	{%- endif -%}
 {%- endmacro -%}
