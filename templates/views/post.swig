@@ -38,8 +38,8 @@
 							
 						</div>
 						<div>
-							{{Commenting.comment-form()}}
-							{{Commenting.comment-thread(comments)}}
+							{{ Commenting.commentForm() }}
+							{{ Commenting.commentThread(comments) }}
 						</div>
 					{% endif %}
 				</article>
