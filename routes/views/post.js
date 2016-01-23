@@ -32,24 +32,24 @@ exports = module.exports = function(req, res) {
 			}
 			next(err);
 		});
-
 	});
-	
-	
-	// Load other posts
-	//view.query('posts', Post.model.find()
-	//		.where('state', 'published')
-	//		.sort('-publishedDate')
-	//		.populate('author')
-	//		.limit('4'));
-	
-	// Load comments on the Post
-	view.query('comments', PostComment.model.find()
+
+	view.on('init', function(next) {
+		PostComment.model.find()
 			.where('post', locals.post)
 			.where('commentState', 'published')
 			.where('author').ne(null)
-			.populate('author', 'name')
-			.sort('-publishedOn'));
+			.populate('author', 'name photo')
+			.sort('-publishedOn').exec(function(err, comments){
+				if(err) {
+					console.log(err);
+				}
+				if(comments){
+					locals.comments = comments;
+				}
+				next();
+			});
+	});
 	
 	// Create a Comment
 	view.on('post', { action: 'comment.create' }, function (next) {
@@ -71,7 +71,7 @@ exports = module.exports = function(req, res) {
 				validationErrors = err.errors;
 			} else {
 				req.flash('success', 'Votre commentaire a été ajouté.');
-				return res.redirect('/blog/post/' + locals.post.key + '#comment-id-' + newComment.id);
+				return res.redirect('/blog/post/' + locals.post.slug + '#comment-id-' + newComment.id);
 			}
 			next();
 		});
@@ -110,30 +110,11 @@ exports = module.exports = function(req, res) {
 				comment.save(function (err) {
 					if (err) return res.err(err);
 					req.flash('success', 'Votre commentaire a été supprimé.');
-					return res.redirect('/blog/post/' + locals.post.key);
+					return res.redirect('/blog/post/' + locals.post.slug);
 				});
 			});
 	});
 
-	view.on('render', function(next) {
-		console.log('comments : '+locals.comments);
-		console.log('post : '+locals.post);
-		PostComment.model.find()
-			.where('post', locals.post)
-			.where('commentState', 'published')
-			.where('author').ne(null)
-			.populate('author', 'name')
-			.sort('-publishedOn').exec(function(err, comments){
-				if(err) {
-					console.log(err);
-				}
-				if(comments){
-					console.log('get comments');
-				}
-				console.log('passe ici');
-				next();
-			});
-	});
 		
 	// Render the view
 	view.render('post');

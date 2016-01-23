@@ -28,7 +28,6 @@ PostComment.schema.pre('save', function (next) {
 	next();
 });
 
-
 PostComment.track = true;
 PostComment.defaultSort = '-post';
 PostComment.defaultColumns = 'author, post, publishedOn, commentState';

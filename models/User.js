@@ -20,6 +20,7 @@ var User = new keystone.List('User', {
 
 User.add({
 	name: { type: Types.Name, label:'Nom', required: true, index: true },
+	photo: { type: Types.CloudinaryImage, label:'Image' },
 	email: { type: Types.Email, label:'Email', initial: true, required: true, index: true },
 	password: { type: Types.Password, label:'Mot de passe', initial: true, required: true },
 	player: { type: Types.Relationship, label:'Joueur', ref: 'Player', initial: true}
