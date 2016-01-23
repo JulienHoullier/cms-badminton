@@ -52,21 +52,28 @@
 					<div class="year">{{ post.publishedDate.toString().split(' ')[3] }}</div>
 				</div>
 
-					<h2 class="occ-article-head">
-						{{ post.title }}
-					</h2>
+				<h2 class="occ-article-head">
+					{{ post.title }}
+				</h2>
 
-					<div class="occ-article-content">
-						{{ post.content.brief | safe}}
+				<div class="occ-article-content">
+					{{ post.content.brief | safe}}
+				</div>
+
+				<span class="visible-xs-inline visible-sm-inline occ-theme-color">
+					Le {{ post.publishedDate.toString().split(' ')[2] }} {{ post.publishedDate.toString().split(' ')[1] }} {{ post.publishedDate.toString().split(' ')[3] }}
+				</span>
+
+				<p class="text-right occ-article-content">
+					<a href="/blog/post/{{ post.slug }}">Lire plus...</a>
+				</p>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="text-right occ-article-content"> 
+							Commentaires <span class="badge">{{ post.nbComment }}</span>
+						</div>
 					</div>
-
-					<span class="visible-xs-inline visible-sm-inline occ-theme-color">
-						Le {{ post.publishedDate.toString().split(' ')[2] }} {{ post.publishedDate.toString().split(' ')[1] }} {{ post.publishedDate.toString().split(' ')[3] }}
-					</span>
-
-					<p class="text-right occ-article-content">
-						<a href="/blog/post/{{ post.slug }}">Lire plus...</a>
-					</p>
+				</div>
 			</article>
 		</div>
 	</div>

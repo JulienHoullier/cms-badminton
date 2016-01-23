@@ -16,10 +16,15 @@ exports = module.exports = function(req, res) {
 		categories: []
 	};
 	
+
+	var PostCategory = keystone.list('PostCategory');
+	var Post = keystone.list('Post');
+	var PostComment = keystone.list('PostComment');
+
 	// Load all categories
 	view.on('init', function(next) {
 		
-		keystone.list('PostCategory').model.find().sort('name').exec(function(err, results) {
+		PostCategory.model.find().sort('name').exec(function(err, results) {
 			
 			if (err || !results.length) {
 				return next(err);
@@ -30,7 +35,7 @@ exports = module.exports = function(req, res) {
 			// Load the counts for each category
 			async.each(locals.data.categories, function(category, next) {
 				
-				keystone.list('Post').model.count().where('category').in([category.id]).exec(function(err, count) {
+				Post.model.count().where('category').in([category.id]).exec(function(err, count) {
 					category.postCount = count;
 					next(err);
 				});
@@ -47,7 +52,7 @@ exports = module.exports = function(req, res) {
 	view.on('init', function(next) {
 		
 		if (req.params.category) {
-			keystone.list('PostCategory').model.findOne({ key: locals.filters.category }).exec(function(err, result) {
+			PostCategory.model.findOne({ key: locals.filters.category }).exec(function(err, result) {
 				locals.data.category = result;
 				next(err);
 			});
@@ -57,10 +62,23 @@ exports = module.exports = function(req, res) {
 		
 	});
 	
+	var addNbComments = function (article, next){
+		article.nbComment = 0;
+		PostComment.model.count()
+			.where('post', article)
+			.where('commentState', 'published')
+			.where('author').ne(null).exec(function(err, count){
+				if(!err && count){
+					article.nbComment = count;
+				}
+				next();
+			});
+	}
+
 	// Load the posts
 	view.on('init', function(next) {
 		
-		var q = keystone.list('Post').paginate({
+		var q = Post.paginate({
 				page: req.query.page || 1,
 				perPage: 10,
 				maxPages: 10
@@ -75,11 +93,22 @@ exports = module.exports = function(req, res) {
 		
 		q.exec(function(err, results) {
 			locals.data.posts = results;
-			next(err);
+			
+			if(results){
+				async.each(results.results, function(article, callback){
+					addNbComments(article, callback);
+				}, function(err){
+					if(err) {
+						return console.log(err);
+					}
+					next();
+				})
+			}
+			else
+				next();
 		});
-		
 	});
-	
+
 	// Render the view
 	view.render('blog');
 	

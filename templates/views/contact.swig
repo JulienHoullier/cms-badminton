@@ -63,9 +63,7 @@
 						<div class="form-group {{ className }}">
 							<label>
 								<span>Message</span>
-								<textarea name="message" placeholder="Laissez-nous votre message..." rows="4" class="form-control">
-									{{ formData.message }}
-								</textarea>
+								<textarea name="message" placeholder="Laissez-nous votre message..." rows="4" class="form-control">{{ formData.message }}</textarea>
 							</label>
 						</div>
 						<div class="form-actions">

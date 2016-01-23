@@ -127,12 +127,13 @@ keystone.set('email tests', require('./routes/emails'));
 // Configure the navigation bar in Keystone's Admin UI
 
 keystone.set('nav', {
-	'Actualités': ['posts', 'post-categories'],
+	'Actualités': ['posts', 'post-categories', 'post-comments'],
 	'Photos': 'galleries',
 	'Demandes': 'enquiries',
 	'Club': ['teams', 'players','matches'],
 	'Utilisateurs': 'users',
-    'Tournois' : ['tournaments', 'registrations']
+    'Tournois' : ['tournaments', 'registrations'],
+    'Plan du site' : ['pages', 'media', 'sponsors']
 });
 
 keystone.post('signin', function (callback) {

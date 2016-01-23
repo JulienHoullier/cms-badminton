@@ -15,10 +15,10 @@
 			</div>
 			<div class="media-body">
 				{%- if  user %}
-					<textarea name='content' placeholder="Leave a comment..." style="margin-bottom: 10px; min-height: 80px; resize: vertical;" class="form-control"></textarea>
+					<textarea name='content' placeholder="Ajouter un commentaire..." style="margin-bottom: 10px; min-height: 80px; resize: vertical;" class="form-control"></textarea>
 					<button type='submit' class="btn btn-primary">Ajouter un commentaire</button>
 				{%- else -%}
-					<textarea name='content' placeholder="Please sign in to comment" disabled=true style="margin-bottom: 10px; min-height: 80px; resize: vertical;" class="form-control"></textarea>
+					<textarea name='content' placeholder="Connectez vous pour commenter..." disabled=true style="margin-bottom: 10px; min-height: 80px; resize: vertical;" class="form-control"></textarea>
 					<ul class="list-inline">
 						<li><a href="/keystone/signin" class="btn btn-sm btn-primary">Connectez vous pour commenter</a></li>
 					</ul>
