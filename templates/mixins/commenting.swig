@@ -43,7 +43,7 @@
 						<strong>{{comment.author.name.full}}</strong>
 						{%- if user && user.id === comment.author.id -%}
 							|  &middot; 
-							<a href="?remove=comment&comment={{comment.id}}" title='Delete this comment' rel='tooltip' data-placement='left' class="comment-delete js-delete-confirm">Delete</a>
+							<a href="?remove=comment&comment={{comment.id}}" title='Delete this comment' rel='tooltip' data-placement='left' class="comment-delete js-delete-confirm">Supprimer</a>
 						{% endif %}
 					</p>
 					<p>{{comment.content | safe}}</p>
