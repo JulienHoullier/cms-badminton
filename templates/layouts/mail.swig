@@ -90,7 +90,7 @@
                                                 <td class="w30"  width="30"></td>
                                                 <td class="w580"  width="580" valign="top">
                                                     <p align="middle" class="pagebottom-content-left">
-                                                        <a style="color:#255D5C;" href="/#"><span style="color:#255D5C;">Accéder au site</span></a>
+                                                        <a style="color:#255D5C;" href="/#/"><span style="color:#255D5C;">Accéder au site</span></a>
                                                          - 
                                                         <a style="color:#255D5C;" href="mailto:contact@occ-badminton.org"><span style="color:#255D5C;">Contact</span></a>
                                                     </p>
