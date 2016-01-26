@@ -23,6 +23,7 @@ Registration.add(
 		status: {
 			type: Types.Select, label:'Statut', options: [
 				{value:'En cours', label:'En cours'},
+				{value:"Liste d'attente", label:"Liste d'attente"},
 				{value:'Confirmée', label:'Confirmée'},
 				{value:'Terminé', label: 'Tournoi terminé'},
 				{value:'Impossible', label:'Impossible'}
@@ -51,12 +52,19 @@ Registration.schema.post('save', function() {
 		console.log("Inscription prise en compte.");
 		this.sendRegistrationManagerEmail();
 	}
+	if(this.toValidate && this.status == "Liste d'attente"){
+		console.log("Liste d'attente.");
+		this.sendWaitingListPlayersEmail();
+	}
 	if(this.toValidate && this.status == 'Confirmée'){
 		console.log("Inscription confirmée.");
 		this.sendConfirmationPlayersEmail();
 	}
 });
 
+/**
+ * Envoi du mail de demande d'inscription à l'administrateur des tournois.
+ */
 Registration.schema.methods.sendRegistrationManagerEmail = function(callback) {
 
 	if ('function' !== typeof callback) {
@@ -90,6 +98,44 @@ Registration.schema.methods.sendRegistrationManagerEmail = function(callback) {
 	});
 };
 
+/**
+ * Envoi du mail de mise en liste d'attente sur le tournoi demandé.
+ */
+Registration.schema.methods.sendWaitingListPlayersEmail = function(callback) {
+	if ('function' !== typeof callback) {
+		callback = function() {};
+	}
+
+	this.populate('tournament player1 player2', function(err, registration){
+
+		keystone.list('User').model.findOne().where('isTournamentManager', true).exec(function(err, manager) {
+			
+			if (err) return callback(err);
+
+			var emailPlayers = [{'email': registration.player1.email, 'name': registration.player1.name.full}];
+			if(registration.player2){
+				emailPlayers.push({'email':registration.player2.email, 'name': registration.player2.name.full});
+			}
+
+			new keystone.Email('registration-waiting').send({
+				to: manager,
+				cc: emailPlayers,
+				mandrillOptions: {cc: emailPlayers},
+				from: {
+					name: 'OCC-Badminton',
+					email: 'contact@occ-badminton.com'
+				},
+				subject: 'Inscription : Liste d\'attente',
+				registration: registration
+			}, callback);
+
+		});
+	});
+}
+
+/**
+ * Envoi du mail d'inscription confirmée sur le tournoi demandé.
+ */
 Registration.schema.methods.sendConfirmationPlayersEmail = function(callback) {
 
 	if ('function' !== typeof callback) {
