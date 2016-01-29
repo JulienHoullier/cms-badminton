@@ -37,9 +37,9 @@ Post.add(
 	{
 		important : {type : Types.Boolean, label:'Diffusion par mail', dependsOn:{ state: 'published' }},
 		socialVisible : {type : Types.Boolean, label:'Visible sur réseaux sociaux', dependsOn:{ state: 'published' }},
-		socialized : {type : Types.Boolean, label: 'Déjà publiée', noedit:true, dependsOn:{ state: 'published' }}// Indique que le post a déjà été publié sur les réseaux sociaux. 
-	}
-);
+		socialized : {type : Types.Boolean, label: 'Déjà publiée', noedit:true, dependsOn:{ state: 'published' }}
+		 // Indique que le post a déjà été publié sur les réseaux sociaux.
+});
 
 Post.schema.virtual('content.full').get(function() {
 	return this.content.extended || this.content.brief;
