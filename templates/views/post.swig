@@ -14,11 +14,11 @@
 					{% else %}
 						<header>
 							{% if post.image.exists %}
-								<div class="image-wrap ">
+								<div class="image-wrap" style="float: right">
 									<img src="{{ post._.image.fit(300,180) }}" class="img-responsive">
 								</div>
 							{% endif %}
-							<h1 class="text-caps text-danger">{{ post.title }}</h1>
+							<h1 class="text-caps text-danger text-center">{{ post.title }}</h1>
 							<span>
 							{% if post.publishedDate %}
 								le {{ post._.publishedDate.format('DD/MM/YYYY') }}

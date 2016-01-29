@@ -21,7 +21,7 @@ exports = module.exports = function(req, res) {
 		var q = Post.model.findOne({
 			state: 'published',
 			slug: locals.filters.post,
-		}).populate('author categories');
+		}).populate('author category');
 
 		q.exec(function (err, result) {
 			if(err) {

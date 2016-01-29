@@ -24,6 +24,7 @@ Registration.add(
 		status: {
 			type: Types.Select, label:'Statut', options: [
 				{value:'En cours', label:'En cours'},
+				{value:"Liste d'attente", label:"Liste d'attente"},
 				{value:'Confirmée', label:'Confirmée'},
 				{value:'Terminé', label: 'Tournoi terminé'},
 				{value:'Impossible', label:'Impossible'}
@@ -50,6 +51,9 @@ Registration.schema.pre('save', function(next) {
 Registration.schema.post('save', function() {
 	if (this.wasNew){
 		sendMail(this, 'registration-notification', 'Demande d\'inscription');
+	}
+	if(this.toValidate && this.status == "Liste d'attente"){
+		sendMail(this, 'registration-waiting', 'Inscription : Liste d\'attente');
 	}
 	if(this.toValidate && this.status == 'Confirmée'){
 		sendMail(this, 'registration-confirmation', 'Confirmation d\'inscription');
