@@ -48,7 +48,9 @@
 
 					<div class="col-md-6">
 						<h3 class="occ-article-head">
+							<a href="/blog/post/{{ article.slug }}">
 							{{ article.title }}
+							</a>
 						</h3>
 
 						<div class="occ-article-content">
@@ -66,9 +68,11 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12">
-					<div class="text-right occ-article-content"> 
-						Commentaires <span class="badge">{{ article.nbComment }}</span>
-					</div>
+						<div class="text-right occ-article-content"> 
+							<a href="/blog/post/{{ article.slug }}#comments">
+							Commentaires <span class="badge">{{ article.nbComment }}</span>
+							</a>
+						</div>
 					</div>
 				</div>
 			</article>

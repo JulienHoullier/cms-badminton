@@ -1,3 +1,24 @@
+.occ-section {
+	box-shadow: 3px 3px 6px 5px #c0c0c0;
+	border-left: 48px @theme-color solid;
+
+	h2 {
+		color: @theme-color;
+		margin-left: -44px;
+		padding-top: 5px;
+	}
+
+	a{
+		color: #444;
+		text-decoration: underline;
+	}
+
+	a:hover{
+		color: @theme-color;
+		text-decoration: underline;
+	}
+}
+
 .occ-article {
 	background-color: #fff;
 	border: 1px solid #ddd;
@@ -10,6 +31,10 @@
 	font-weight: bold;
 	font-size: 36px;
 	color: #444;
+
+	a{
+		text-decoration: none;
+	}
 }
 
 .occ-article-date{
@@ -42,24 +67,6 @@
 	max-height: 200px;
 	overflow-y:hidden;
 }
-
-
-.occ-section {
-	box-shadow: 3px 3px 6px 5px #c0c0c0;
-	border-left: 48px @theme-color solid;
-
-	h2 {
-		color: @theme-color;
-		margin-left: -44px;
-		padding-top: 5px;
-	}
-
-	a{
-		color: @theme-color;
-		text-decoration: underline;
-	}
-}
-
 
 
 #newsCarousel{
@@ -111,6 +118,11 @@
 	font-weight: bold;
 	overflow-y: hidden;
 	overflow-x: auto;
+
+	a{
+		color: @theme-color;
+		text-decoration: underline;
+	}
 }
 
 .occ-section-tournois{

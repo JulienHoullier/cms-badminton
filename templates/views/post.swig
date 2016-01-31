@@ -33,11 +33,9 @@
 							<span>
 						</header>
 						<div class="occ-post-content">
-
-							{{ post.content.full | raw }}
-							
+							{{ post.content.full | raw }}						
 						</div>
-						<div>
+						<div id="comments">
 							{{ Commenting.commentForm() }}
 							{{ Commenting.commentThread(comments) }}
 						</div>
