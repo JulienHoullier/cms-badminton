@@ -18,14 +18,6 @@
 							{% include "./index/tournois.swig" %}
 						</div>
 
-						<div class="col-md-6">
-							{% include "./index/resultats.swig" %}
-						</div>
-
-						<div class="col-md-6">
-							{% include "./index/resultats.swig" %}
-						</div>
-
 					</div>
 
 			</div>
@@ -50,6 +42,7 @@
 						</a>
 					</div>
 				</div>
+
 				{% include "./index/commentaires.swig" %}
 
 				{% include "./index/twitter.swig" %}

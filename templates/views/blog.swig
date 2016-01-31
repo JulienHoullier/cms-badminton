@@ -70,7 +70,11 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="text-right occ-article-content"> 
-							Commentaires <span class="badge">{{ post.nbComment }}</span>
+							{% set badgeClass = 'badge' %}
+							{% if post.nbComment > 0 %}
+								{% set badgeClass = badgeClass +' badge-important' %}
+							{% endif %}
+							Commentaires <span class="{{badgeClass}}">{{ post.nbComment }}</span>
 						</div>
 					</div>
 				</div>

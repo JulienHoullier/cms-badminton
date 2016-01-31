@@ -61,16 +61,17 @@
 							Le {{ article.publishedDate.toString().split(' ')[2] }} {{ article.publishedDate.toString().split(' ')[1] }} {{ article.publishedDate.toString().split(' ')[3] }}
 						</span>
 
-						<p class="text-right occ-article-content">
-							<a href="/blog/post/{{ article.slug }}">Lire plus...</a>
-						</p>		
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
 						<div class="text-right occ-article-content"> 
 							<a href="/blog/post/{{ article.slug }}#comments">
-							Commentaires <span class="badge">{{ article.nbComment }}</span>
+							{% set badgeClass = 'badge' %}
+							{% if article.nbComment > 0 %}
+								{% set badgeClass = badgeClass +' badge-important' %}
+							{% endif %}
+							Commentaires <span class="{{ badgeClass }}">{{ article.nbComment }}</span>
 							</a>
 						</div>
 					</div>
