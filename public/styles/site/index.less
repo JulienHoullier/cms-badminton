@@ -158,11 +158,19 @@
 	li{
 		list-style: none;
 		background-color: #fff;
-		border: 1px solid #aaa;
 		margin-top: 3px;	
 		padding: 3px;
 		max-height: 100px;
 		overflow-y: hidden;
+	}
+
+	li:first-child{
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+	}
+	li:last-child{
+		border-bottom-left-radius: 5px;
+		border-bottom-right-radius: 5px;
 	}
 
 	a{
@@ -173,6 +181,27 @@
 	}
 }
 
-.badge-important{
-	background-color: @theme-color;
+.occ-banner{
+	width: 100%;
+	background-color: #fff;
+	color: @theme-color;
+	border-left: 48px solid #444;
+	font-size: 20px;
+	font-weight: bold;
+	text-transform: uppercase;
+	padding: 10px;
+
+	img{
+		margin-left:-50px;
+		margin-right: 10px;
+		width: 35px;
+		height: 35px;
+	}
+
+	a{
+		color: @theme-color;
+	}
+	a:hover{
+		text-decoration: none;
+	}
 }

@@ -6,7 +6,7 @@
 	<ul>
 		{% for comment in lastComments %}
 		<li>
-			<a href="/blog/post/{{comment.post.slug}}">{{ comment.content }}</a> -- <b>{{ comment.author.name.first }}</b>
+			<a href="/blog/post/{{comment.post.slug}}#comments">{{ comment.content }}</a> -- <b>{{ comment.author.name.first }}</b>
 		</li>
 		{% endfor %}
 	</ul>	
