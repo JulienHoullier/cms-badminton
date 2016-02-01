@@ -13,7 +13,7 @@
 				<tr>
 					<th>Prénom</th>
 					<th>Nom</th>
-					<th>N° License</th>
+					<th>N° Licence</th>
 					{# <th>Equipe</th> #}
 					<th>Classement</th>
 				</tr>
@@ -44,7 +44,7 @@
 					<tr>
 						<th>Prénom</th>
 						<th>Nom</th>
-						<th>N° License</th>
+						<th>N° Licence</th>
 						{# <th>Equipe</th> #}
 						<th>Classement</th>
 					</tr>
