@@ -11,7 +11,7 @@
 							<div class="occ-banner">
 								<a href="/pages/tournoi-occ">
 									<img src="/images/megaphone.png">
-									5ème tournoi officiel Double Mixte
+									5ème tournoi officiel Double Mixte - 13 Mars 2016
 								</a>
 							</div>
 						</div>
