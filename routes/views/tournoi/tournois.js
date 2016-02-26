@@ -15,7 +15,7 @@ exports = module.exports = function(req, res) {
 	locals.section = 'tournois';
 
 	// Chargement des prochaines inscriptions
-	view.on('init', function(next){
+	view.on('render', function(next){
 		Registration.model.find()
 		.populate('tournament player1 player2')
 		.exec(function(err, registrations){
@@ -32,6 +32,7 @@ exports = module.exports = function(req, res) {
 							// Si l'inscription fait parti d'un prochain tournoi
 							// On gère une map des inscrits par division et catégorie.
 
+							// Ajout d'un tournoi
 							if (tournois[registration.tournament.name] == null) {
 								tournois[registration.tournament.name] = {
 									nbInscrit: 0,
@@ -40,24 +41,34 @@ exports = module.exports = function(req, res) {
 									categories: {}
 								};
 							}
+							
+							// Ajout de la catégorie au tournoi
 							if (tournois[registration.tournament.name]['categories'][registration.category] == null) {
 								tournois[registration.tournament.name]['categories'][registration.category] = {
 									nbInscrit: 0,
 									divisions: {}
 								};
 							}
+
+							// Ajout de la division à la catégorie du tournoi
 							if (tournois[registration.tournament.name]['categories'][registration.category]['divisions'][registration.ranking] == null) {
 								tournois[registration.tournament.name]['categories'][registration.category]['divisions'][registration.ranking] = [];
 							}
+							
 							// Ajout du joueur ou de l'équipe au tournoi.
-							tournois[registration.tournament.name]['categories'][registration.category]['divisions'][registration.ranking].push(registration.player1.name.full);
+							tournois[registration.tournament.name]['categories'][registration.category]['divisions'][registration.ranking].push({
+								name: [registration.player1.name.full],
+								status : registration.status
+							});
+
 							// Incrémentation du nombre d'inscrit au tournoi et à la catégorie.
 							tournois[registration.tournament.name]['categories'][registration.category].nbInscrit++;
 							tournois[registration.tournament.name].nbInscrit++;
+
+							var byRanking = tournois[registration.tournament.name]['categories'][registration.category]['divisions'][registration.ranking];
+							var lastInscrit = byRanking[byRanking.length - 1];
 							if (registration.player2 != null) {
-								tournois[registration.tournament.name]['categories'][registration.category]['divisions'][registration.ranking].push(registration.player2.name.full);
-								tournois[registration.tournament.name]['categories'][registration.category].nbInscrit++;
-								tournois[registration.tournament.name].nbInscrit++;
+								lastInscrit.name.push(registration.player2.name.full);
 							}
 						}
 						next();
