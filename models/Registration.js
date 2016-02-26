@@ -71,9 +71,9 @@ var sendMail = function(Registration, template, subject, callback){
 
 			if (err) return console.log('Error retrieving tournament manager user due to: '+err);
 
-			var emails = [manager, {'email': registration.player1.email, 'name': registration.player1.name.full}];
+			var emails = [manager, registration.player1];
 			if(registration.player2 != null){
-				emails.push({'email':registration.player2.email, 'name': registration.player2.name.full});
+				emails.push(registration.player2);
 			}
 			mailLib.sendMail(template, callback, subject, emails, {registration: registration});
 		});

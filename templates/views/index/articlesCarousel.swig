@@ -71,13 +71,6 @@
 					</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-12">
-					<div class="text-right occ-article-content"> 
-						Commentaires <span class="badge">{{ article.nbComment }}</span>
-					</div>
-					</div>
-				</div>
 			</article>
 		{% endfor %}
 	</div>

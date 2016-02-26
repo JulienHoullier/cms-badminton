@@ -19,19 +19,19 @@ exports = module.exports = function(req, res) {
 		Registration.model.find()
 		.populate('tournament player1 player2')
 		.exec(function(err, registrations){
-				
+
 				if(err) {
 					console.log('Erreur pendant le chargement des inscriptions : '+err);
 					return next(err);
 				}
-				
+
 				if(registrations) {
 					var tournois = {};
 					async.each(registrations, function (registration, next) {
 						if (registration.tournament && registration.tournament.date > today) {
 							// Si l'inscription fait parti d'un prochain tournoi
 							// On gère une map des inscrits par division et catégorie.
-	
+
 							if (tournois[registration.tournament.name] == null) {
 								tournois[registration.tournament.name] = {
 									nbInscrit: 0,

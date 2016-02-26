@@ -66,22 +66,6 @@ exports = module.exports = function(req, res) {
     	});
     });
 
-    // Récupération du joueur lié à l'utilisateur
-	view.on('render', function(next){
-		req.user.populate('player', function(err, user){
-			locals.player = user.player;
-			next(err);
-			});
-	});
-
-    // Sélection des joueurs pour le partenaire
-    view.on('render', function(next){ 
-    	Player.model.find().sort('name').exec(function(err, result){
-    		locals.listJoueur2 = result;
-    		next(err);
-    	});
-    });
-
 	view.render("tournoi/inscription");
 
 }

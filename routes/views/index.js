@@ -41,7 +41,7 @@ exports = module.exports = function(req, res) {
 
 	// Sélection du Media
 	view.query('media', Media.model.findOne({type : mediaTypes.Home.value}));
-	
+
 	var countNbInscrit = function (tournament, next){
 		var nbInscrit = 0;
 		if(tournament.registrations){
@@ -54,7 +54,7 @@ exports = module.exports = function(req, res) {
 				next(err);
 			});
 		}
-	}
+	};
 
 	var addNbComments = function (article, next){
 		article.nbComment = 0;
@@ -67,7 +67,7 @@ exports = module.exports = function(req, res) {
 				}
 				next();
 			});
-	}
+	};
 
 	view.on('render', function(next){
 		async.parallel([
@@ -79,7 +79,7 @@ exports = module.exports = function(req, res) {
 			}
 			next();});
 	});
-	
+
 	// Render the view
 	view.render('newIndex');
 };
