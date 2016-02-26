@@ -41,15 +41,7 @@ exports = module.exports = function(req, res) {
 
 	// Sélection du Media
 	view.query('media', Media.model.findOne({type : mediaTypes.Home.value}));
-
-	// Sélection des 3 derniers commentaires
-	view.query('lastComments', PostComment.model.find()
-		.where('commentState', 'published')
-		.populate('author post')
-		.sort('-publishedOn')
-		.limit(3));
-
-
+	
 	var countNbInscrit = function (tournament, next){
 		var nbInscrit = 0;
 		if(tournament.registrations){
@@ -62,7 +54,7 @@ exports = module.exports = function(req, res) {
 				next(err);
 			});
 		}
-	}
+	};
 
 	var addNbComments = function (article, next){
 		article.nbComment = 0;
@@ -75,7 +67,7 @@ exports = module.exports = function(req, res) {
 				}
 				next();
 			});
-	}
+	};
 
 	view.on('render', function(next){
 		async.parallel([

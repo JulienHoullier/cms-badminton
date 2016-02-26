@@ -1,7 +1,7 @@
 var keystone = require('keystone');
 var Types = keystone.Field.Types;
 var async = require('async');
-
+var mailLib = require('../lib/mail');
 /**
  * Mail Model
  * =============
@@ -26,7 +26,6 @@ Mail.schema.pre('save', function(next) {
 
 Mail.schema.post('save', function() {
 	if (this.wasNew) {
-		
 		this.sendNotificationEmail();
 	}
 });
@@ -36,28 +35,11 @@ var sendMail = function(callback, to, mail){
 	if(arguments.length == 4){
 		cat = arguments[3];
 	}
-	new keystone.Email('email-notification').send({
-				to: to,
-				from: {
-					name: 'OCC-Badminton',
-					email: 'contact@occ-badminton.com'
-				},
-				subject: mail.subject,
-				mail: mail,
-				category: cat
-			}, callback);
+	mailLib.sendMail('email-notification', callback, mail.subject, to, {mail:mail, category:cat});
 };
 
 
 Mail.schema.methods.sendNotificationEmail = function(callback) {
-	
-	if ('function' !== typeof callback) {
-		callback = function(err) {
-			if (err) {
-				console.log(err);
-			}
-		};
-	}
 	
 	var Mail = this;
 	
@@ -68,31 +50,33 @@ Mail.schema.methods.sendNotificationEmail = function(callback) {
                     PostCategory.model.findById(cat)
                     .exec(function(err, cat) {
 						if (err) {
-							return callback(err);
+							callback(err);
+							return;
 						}
 						if (cat) {
 							cat.populateRelated('followers', function (err) {
 								if(err){
-									return callback(err);
+									callback(err);
+									return;
 								}
 								sendMail(callback, cat.followers, Mail, cat);
 							});
 						}
 						else{
-							return callback({err: 'No category founded with _id set'});	
+							callback({err:'No category founded with _id set'});
 						}
                     });
                 }, function(err) {
-					callback(err);
+					console.log('Error processing categories list due to: '+err);
                 });
 	}
+	
 	if(this.players && this.players.length){
 		var Player = keystone.list('Player');
 		Player.model.find({ _id: { $in: this.players}}).exec(function(err, players){
 			if(err){
-				return callback(err);
+				return console.log('Error retrieving players due to: '+ err);
 			}
-
 			sendMail(callback, players, Mail);
 		});		
 	}

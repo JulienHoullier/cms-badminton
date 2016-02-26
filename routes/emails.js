@@ -111,7 +111,7 @@ module.exports = {
 			title: 'Test email Importante',
 			content: {
 				brief: 'Resume de la news',
-				extended: 'Version longue de la news',
+				extended: 'Version longue de la news'
 			},
 			publishedDate : new Date(),
 			important: true

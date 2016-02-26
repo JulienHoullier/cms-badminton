@@ -1,5 +1,6 @@
 var keystone = require('keystone');
 var Types = keystone.Field.Types;
+var mailLib = require('../lib/mail');
 
 /**
  * Match Model
@@ -38,33 +39,17 @@ Match.schema.post('save', function() {
 
 Match.schema.methods.sendNotificationEmail = function(callback) {
 	
-	if ('function' !== typeof callback) {
-		callback = function(err) {
-			if (err) {
-				console.log(err);
-			}
-		};
-	}
-	
 	var Match = this;
 	
 	keystone.list('Team').model.findById(this.team).exec(function(err, team) {
 		
-		if (err) return callback(err);
+		if (err) return console.log('Error retrieving team due to :'+err);
 		
 		team.populateRelated('players', function (err) {
 			if (err) {
-				return callback(err);
+				return console.log('Error retrieving players due to :'+err);
 			}
-			new keystone.Email('match-notification').send({
-				to: team.players,
-				from: {
-					name: 'OCC-Badminton',
-					email: 'contact@occ-badminton.com'
-				},
-				subject: 'Journée de championnat',
-				match: Match
-			}, callback);
+			mailLib.sendMail('match-notification', callback, 'Journée de championnat', team.players, {match:Match});
 		});
 	});
 };

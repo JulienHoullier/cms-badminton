@@ -12,7 +12,7 @@
 	{% endif %}
 	 	au tournoi <strong>{{ registration.tournament.name }}</strong> 
 	 	dans le tableau <strong>{{ registration.category }} {{ registration.ranking }}</strong> </p>
-	 	(date: {{ registration.tournament._.date.format("DD/MM/YYYY") }}).
+	 	(date: {{ registration.tournament._.date.format("d/m/Y") }}).
 	</p>
 	<br/>
 	A bientot,<br/>

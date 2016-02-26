@@ -1,5 +1,6 @@
 var keystone = require('keystone');
 var Types = keystone.Field.Types;
+var mailLib = require('../lib/mail');
 
 /**
  * Registration Model
@@ -50,123 +51,34 @@ Registration.schema.pre('save', function(next) {
 Registration.schema.post('save', function() {
 	if (this.wasNew){
 		console.log("Inscription prise en compte.");
-		this.sendRegistrationManagerEmail();
+		sendMail(this, 'registration-notification', 'Demande d\'inscription');
 	}
 	if(this.toValidate && this.status == "Liste d'attente"){
 		console.log("Liste d'attente.");
-		this.sendWaitingListPlayersEmail();
+		sendMail(this, 'registration-waiting', 'Inscription : Liste d\'attente');
 	}
 	if(this.toValidate && this.status == 'Confirmée'){
 		console.log("Inscription confirmée.");
-		this.sendConfirmationPlayersEmail();
+		sendMail(this, 'registration-confirmation', 'Confirmation d\'inscription');
 	}
 });
 
-/**
- * Envoi du mail de demande d'inscription à l'administrateur des tournois.
- */
-Registration.schema.methods.sendRegistrationManagerEmail = function(callback) {
-
-	if ('function' !== typeof callback) {
-		callback = function() {};
-	}
-
-	this.populate('tournament player1 player2', function(err, registration){
-
+var sendMail = function(Registration, template, subject, callback){
+	Registration.populate('tournament player1 player2', function(err, registration){
+		if(err) return console.log('Error populating registration due to: '+err);
+		
 		keystone.list('User').model.findOne().where('isTournamentManager', true).exec(function(err, manager) {
-			
-			if (err) return callback(err);
 
-			var emailPlayers = [{'email': registration.player1.email, 'name': registration.player1.name.full}];
-			if(registration.player2){
-				emailPlayers.push({'email':registration.player2.email, 'name': registration.player2.name.full});
+			if (err) return console.log('Error retrieving tournament manager user due to: '+err);
+
+			var emails = [manager, registration.player1];
+			if(registration.player2 != null){
+				emails.push(registration.player2);
 			}
-
-			new keystone.Email('registration-notification').send({
-				to: manager,
-				cc: emailPlayers,
-				mandrillOptions: {cc: emailPlayers},
-				from: {
-					name: 'OCC-Badminton',
-					email: 'contact@occ-badminton.com'
-				},
-				subject: 'Demande d\'inscription',
-				registration: registration
-			}, callback);
-
-		});
-	});
-};
-
-/**
- * Envoi du mail de mise en liste d'attente sur le tournoi demandé.
- */
-Registration.schema.methods.sendWaitingListPlayersEmail = function(callback) {
-	if ('function' !== typeof callback) {
-		callback = function() {};
-	}
-
-	this.populate('tournament player1 player2', function(err, registration){
-
-		keystone.list('User').model.findOne().where('isTournamentManager', true).exec(function(err, manager) {
-			
-			if (err) return callback(err);
-
-			var emailPlayers = [{'email': registration.player1.email, 'name': registration.player1.name.full}];
-			if(registration.player2){
-				emailPlayers.push({'email':registration.player2.email, 'name': registration.player2.name.full});
-			}
-
-			new keystone.Email('registration-waiting').send({
-				to: manager,
-				cc: emailPlayers,
-				mandrillOptions: {cc: emailPlayers},
-				from: {
-					name: 'OCC-Badminton',
-					email: 'contact@occ-badminton.com'
-				},
-				subject: 'Inscription : Liste d\'attente',
-				registration: registration
-			}, callback);
-
+			mailLib.sendMail(template, callback, subject, emails, {registration: registration});
 		});
 	});
 }
-
-/**
- * Envoi du mail d'inscription confirmée sur le tournoi demandé.
- */
-Registration.schema.methods.sendConfirmationPlayersEmail = function(callback) {
-
-	if ('function' !== typeof callback) {
-		callback = function() {};
-	}
-
-	this.populate('tournament player1 player2', function(err, registration){
-
-		keystone.list('User').model.findOne().where('isTournamentManager', true).exec(function(err, manager) {
-
-			if (err) return callback(err);
-
-			var emailPlayers = [registration.player1.email];
-			if(registration.player2 != null){
-				emailPlayers.push(registration.player2.email);
-			}
-			new keystone.Email('registration-confirmation').send({
-				to: emailPlayers,
-				cc: manager,
-				from: {
-					name: 'OCC-Badminton',
-					email: 'contact@occ-badminton.com'
-				},
-				subject: 'Confirmation d\'inscription',
-				registration: registration
-			}, callback);
-
-		});
-	});
-};
-
 
 Registration.defaultSort = '-createdAt';
 Registration.defaultColumns = 'tournament, player1, category, ranking, status, createdAt';
