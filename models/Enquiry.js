@@ -26,6 +26,13 @@ Enquiry.add({
 	createdAt: { type: Date, default: Date.now }
 });
 
+Enquiry.hasRoles = function(user){
+	if(user) {
+		return user.isAdmin;
+	}
+	return false;
+};
+
 Enquiry.schema.pre('save', function(next) {
 	this.wasNew = this.isNew;
 	next();
@@ -48,7 +55,6 @@ Enquiry.schema.methods.sendNotificationEmail = function(callback) {
 			mailLib.sendMail('enquiry-notification', callback, 'Nouvelle réclamation', admins, {enquiry: enquiry});
 		}
 	});
-	
 };
 
 Enquiry.defaultSort = '-createdAt';

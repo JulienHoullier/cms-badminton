@@ -41,8 +41,14 @@ User.schema.virtual('isValid').get(function() {
 /**
  * Relationships
  */
-
 User.relationship({ ref: 'Post', path: 'posts', refPath: 'author' });
+
+User.hasRoles = function(user){
+	if(user) {
+		return user.isAdmin;
+	}
+	return false;
+};
 
 User.schema.pre('save', function(next) {
 	this.wasNew = this.isNew;

@@ -42,6 +42,13 @@ Registration.add(
 	}
 );
 
+Registration.hasRoles = function(user){
+	if(user) {
+		return user.isAdmin || user.isTournamentManger;
+	}
+	return false;
+};
+
 Registration.schema.pre('save', function(next) {
 	this.wasNew = this.isNew;
 	this.toValidate = this.isModified('status');
@@ -78,7 +85,7 @@ var sendMail = function(Registration, template, subject, callback){
 			mailLib.sendMail(template, callback, subject, emails, {registration: registration});
 		});
 	});
-}
+};
 
 Registration.defaultSort = '-createdAt';
 Registration.defaultColumns = 'tournament, player1, category, ranking, status, createdAt';

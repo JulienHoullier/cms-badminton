@@ -42,6 +42,13 @@ Player.add({
 	interests : { type: Types.Relationship, label:'Libellés', ref: 'PostCategory', many:true }
 });
 
+Player.hasRoles = function(user){
+	if(user) {
+		return user.isAdmin;
+	}
+	return false;
+};
+
 //add club interest 
 Player.schema.pre('save', function(next) {
 	if(!this.isNew){

@@ -18,6 +18,12 @@ Team.add({
 	captain: { type: Types.Relationship, label:'Capitaine', ref: 'Player', required: true, initial: true }
 });
 
+Team.hasRoles = function(user){
+	if(user) {
+		return user.isAdmin;
+	}
+	return false;
+};
 
 /**
  * Relationships

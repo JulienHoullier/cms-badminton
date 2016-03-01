@@ -21,6 +21,13 @@ Media.add({
 	embedded: { type: Types.Html, initial:true }
 });
 
+Media.hasRoles = function(user){
+	if(user) {
+		return user.isAdmin;
+	}
+	return false;
+};
+
 Media.defaultSort = '-name';
 Media.defaultColumns = 'name';
 Media.register();

@@ -16,6 +16,13 @@ PostCategory.add({
 	default_image: { type: Types.CloudinaryImage, label:'Image par défaut' },
 });
 
+PostCategory.hasRoles = function(user){
+	if(user) {
+		return user.isAdmin;
+	}
+	return false;
+}
+
 PostCategory.relationship({ ref: 'Post', path: 'posts', refPath: 'category', label:'Catégories' });
 PostCategory.relationship({ ref: 'Player', path: 'followers', refPath: 'interests', label:'Abonnés' });
 

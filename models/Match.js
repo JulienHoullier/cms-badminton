@@ -12,19 +12,26 @@ var Match = new keystone.List('Match', {
 });
 
 Match.add({
-	team: { type: Types.Relationship, ref: 'Team', required: true, initial: true, index: true },
-    matchNumber: { type: Number, required: true, initial: true, index: true},
-	versus: { type: Types.Text, required: true, initial: true, index: true },
-	date: { type: Date },
-    home: { type: Types.Select, options: [
+	team: { type: Types.Relationship, ref: 'Team', label:'Equipe', required: true, initial: true, index: true },
+    matchNumber: { type: Number, label:'Journée', required: true, initial: true, index: true},
+	versus: { type: Types.Text, label:'Contre', required: true, initial: true, index: true },
+	date: { type: Date, label:'Date' },
+    home: { type: Types.Select, label:'A domicile ?', options: [
 		{ value: 'Yes', label: 'Oui' },
 		{ value: 'No', label: 'Non' }
 	] },
-	location: { type: Types.Location },
-    result: { type: Types.LocalFile, dest: '/data/files' },
-    occResult: { type: Number },
-    versusResult: { type: Number }
+	location: { type: Types.Location, label:'Adresse de la salle'},
+    result: { type: Types.LocalFile, dest: '/data/files', label:'Feuille de match' },
+    occResult: { type: Number, label:'Score OCC' },
+    versusResult: { type: Number, label:'Score adverse' }
 });
+
+Match.hasRoles = function(user){
+	if(user) {
+		return user.isEditor || user.isAdmin;
+	}
+	return false;
+};
 
 Match.schema.pre('save', function(next) {
 	this.needNotif = (!this.isNew && this.isModified('date'));

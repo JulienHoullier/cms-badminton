@@ -20,6 +20,13 @@ Page.add({
 	content: { type: Types.Html, label:'Contenu', wysiwyg: true, height: 800 }
 });
 
+Page.hasRoles = function(user){
+	if(user) {
+		return user.isEditor || user.isAdmin;
+	}
+	return false;
+};
+
 Page.schema.virtual('url').get(function() {
 	return '/pages/' + this.slug;
 });

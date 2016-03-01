@@ -25,5 +25,12 @@ Tournament.add({
 
 Tournament.relationship({ ref: 'Registration', path: 'registrations', refPath: 'tournament' });
 
+Tournament.hasRoles = function(user){
+	if(user) {
+		return user.isAdmin || user.isTournamentManger;
+	}
+	return false;
+};
+
 Tournament.defaultColumns = 'name, club, date';
 Tournament.register();

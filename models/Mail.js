@@ -19,6 +19,13 @@ Mail.add({
 	message: { type: Types.Html, label:"Message", wysiwyg: true, required: true, initial:true }
 });
 
+Mail.hasRoles = function(user){
+	if(user) {
+		return user.isAdmin;
+	}
+	return false;
+};
+
 Mail.schema.pre('save', function(next) {
 	this.wasNew = this.isNew;
 	next();

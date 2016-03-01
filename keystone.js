@@ -5,6 +5,7 @@ require('dotenv').load();
 // Require keystone
 var keystone = require('keystone');
 require('keystone-nodemailer');
+var _ = require('underscore');
 
 var swig = require('swig');
 
@@ -37,7 +38,8 @@ keystone.init({
 	'auth': true,
 	'user model': 'User',
 
-	'wysiwyg images': true,
+	'wysiwyg images':true,
+	'wysiwyg cloudinary images': true,
 
 	'signin redirect' : '/',
 	'signin logo' : '/images/occ-logo.png'
@@ -126,7 +128,7 @@ keystone.set('email tests', require('./routes/emails'));
 
 // Configure the navigation bar in Keystone's Admin UI
 
-keystone.set('nav', {
+var nav= {
 	'Actualités': ['posts', 'post-categories', 'post-comments'],
 	'Photos': 'galleries',
 	'Demandes': 'enquiries',
@@ -134,7 +136,7 @@ keystone.set('nav', {
 	'Utilisateurs': 'users',
     'Tournois' : ['tournaments', 'registrations'],
     'Plan du site' : ['pages', 'media', 'sponsors']
-});
+};
 
 keystone.post('signin', function (callback) {
 	//user is passed as context
@@ -144,6 +146,75 @@ keystone.post('signin', function (callback) {
 	callback();
 });
 
-// Start Keystone to connect to your database and initialise the web server
+//save keystone.render function
+var oldRender = keystone.render;
+keystone.render = function(req, res, view, ext){
+	var userNav = {};
+	/**
+	 * Override keystone render to generate menu depending user's roles
+	 * @param req
+	 * @param res
+	 * @param view
+	 * @param ext
+	 */
+	
+	_.each(nav, function(section, key){
+		console.log("key: "+key);
+		var addMenu = function(list){
+			var model = keystone.list(list);
+			if (model.hasRoles(req.user)) {
+				if (!userNav[key]) {
+					userNav[key] = [];
+				}
+				userNav[key].push(list);
+			}
+		};
+		
+		if(section instanceof Array) {
+			_.each(section, function (list) {
+				addMenu(list);
+			})
+		}
+		else{
+			addMenu(section);
+		}
+	});
+	
+	var locals = { nav : keystone.initNav(userNav)};
+	_.extend(ext, locals);
+	//call keystone render
+	oldRender.call(keystone, req, res, view, ext);
+};
 
+/**
+ * Middleware to check Model permission against logged user
+ * @param req
+ * @param res
+ * @param next
+ * @returns {*}
+ */
+var roleMiddleware = function(req, res, next) {
+	var index = req.path.indexOf('/keystone/');
+	if(index != -1) {
+		var model = req.path.substring(index + 10);
+		if(model !== 'signin' && model !== 'signout') {
+			index = model.indexOf('/');
+			if (model.length > 0 && index == -1) {
+				//try to access a model
+				var List = keystone.list(model);
+				if (List && List['hasRoles'] && !List.hasRoles(req.user)) {
+					req.flash('error', "Vous n'avez pas les droits pour accéder à cette page");
+					return res.redirect('/keystone/');
+				}
+			}
+		}
+	}
+	next();
+};
+//add middleware through keystone hook
+keystone.set('pre:routes', function(app){
+	app.all('/keystone*', roleMiddleware);
+});
+
+// Start Keystone to connect to your database and initialise the web server
 keystone.start();

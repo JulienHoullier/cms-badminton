@@ -21,6 +21,13 @@ PostComment.add('Content', {
 	content: { type: Types.Html, label:'Message', wysiwyg: true, height: 300 }
 });
 
+PostComment.hasRoles = function(user){
+	if(user) {
+		return user.isAdmin;
+	}
+	return false;
+};
+
 PostComment.schema.pre('save', function (next) {
 	if (!this.isModified('publishedOn') && this.isModified('commentState') && this.commentState === 'published') {
 		this.publishedOn = new Date();

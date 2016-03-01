@@ -18,4 +18,11 @@ Gallery.add({
 	images: { type: Types.CloudinaryImages }
 });
 
+Gallery.hasRoles = function(user){
+	if(user) {
+		return user.isEditor;
+	}
+	return false;
+};
+
 Gallery.register();

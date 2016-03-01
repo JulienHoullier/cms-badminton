@@ -19,6 +19,13 @@ Sponsor.add({
 	amount: { type: Number, label:'Somme versée' }
 });
 
+Sponsor.hasRoles = function(user){
+	if(user) {
+		return user.isAdmin;
+	}
+	return false;
+};
+
 Sponsor.defaultSort = '-amount';
 Sponsor.defaultColumns = 'name, url, amount';
 Sponsor.register();
