@@ -20,7 +20,7 @@ Gallery.add({
 
 Gallery.hasRoles = function(user){
 	if(user) {
-		return user.isEditor;
+		return user.isEditor || user.isAdmin;
 	}
 	return false;
 };

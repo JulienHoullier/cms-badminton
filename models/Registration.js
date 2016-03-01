@@ -44,7 +44,7 @@ Registration.add(
 
 Registration.hasRoles = function(user){
 	if(user) {
-		return user.isAdmin || user.isTournamentManger;
+		return user.isAdmin || user.isTournamentManager;
 	}
 	return false;
 };
