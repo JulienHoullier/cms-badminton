@@ -36,7 +36,7 @@
 		{# HEADER #}
 		<header class="occ-bg">
 			<div id="occ-header-flag" class="container visible-md visible-lg">
-				<img src="/images/occ-logo.png" alt="" class="img-rounded" id="occ-logo">
+				<a href="/"><img src="/images/occ-logo.png" alt="" class="img-rounded" id="occ-logo"></a>
 			</div>
 		</header>
 
@@ -49,7 +49,7 @@
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 				      </button>
-				      <a class="navbar-brand visible-sm visible-xs" href="#">OCC Badminton</a>
+				      <a class="navbar-brand visible-sm visible-xs" href="/">OCC Badminton</a>
 				    </div>
 					<div class="collapse navbar-collapse row" id="occ-header-navbar">
 						<ul class="nav navbar-nav navbar-left">
