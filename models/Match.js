@@ -2,6 +2,7 @@ var keystone = require('keystone');
 var Types = keystone.Field.Types;
 var mailLib = require('../lib/mail');
 
+const match_event= "\"Rencontre à domicile contre \"";
 /**
  * Match Model
  * =============
@@ -35,12 +36,16 @@ Match.hasRoles = function(user){
 
 Match.schema.pre('save', function(next) {
 	this.needNotif = (!this.isNew && this.isModified('date'));
+	this.needEvent = this.isModified('date');
 	next();
 });
 
 Match.schema.post('save', function() {
 	if (this.needNotif) {
 		this.sendNotificationEmail();
+	}
+	if(this.needEvent){
+		this.getOrCreateEvent();
 	}
 });
 
@@ -58,6 +63,33 @@ Match.schema.methods.sendNotificationEmail = function(callback) {
 			}
 			mailLib.sendMail('match-notification', callback, 'Journée de championnat', team.players, {match:Match});
 		});
+	});
+};
+
+Match.schema.methods.getOrCreateEvent = function() {
+
+	var Match = this;
+
+	keystone.list('Event').model.findOne().where('name').text().search(match_event).language('fr').where(date).equals(Match.date).exec(function(err, event) {
+
+		if (err) return console.log('Error retrieving event due to :'+err);
+
+		if(event){
+			if(event.date !== Match.date){
+				event.date = Match.date;
+				event.save();
+			}
+		}
+		else if(!event && Match.date){
+			var Event = new keystone.list('Event');
+			var newEvent = Event.model(
+				{
+					name : match_event + Match.versus, 
+					date : Match.date
+				}
+			);
+			newEvent.save();
+		}
 	});
 };
 

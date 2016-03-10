@@ -129,14 +129,17 @@ keystone.set('email tests', require('./routes/emails'));
 // Configure the navigation bar in Keystone's Admin UI
 
 var nav= {
-	'Actualités': ['posts', 'post-categories', 'post-comments'],
+	'Actualités': ['posts', 'post-categories', 'post-comments', 'events'],
 	'Photos': 'galleries',
 	'Demandes': 'enquiries',
 	'Club': ['teams', 'players','matches'],
 	'Utilisateurs': 'users',
     'Tournois' : ['tournaments', 'registrations'],
-    'Plan du site' : ['pages', 'media', 'sponsors']
+    'Plan du site' : ['pages', 'media', 'sponsors'],
+	'Outils': ['mails']
 };
+
+keystone.set('nav', nav);
 
 keystone.post('signin', function (callback) {
 	//user is passed as context
@@ -157,9 +160,27 @@ keystone.render = function(req, res, view, ext){
 	 * @param view
 	 * @param ext
 	 */
+	var extString = function(ext){
+		var cache = [];
+		var temp = JSON.stringify(ext, function(key, value) {
+			if (typeof value === 'object' && value !== null) {
+				if (cache.indexOf(value) !== -1) {
+					// Circular reference found, discard key
+					return;
+				}
+				// Store value in our collection
+				cache.push(value);
+			}
+			return value;
+		});
+		cache = null; // Enable garbage collection
+		return temp;
+	};
+	
+	var s = extString(ext).toString();
+	console.log('ext before: '+s);
 	
 	_.each(nav, function(section, key){
-		console.log("key: "+key);
 		var addMenu = function(list){
 			var model = keystone.list(list);
 			if (model.hasRoles(req.user)) {
@@ -179,9 +200,12 @@ keystone.render = function(req, res, view, ext){
 			addMenu(section);
 		}
 	});
-	
+
 	var locals = { nav : keystone.initNav(userNav)};
 	_.extend(ext, locals);
+
+	s = extString(ext).toString();
+	console.log('ext after: '+s);
 	//call keystone render
 	oldRender.call(keystone, req, res, view, ext);
 };
