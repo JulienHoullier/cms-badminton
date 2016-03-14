@@ -7,11 +7,19 @@ exports = module.exports = function(req, res) {
 	
 	// Set locals
 	locals.section = 'gallery';
+
+	locals.filters = {
+		album: req.params.album
+	};
 	
-	// Load the galleries by sortOrder
-	view.query('galleries', keystone.list('Gallery').model.find().sort('-publishedDate'));
+	// Load the album
+	view.query('album', keystone.list('Gallery').model.findOne({
+			key: locals.filters.album,
+		}).sort('-publishedDate'));
+	
+	
 	
 	// Render the view
-	view.render('gallery');
+	view.render('gallery/album');
 	
 };

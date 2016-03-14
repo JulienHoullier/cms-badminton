@@ -4,68 +4,23 @@
 {% block content %}
 	<div class="container occ-bg">
 
-		{{ PanelTitle.renderTitle('Photos') }}
+		{{ PanelTitle.renderTitle('Albums') }}
 
-		{% if galleries.length %}
-			{% for gallery in galleries %}
-			{% set relname = "gallery"+loop.index %}
-
-
-			{% set className = "" %}
-			{% if loop.first %}
-				{% set className = "occ-album-first" %}
-			{% endif %}
-			{% if loop.last %}
-				{% set className = "occ-album-last" %}
-			{% endif %}
-			<div  class="occ-panel occ-album {{className}}">
-				<h2>{{ gallery.name }}
-					{% if gallery.publishedDate %}
-						<span class="pull-right">{{ gallery._.publishedDate.format('DD-MM-YYYY') }}</span>
-					{% endif %}
-				</h2>
-
-				<div class="row gallery-images">
-					{% if gallery.heroImage.exists %}
-						<a class="col-sm-4 col-md-4 gallery-image" rel="{{relname}}" title="{{gallery.name + ' hero image'}}" href="{{gallery._.heroImage.limit(900,600)}}">
-							<img src="{{ gallery._.heroImage.limit(680,680) }}" class="img-rounded">
-						</a>
-						<div class="col-sm-8 col-md-8">
-							<div class="row">
-								{% for image in gallery.images %}
-									<a class="col-xs-4 col-sm-4 col-md-3 gallery-image" rel="{{relname}}" title="{{ gallery.name + ' image ' + (i+1)}}" href="{{ image.limit(900,600)}}">
-										<img src="{{ image.limit(300,300) }}" class="img-rounded">
-									</a>
-								{% endfor %}
-							</div>
-						</div>
-					{% else %}
-						{% for image in gallery.images %}
-							<a class="col-xs-6 col-sm-4 col-md-3 gallery-image" rel="{{relname}}" title="{{gallery.name + ' image ' + (i+1)}}" href="{{image.limit(900,600)}}">
-								<img src="{{ image.limit(300,300) }}" class="img-rounded">
+		<div  class="occ-album">		
+			{% if galleries.length %}
+				<div class="row">
+					{% for gallery in galleries %}
+						{% if gallery.heroImage.exists %}
+							<a href="/gallery/{{gallery.key}}" class="col-md-4 ">
+								{{ gallery.name }}
+								<img src="{{ gallery._.heroImage.limit(300,300) }}" class="occ-hero-img" />
 							</a>
-						{% endfor %}
-					{% endif %}
+						{% endif %}			
+					{% endfor %}
 				</div>
-			</div>
-			{% endfor %}
-		{% else %}
-			<h3 class="text-muted">Aucun album photos pour le moment.</h3>
-		{% endif %}
+			{% else %}
+				<h3 class="text-muted">Aucun album photos pour le moment.</h3>
+			{% endif %}
+		</div>
 	</div>
-{% endblock %}
-
-{% block js %}
-	<link rel="stylesheet" href="js/fancyBox/jquery.fancybox.css" type="text/css" media="screen" />
-    <script type="text/javascript" src="js/fancyBox/jquery.fancybox.pack.js"></script>
-	<script type="text/javascript">
-	
-		jQuery(function($) {
-			$('.gallery-image').fancybox({
-				prevEffect: 'none',
-				nextEffect: 'none',
-				closeBtn: false
-			});
-		});
-	</script>
 {% endblock %}
