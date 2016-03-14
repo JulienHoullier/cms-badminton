@@ -1,5 +1,5 @@
 {% extends "../../layouts/default.swig" %}
-{% import "../../mixins/panel_title.swig" as PanelTitle%}
+{% import "../../mixins/panel_title.swig" as PanelTitle %}
 
 {% block content %}
 
