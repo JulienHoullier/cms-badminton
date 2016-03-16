@@ -3,16 +3,16 @@ var keystone = require('keystone');
 var app = keystone;
 
 exports = module.exports = function(req, res) {
-	
+
 	var view = new keystone.View(req, res);
 	var locals = res.locals;
-	
+
 	// Set locals
 	locals.section = 'blog';
 	locals.filters = {
 		post: req.params.post
 	};
-	
+
 	var Post = keystone.list('Post');
 	var PostComment = keystone.list('PostComment');
 
@@ -29,11 +29,13 @@ exports = module.exports = function(req, res) {
 			}
 			else{
 				locals.post = result;
+				locals.title = result.title;
 			}
 			next(err);
 		});
 	});
 
+	// Load comments
 	view.on('init', function(next) {
 		PostComment.model.find()
 			.where('post', locals.post)
@@ -50,7 +52,7 @@ exports = module.exports = function(req, res) {
 				next();
 			});
 	});
-	
+
 	// Create a Comment
 	view.on('post', { action: 'comment.create' }, function (next) {
 
@@ -115,8 +117,8 @@ exports = module.exports = function(req, res) {
 			});
 	});
 
-		
+
 	// Render the view
 	view.render('post');
-	
+
 };
