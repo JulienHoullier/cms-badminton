@@ -3,7 +3,7 @@
 
 {%- block head %}
   <meta property="og:url"           content="http://www.occ-badminton.org/blog/post/{{post.slug}}" />
-  <meta property="og:type"          content="website" />
+  <meta property="og:type"          content="article" />
   <meta property="og:title"         content="{{post.title}}" />
   <meta property="og:description"   content="{{post.content.brief | safe}}" />
   <meta property="og:image"         content="{{post.image.url}}" />
