@@ -26,6 +26,8 @@ Post.add(
 			default: 'draft', index: true },
 		author: { type: Types.Relationship, label:'Auteur', ref: 'User', index: true },
 		publishedDate: { type: Types.Date, label:'date de publication', index: true, dependsOn: { state: 'published' } },
+		announce: {type: Types.Boolean, label: 'Afficher en annonce d\'accueil', index: true},
+		announceDeadLine: {type: Types.Date, label: 'Fin de l\'annonce', dependsOn: { announce: true } },
 		image: { type: Types.CloudinaryImage, label:'Image' },
 		content: {
 			brief: { type: Types.Html, label:'En bref', wysiwyg: true, height: 150 },

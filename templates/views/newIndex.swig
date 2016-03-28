@@ -19,16 +19,20 @@
 			<!-- Colonne gauche (accès aux articles) -->
 			<div class="col-md-9">
 
-					<div class="row">
-						<div class="col-md-12">							
-							<div class="occ-banner">
-								<a href="/pages/tournoi-occ">
-									<img src="/images/megaphone.png">
-									5ème tournoi officiel Double Mixte - 13 Mars 2016
-								</a>
-							</div>
+					{% if annonces.length %}
+						<div class="row">	
+							{% for annonce in annonces %}					
+								<div class="col-md-12">							
+									<div class="occ-banner">
+										<a href="/blog/post/{{ annonce.slug }}">
+											<img src="/images/megaphone.png">
+											{{ annonce.title }}
+										</a>
+									</div>
+								</div>
+							{% endfor %}
 						</div>
-					</div>
+					{% endif %}
 
 					{% include "./index/articlesCarousel.swig" %}
 
