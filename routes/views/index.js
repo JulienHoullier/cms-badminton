@@ -17,6 +17,13 @@ exports = module.exports = function(req, res) {
 	// item in the header navigation.
 	locals.section = 'home';
 
+	view.query('annonces', Post.model.find()
+		.where('state', 'published')
+		.where('announce', true)
+		.where('announceDeadLine').gte(today)		
+		.sort('-announceDeadLine'));
+
+
 	view.query('articles', Post.model.find()
 		.where('state', 'published')
 		.populate('author')
