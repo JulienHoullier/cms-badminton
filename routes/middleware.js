@@ -148,6 +148,21 @@ exports.requireUser = function(req, res, next) {
 	}
 };
 
+exports.isTournamentManager = function(req, res, next){
+	if (!req.user) {
+		req.flash('error', 'Connectez-vous pour accéder à cet page');
+		res.redirect('/keystone/signin');
+	} else {
+		if(!req.user.isTournamentManager){
+			req.flash('warn', 'Vous ne pouvez pas faire ça !');
+			res.redirect('/');
+		}
+		else{
+			next();
+		}
+	}
+};
+
 /**ensure response content-type for rss**/
 exports.feedResponse = function(req, res, next) {
 	res.type('application/rss+xml');

@@ -1,7 +1,9 @@
 var keystone = require('keystone'),
 	Registration = keystone.list('Registration'),
+	Player = keystone.list('Player'),
 	Tournament = keystone.list('Tournament'),
 	_ = require('underscore'),
+	mailLib = require('../../../lib/mail'),
 	async = require('async');
 
 exports = module.exports = function(req, res) {
@@ -13,6 +15,14 @@ exports = module.exports = function(req, res) {
 	// locals.section is used to set the currently selected
 	// item in the header navigation.
 	locals.section = 'tournois';
+
+	// Envoi du mail des tournois aux joueurs
+	view.on('post', function(next) {
+		Player.model.find().exec(function(err, players){
+			mailLib.sendMail('email-tournois', next, '[OCC Bad - Licenciés] prochains tournoi', players, {tournois: locals.tournois});
+		});
+		req.flash('success', "Email envoyé !");
+	});
 
 	// Chargement des prochaines inscriptions
 	view.on('render', function(next){
@@ -103,6 +113,8 @@ exports = module.exports = function(req, res) {
 			next(err);
 		});
 	});
+
+
 
 	// Render the view
 	view.render('tournoi/tournois');

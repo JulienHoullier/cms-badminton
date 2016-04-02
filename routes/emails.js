@@ -159,6 +159,23 @@ module.exports = {
 			user: newUser,
 			subject: 'Demande de création de compte'
 		});
+	},
+
+	'email-tournois': function(req, res, callback) {
+
+
+		var User = keystone.list('User');
+
+		var newUser = new User.model({
+			name: {first:' Julien', last:'Houllier'},
+			email: 'j.houllier@gmail.com',
+			password:'stes'
+		});
+
+		callback(null, {
+			user: newUser,
+			subject: 'Prochains tournois'
+		});
 	}
 	
 	

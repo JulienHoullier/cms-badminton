@@ -28,6 +28,12 @@
 			</tbody>
 		</table>
 
+		{% if user and user.isTournamentManager %}
+			<form method="POST">
+				<button type="submit" class="btn btn-primary">Envoyer un mail des prochains tournois</button>
+			</form>
+		{% endif %}
+
 		{{ PanelTitle.renderTitle("Liste des inscrits du club") }}
 
 		<table class="table table-bordered" id="occ-table-inscrit">

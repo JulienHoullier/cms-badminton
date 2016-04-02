@@ -44,6 +44,7 @@ exports = module.exports = function(app) {
 	app.get('/gallery', routes.views.gallery);
 	app.get('/gallery/:album', routes.views.album);
 	app.get('/tournois', routes.views.tournoi.tournois);
+	app.post('/tournois', middleware.isTournamentManager, routes.views.tournoi.tournois);
 	app.all('/tournois/:idTournoi/inscription', keystone.security.csrf.middleware.init, middleware.requireUser, routes.views.tournoi.inscription);
 	app.get('/player', routes.views.player);
 	app.get('/resultats', routes.views.resultat);
