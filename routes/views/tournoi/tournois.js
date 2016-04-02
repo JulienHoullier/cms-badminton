@@ -19,9 +19,10 @@ exports = module.exports = function(req, res) {
 	// Envoi du mail des tournois aux joueurs
 	view.on('post', function(next) {
 		Player.model.find().exec(function(err, players){
-			mailLib.sendMail('email-tournois', next, '[OCC Bad - Licenciés] prochains tournoi', players, {tournois: locals.tournois});
+			mailLib.sendMail('email-tournois', null, '[OCC Bad - Licenciés] prochains tournoi', players, {tournois: locals.tournois});
 		});
 		req.flash('success', "Email envoyé !");
+		next();		
 	});
 
 	// Chargement des prochaines inscriptions
