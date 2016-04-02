@@ -18,10 +18,10 @@
 					{% endif %}
 					<tr>
 						<td width="10%"><img src="/images/{{img}}.png"></td>
-						<td width="40%" class="text-left">{{ result.team.name }}</td>
+						<td width="25%" class="text-right">{{ result.team.name }}</td>
 						<td class="text-right" width="5%">{{ result.occResult }}</td>
 						<td width="5%" class="text-left">{{ result.versusResult }}</td>
-						<td class="text-right" width="40%">{{ result.versus }}</td>
+						<td class="text-left" width="55%">{{ result.versus }}</td>
 					</tr>
 				{% endfor %}
 			</table>
