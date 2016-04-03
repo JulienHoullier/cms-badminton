@@ -30,7 +30,8 @@ Registration.add(
 				{value:'Impossible', label:'Impossible'}
 			],
 			default: 'En cours'
-		}
+		},
+		responseMessage : {type: Types.Textarea, label:'Réponse'}
 	},
 	{ heading: 'Joueur' },
 	{

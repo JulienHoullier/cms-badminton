@@ -14,6 +14,9 @@
 	 	dans le tableau <strong>{{ registration.category }} {{ registration.ranking }}</strong> </p>
 	 	(date: {{ registration.tournament._.date.format("DD/MM/YYYY") }}).
 	</p>
+	{% if registration.responseMessage %}
+		<p>{{ registration.responseMessage | safe }}</p>
+	{% endif %}
 	<br/>
 	A bientot,<br/>
 	Sylvain

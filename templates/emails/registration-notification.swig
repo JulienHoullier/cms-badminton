@@ -10,7 +10,7 @@
 	{% else %}
 		<p>Je souhaiterais m'inscrire au tournoi de : 
 	{% endif %}
-		<strong>{{ registration.tournament.name }}</strong>
+		<strong>{{ registration.tournament.name }}</strong> le <strong>{{registration.tournament._.date.format("DD-MM-YYYY") }}</strong>
 	</p>
 	
 	<p>Dans la catégorie : <strong>{{ registration.category }} {{ registration.ranking }}</strong> </p>
