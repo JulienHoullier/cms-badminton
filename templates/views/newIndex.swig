@@ -2,27 +2,18 @@
 
 {% block content %}
 	<div class="container">
-    				
+
     			</div>
-    			
+
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-12"> 
-				<div class ="occ-black">
-					<img src="http://res.cloudinary.com/occ-badminton/image/upload/v1457627752/media_cka3j8.jpg" 
-					height="110"/>
-					<h4>Sincères condoléances</h4>
-					<p>Notre club de badminton a récemment perdu l’un de ses joueurs. Thomas jouait au sein de l’équipe Hommes depuis le début de la saison, et était particulièrement apprécié de ses coéquipiers. L’ensemble du bureau, joueurs  et entraineurs de l’OCC Badminton adressent tout leur soutien à la famille et aux proches de Thomas dans cette douloureuse épreuve.</p>
-				</div>
-			</div>
-                				
 			<!-- Colonne gauche (accès aux articles) -->
 			<div class="col-md-9">
 
 					{% if annonces.length %}
-						<div class="row">	
-							{% for annonce in annonces %}					
-								<div class="col-md-12">							
+						<div class="row">
+							{% for annonce in annonces %}
+								<div class="col-md-12">
 									<div class="occ-banner">
 										<a href="/blog/post/{{ annonce.slug }}">
 											<img src="/images/megaphone.png">
