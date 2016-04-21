@@ -19,9 +19,7 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 </script>
-
-		<div class="row">
-			<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+  <div class="container">
 				<p>
 					<a href="/blog" class="occ-theme-color">&larr; Retour aux actualités</a>
 				</p>
@@ -68,6 +66,5 @@
 						</div>
 					{% endif %}
 				</article>
-			</div>
-		</div>
+  </div>
 {% endblock %}
