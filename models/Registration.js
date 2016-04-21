@@ -59,7 +59,7 @@ Registration.schema.pre('save', function(next) {
 Registration.schema.post('save', function() {
 	if (this.wasNew){
 		console.log("Inscription prise en compte.");
-		sendMail(this, 'registration-notification', 'Demande d\'inscription');
+		sendMailWithManager(this, 'registration-notification', 'Demande d\'inscription');
 	}
 	if(this.toValidate && this.status == "Liste d'attente"){
 		console.log("Liste d'attente.");
@@ -71,10 +71,25 @@ Registration.schema.post('save', function() {
 	}
 });
 
+// Envoi d'un mail aux joueurs
 var sendMail = function(Registration, template, subject, callback){
 	Registration.populate('tournament player1 player2', function(err, registration){
+
 		if(err) return console.log('Error populating registration due to: '+err);
 		
+		var emails = [registration.player1];
+		if(registration.player2 != null){
+			emails.push(registration.player2);
+		}
+		mailLib.sendMail(template, callback, subject, emails, {registration: registration});
+	});
+};
+
+// Envoi d'un mail aux joueurs et au manager des tournois
+var sendMailWithManager = function(Registration, template, subject, callback){
+	Registration.populate('tournament player1 player2', function(err, registration){
+		if(err) return console.log('Error populating registration due to: '+err);
+
 		keystone.list('User').model.findOne().where('isTournamentManager', true).exec(function(err, manager) {
 
 			if (err) return console.log('Error retrieving tournament manager user due to: '+err);
