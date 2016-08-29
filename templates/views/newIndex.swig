@@ -39,6 +39,8 @@
 
 					</div>
 
+					{% include "./index/evenements.swig" %}
+
 			</div>
 
 			<!-- Colonne droite (Twitter, tournoi...) -->

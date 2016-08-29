@@ -2,42 +2,42 @@
 	<h2>
 		<img src="/images/calendar.png" class="occ-section-img">
 		Agenda du club
-		{# <a href="/resultats" title="Voir tous les résultats" class="pull-right">
-			<img src="/images/plus.png" width="16px" height="16px" />
-		</a> #}
 	</h2>
-	<div class="occ-section-little">
-			<table class="table table-striped">
-				<tr>
-					<td class="text-right">Lundi</td>
-					<td width="20%" class="text-left">25-03-2016</td>
-					<td width="20%">20:30</td>
-					<td width="50%" class="text-left">Rencontre à domicile Equipe S1</td>
-				</tr>
-				<tr>
-					<td class="text-right">Mercredi</td>
-					<td width="20%" class="text-left">25-03-2016</td>
-					<td width="20%">20:30</td>
-					<td width="50%" class="text-left">Rencontre à domicile Equipe S2</td>
-				</tr>
-				<tr>
-					<td class="text-right">Vendredi</td>
-					<td width="20%" class="text-left">25-03-2016</td>
-					<td width="20%">20:30</td>
-					<td width="50%" class="text-left">Entraînement annulé</td>
-				</tr>
-				<tr>
-					<td class="text-right">Lundi</td>
-					<td width="20%" class="text-left">01-03-2016</td>
-					<td width="20%">20:30</td>
-					<td width="50%" class="text-left">Jeu libre</td>
-				</tr>
-				
-			</table>
-
-{# 			<div class="occ-no-element">
+	<div>
+		{% if events.length %}
+			<strong>
+				<table class="table table-striped">
+					{% for event in events %}
+						{% set classTr = '' %}
+						{% if event.canceled %}
+							{% set classTr = 'occ-event-cancel' %}
+						{% endif %}
+					<tr class="{{classTr}}">
+						<td class="text-right hidden-xs">{{ event._.date.format("dddd") }}</td>
+						<td width="20%" class="text-left">{{ event._.date.format("DD-MM-YYYY") }}</td>
+						<td width="20%">
+						{{ event.startHour }}
+						{% if event.endHour %}
+						- {{ event.endHour }}
+						{% endif %}
+						</td>
+						<td width="50%" class="text-left">
+							{{ event.description }}
+						{% if event.canceled %}
+							:
+							<span>
+							 ANNULÉ
+							</span>
+						{% endif %}
+						</td>
+					</tr>
+				{% endfor %}
+				</table>
+			</strong>
+		{% else %}
+ 			<div class="occ-no-element">
 				Rien à venir...<br/>
-			</div> #}
-
+			</div>
+		{% endif %}
 	</div>
 </section>

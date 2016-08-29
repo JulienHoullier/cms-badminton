@@ -1,6 +1,7 @@
 var keystone = require('keystone'),
 	Post = keystone.list('Post'),
 	Tournament = keystone.list('Tournament'),
+	Event = keystone.list('Event'),
 	Match = keystone.list('Match'),
 	async = require('async'),
 	Media = keystone.list('Media'),
@@ -20,7 +21,7 @@ exports = module.exports = function(req, res) {
 	view.query('annonces', Post.model.find()
 		.where('state', 'published')
 		.where('announce', true)
-		.where('announceDeadLine').gte(today)		
+		.where('announceDeadLine').gte(today)
 		.sort('-announceDeadLine'));
 
 
@@ -46,6 +47,12 @@ exports = module.exports = function(req, res) {
 		.limit(5))
 		.then('registrations');
 
+	// Sélection des 10 prochains évènements
+	view.query('events', Event.model.find()
+		.where('date').gte(today)
+		.sort('date startHour')
+		.limit(10));
+
 	// Sélection du Media
 	view.query('media', Media.model.findOne({type : mediaTypes.Home.value}));
 
@@ -55,7 +62,7 @@ exports = module.exports = function(req, res) {
 		.populate('author post')
 		.sort('-publishedOn')
 		.limit(3));
-	
+
 	var countNbInscrit = function (tournament, next){
 		var nbInscrit = 0;
 		if(tournament.registrations){

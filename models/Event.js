@@ -12,9 +12,11 @@ var Event = new keystone.List('Event', {
 });
 
 Event.add({
-	name: { type: Types.Name, required: true, initial:true },
-	description: { type: Types.Email, required: true, initial:true },
-	date: { type: Types.Date, required: true, initial:true }
+	description: { type: Types.Text, required: true, initial:true },
+	date: { type: Types.Date, format: "DD-MM-YYYY", required: true, initial:true },
+	startHour: { type: Types.Text, required: true, initial:true, label: "Heure de début", note:"exemple: 20h30" },
+	endHour: { type: Types.Text, required: true, initial:true, label: "Heure de fin", note:"exemple: 22h30" },
+	canceled: { type: Types.Boolean, required: false, initial:false, label: "Annuler", note:"L'évènement sera barré." }
 });
 
 Event.hasRoles = function(user){

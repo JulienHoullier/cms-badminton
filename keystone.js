@@ -8,6 +8,7 @@ require('keystone-nodemailer');
 var _ = require('underscore');
 
 var swig = require('swig');
+var i18n = require('i18n');
 
 // Disable swig's bulit-in template caching, express handles it
 swig.setDefaults({ cache: false });
@@ -20,15 +21,15 @@ keystone.init({
 
 	'name': 'OCC-Badminton',
 	'brand': 'OCC-Badminton',
-	
+
 	'less': 'public',
 	'static': 'public',
 	'favicon': 'public/favicon.ico',
 	'views': 'templates/views',
 	'view engine': 'swig',
-	
+
 	'custom engine': swig.renderFile,
-	
+
 	'emails': 'templates/emails',
 
 	'cookie secret': process.env.COOKIE_SECRET,
@@ -61,6 +62,10 @@ keystone.set('locals', {
 	editable: keystone.content.editable
 });
 
+i18n.configure({
+	locales:['fr'],
+	directory: __dirname + '/locales'
+});
 // Load your project's Routes
 
 keystone.set('routes', require('./routes'));
@@ -176,10 +181,10 @@ keystone.render = function(req, res, view, ext){
 		cache = null; // Enable garbage collection
 		return temp;
 	};
-	
+
 	var s = extString(ext).toString();
 	console.log('ext before: '+s);
-	
+
 	_.each(nav, function(section, key){
 		var addMenu = function(list){
 			var model = keystone.list(list);
@@ -190,7 +195,7 @@ keystone.render = function(req, res, view, ext){
 				userNav[key].push(list);
 			}
 		};
-		
+
 		if(section instanceof Array) {
 			_.each(section, function (list) {
 				addMenu(list);
