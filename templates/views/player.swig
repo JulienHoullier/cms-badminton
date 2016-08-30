@@ -35,9 +35,9 @@
 		{{ PanelTitle.renderTitle("Liste des joueurs jeunes de l'OCC") }}
 
 		{%- if user -%}
-			{%- if !youngsters ||  youngsters.length === 0 -%}
+			{%- if not youngsters or youngsters.length == 0 -%}
 				<p>Aucun jeune inscrit pour le moment</p>
-			{%- else -%}	
+			{%- else -%}
 
 			<table class="table">
 				<thead>

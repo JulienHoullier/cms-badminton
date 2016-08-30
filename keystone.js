@@ -126,7 +126,7 @@ keystone.set('nav', {
 	'Utilisateurs': 'users',
   'Tournois' : ['tournaments', 'registrations'],
   'Plan du site' : ['pages', 'media', 'sponsors']
-};
+});
 
 keystone.post('signin', function (callback) {
 	//user is passed as context

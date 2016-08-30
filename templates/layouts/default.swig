@@ -106,7 +106,7 @@
 			<div class="container">
 				<h4>Partenaires</h4>
 
-				{% if sponsors && sponsors.length > 0%}
+				{% if sponsors and sponsors.length > 0 %}
 				<div id="occ-sponsor-bar">
 
 					<ul>
@@ -118,7 +118,7 @@
 
 				{% else %}
 				<p>The sponsors are empty</p>
-				{% endif %}
+			{% endif %}
 			</div>
 		</div>
 
