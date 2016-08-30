@@ -22,9 +22,9 @@ $ npm install               # Développement
 Configurer son environnement en créant un fichier **.env** à la racine du projet (non partagé), avec ces valeurs :
 
 ```
-COOKIE_SECRET=HbSvqDbnT=<s5bbf7aw@Ux)k(V&`TXg{UPO$~boX~`t!&FPRA}uG)we$vlIQk32u
-CLOUDINARY_URL=cloudinary://333779167276662:_8jbSi9FB3sWYrfimcl8VKh34rI@keystone-demo
-MANDRILL_API_KEY=NY8RRKyv1Bure9bdP8-TOQ
+COOKIE_SECRET=<COOKIE_SECRET>
+CLOUDINARY_URL=<CLOUDINARY_URL>
+MANDRILL_API_KEY=<MANDRILL_API_KEY>
 
 MAIL_HOST=<smtp de test>
 MAIL_USR=<utilisateur de test>
