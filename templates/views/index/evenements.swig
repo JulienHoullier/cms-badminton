@@ -14,7 +14,7 @@
 						{% endif %}
 					<tr class="{{classTr}}">
 						<td class="text-right hidden-xs">{{ event._.date.format("dddd") }}</td>
-						<td width="20%" class="text-left">{{ event._.date.format("DD-MM-YYYY") }}</td>
+						<td width="20%" class="text-left">{{ event._.date.format("DD MMMM") }}</td>
 						<td width="20%">
 						{{ event.startHour }}
 						{% if event.endHour %}
