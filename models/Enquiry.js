@@ -52,7 +52,7 @@ Enquiry.schema.methods.sendNotificationEmail = function(callback) {
 		
 		if (err) return callback(err);
 		if(admins){
-			mailLib.sendMail('enquiry-notification', callback, 'Nouvelle réclamation', admins, {enquiry: enquiry});
+			mailLib.sendMail('enquiry-notification', callback, 'Nouvelle demande', admins, {enquiry: enquiry});
 		}
 	});
 };
