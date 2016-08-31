@@ -48,7 +48,7 @@ keystone.init({
 
 // Load your project's Models
 
-keystone.import('models');
+var models = keystone.import('models');
 
 // Setup common locals for your templates. The following are required for the
 // bundled templates and layouts. Any runtime locals (that should be set uniquely
@@ -135,7 +135,8 @@ var nav= {
 	'Club': ['teams', 'players','matches'],
 	'Utilisateurs': 'users',
     'Tournois' : ['tournaments', 'registrations'],
-    'Plan du site' : ['pages', 'media', 'sponsors']
+    'Plan du site' : ['pages', 'media', 'sponsors'],
+	'Autres' : ['mails']
 };
 
 keystone.post('signin', function (callback) {
@@ -159,7 +160,6 @@ keystone.render = function(req, res, view, ext){
 	 */
 	
 	_.each(nav, function(section, key){
-		console.log("key: "+key);
 		var addMenu = function(list){
 			var model = keystone.list(list);
 			if (model.hasRoles(req.user)) {

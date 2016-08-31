@@ -9,13 +9,19 @@ var mailLib = require('../lib/mail');
 
 var Mail = new keystone.List('Mail', {
 	label: 'Emails',
-	map: { name: 'subject' },
+	map: { name: 'subject' }
 });
 
 Mail.add({
 	subject: { type: String, label:'Sujet', required: true, initial: true },
-    categories: { type: Types.Relationship, label:'Catégories', ref: 'PostCategory', initial: true, many:true },
-	players: { type: Types.Relationship, label:'Joueurs', ref:'Player', initial: true, many:true },
+    type: { type: Types.Select, label:'Type de mail', required:true, initial:true, options: [
+		{ value: 'category', label: 'Pour une(des) catégorie(s)' },
+		{ value: 'player', label: 'Pour un(des) joueur(s)' },
+		{ value: 'mail', label: 'Pour un(des) mails' }
+	] },
+	categories: { type: Types.Relationship, label:'Catégories', ref: 'PostCategory', dependsOn: { type: 'category' }, initial: true, many:true },
+	players: { type: Types.Relationship, label:'Joueurs', ref:'Player', dependsOn: { type: 'player' }, initial: true, many:true },
+	email: { type: Types.Email, label:'E-mails', dependsOn: { type: 'mail' }, initial: true },
 	message: { type: Types.Html, label:"Message", wysiwyg: true, required: true, initial:true }
 });
 
@@ -50,7 +56,7 @@ Mail.schema.methods.sendNotificationEmail = function(callback) {
 	
 	var Mail = this;
 	
-	if(this.categories && this.categories.length){
+	if(this.type === 'category' && this.categories){
 		var PostCategory = keystone.list('PostCategory');
 
 		async.each(this.categories,function(cat, callback){
@@ -78,7 +84,7 @@ Mail.schema.methods.sendNotificationEmail = function(callback) {
                 });
 	}
 	
-	if(this.players && this.players.length){
+	if(this.type === 'player' && this.players){
 		var Player = keystone.list('Player');
 		Player.model.find({ _id: { $in: this.players}}).exec(function(err, players){
 			if(err){
@@ -86,6 +92,10 @@ Mail.schema.methods.sendNotificationEmail = function(callback) {
 			}
 			sendMail(callback, players, Mail);
 		});		
+	}
+
+	if(this.type === 'mail'&& this.email){
+		sendMail(callback, [{email: this.email}], this);
 	}
 };
 
