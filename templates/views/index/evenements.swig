@@ -12,20 +12,20 @@
 						{% if event.canceled %}
 							{% set classTr = 'occ-event-cancel' %}
 						{% endif %}
-					<tr class="{{classTr}}">
-						<td class="text-right hidden-xs">{{ moment(event.date).format("dddd") }}</td>
-						<td width="20%" class="text-left">{{ moment(event.date).format("DD MMMM") }}</td>
-						<td width="20%">
+					<tr>
+						<td class="text-right hidden-xs {{classTr}}">{{ moment(event.date).format("dddd") }}</td>
+						<td width="20%" class="text-left {{classTr}}">{{ moment(event.date).format("DD MMMM") }}</td>
+						<td width="20%" class="{{classTr}}">
 						{{ event.startHour }}
 						{% if event.endHour %}
 						- {{ event.endHour }}
 						{% endif %}
 						</td>
 						<td width="50%" class="text-left">
-							{{ event.description }}
+							<span class="{{classTr}}">{{ event.description }}</span>
 						{% if event.canceled %}
 							:
-							<span>
+							<span class="occ-event-canceled">
 							 ANNULÉ
 							</span>
 						{% endif %}
