@@ -21,6 +21,7 @@
 var keystone = require('keystone');
 var middleware = require('./middleware');
 var importRoutes = keystone.importer(__dirname);
+var moment = require('moment');
 
 // Common Middleware
 keystone.pre('routes', middleware.initLocals);
