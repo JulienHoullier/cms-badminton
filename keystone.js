@@ -11,7 +11,7 @@ var swig = require('swig');
 var moment = require('moment');
 
 // Disable swig's bulit-in template caching, express handles it
-swig.setDefaults({ cache: false });
+swig.setDefaults({cache: false});
 
 // Initialise Keystone with your project's configuration.
 // See http://keystonejs.com/guide/config for available options
@@ -39,11 +39,11 @@ keystone.init({
 	'auth': true,
 	'user model': 'User',
 
-	'wysiwyg images':true,
+	'wysiwyg images': true,
 	'wysiwyg cloudinary images': true,
 
-	'signin redirect' : '/',
-	'signin logo' : '/images/occ-logo.png'
+	'signin redirect': '/',
+	'signin logo': '/images/occ-logo.png'
 
 });
 
@@ -64,79 +64,77 @@ keystone.set('locals', {
 });
 
 moment.defineLocale('fr', {
-    months : "Janvier_Février_Mars_Avril_Mai_Juin_Juillet_Août_Septembre_Octobre_Novembre_Décembre".split("_"),
-    monthsShort : "Janv_Fév_Mars_Avril_Mai_Juin_Juil_Août_Sept_Oct_Nov_Déc".split("_"),
-    weekdays : "Dimanche_Lundi_Mardi_Mercredi_Jeudi_Vendredi_Samedi".split("_"),
-    weekdaysShort : "Dim._Lun._Mar._Mer._Jeu._Ven._Sam.".split("_"),
-    weekdaysMin : "Di_Lu_Ma_Me_Je_Ve_Sa".split("_"),
-    longDateFormat : {
-        LT : "HH:mm",
-        LTS : "HH:mm:ss",
-        L : "DD/MM/YYYY",
-        LL : "D MMMM YYYY",
-        LLL : "D MMMM YYYY LT",
-        LLLL : "dddd D MMMM YYYY LT"
-    },
-    calendar : {
-        sameDay: "[Aujourd'hui à] LT",
-        nextDay: '[Demain à] LT',
-        nextWeek: 'dddd [à] LT',
-        lastDay: '[Hier à] LT',
-        lastWeek: 'dddd [dernier à] LT',
-        sameElse: 'L'
-    },
-    relativeTime : {
-        future : "dans %s",
-        past : "il y a %s",
-        s : "quelques secondes",
-        m : "une minute",
-        mm : "%d minutes",
-        h : "une heure",
-        hh : "%d heures",
-        d : "un jour",
-        dd : "%d jours",
-        M : "un mois",
-        MM : "%d mois",
-        y : "une année",
-        yy : "%d années"
-    },
-    ordinalParse : /\d{1,2}(er|ème)/,
-    ordinal : function (number) {
-        return number + (number === 1 ? 'er' : 'ème');
-    },
-    meridiemParse: /PD|MD/,
-    isPM: function (input) {
-        return input.charAt(0) === 'M';
-    },
-    // in case the meridiem units are not separated around 12, then implement
-    // this function (look at locale/id.js for an example)
-    // meridiemHour : function (hour, meridiem) {
-    //     return /* 0-23 hour, given meridiem token and hour 1-12 */
-    // },
-    meridiem : function (hours, minutes, isLower) {
-        return hours < 12 ? 'PD' : 'MD';
-    },
-    week : {
-        dow : 1, // Monday is the first day of the week.
-        doy : 4  // The week that contains Jan 4th is the first week of the year.
-    }
+	months: "Janvier_Février_Mars_Avril_Mai_Juin_Juillet_Août_Septembre_Octobre_Novembre_Décembre".split("_"),
+	monthsShort: "Janv_Fév_Mars_Avril_Mai_Juin_Juil_Août_Sept_Oct_Nov_Déc".split("_"),
+	weekdays: "Dimanche_Lundi_Mardi_Mercredi_Jeudi_Vendredi_Samedi".split("_"),
+	weekdaysShort: "Dim._Lun._Mar._Mer._Jeu._Ven._Sam.".split("_"),
+	weekdaysMin: "Di_Lu_Ma_Me_Je_Ve_Sa".split("_"),
+	longDateFormat: {
+		LT: "HH:mm",
+		LTS: "HH:mm:ss",
+		L: "DD/MM/YYYY",
+		LL: "D MMMM YYYY",
+		LLL: "D MMMM YYYY LT",
+		LLLL: "dddd D MMMM YYYY LT"
+	},
+	calendar: {
+		sameDay: "[Aujourd'hui à] LT",
+		nextDay: '[Demain à] LT',
+		nextWeek: 'dddd [à] LT',
+		lastDay: '[Hier à] LT',
+		lastWeek: 'dddd [dernier à] LT',
+		sameElse: 'L'
+	},
+	relativeTime: {
+		future: "dans %s",
+		past: "il y a %s",
+		s: "quelques secondes",
+		m: "une minute",
+		mm: "%d minutes",
+		h: "une heure",
+		hh: "%d heures",
+		d: "un jour",
+		dd: "%d jours",
+		M: "un mois",
+		MM: "%d mois",
+		y: "une année",
+		yy: "%d années"
+	},
+	ordinalParse: /\d{1,2}(er|ème)/,
+	ordinal: function (number) {
+		return number + (number === 1 ? 'er' : 'ème');
+	},
+	meridiemParse: /PD|MD/,
+	isPM: function (input) {
+		return input.charAt(0) === 'M';
+	},
+	// in case the meridiem units are not separated around 12, then implement
+	// this function (look at locale/id.js for an example)
+	// meridiemHour : function (hour, meridiem) {
+	//     return /* 0-23 hour, given meridiem token and hour 1-12 */
+	// },
+	meridiem: function (hours, minutes, isLower) {
+		return hours < 12 ? 'PD' : 'MD';
+	},
+	week: {
+		dow: 1, // Monday is the first day of the week.
+		doy: 4  // The week that contains Jan 4th is the first week of the year.
+	}
 });
-
-console.log(moment.locale());
 
 // Load your project's Routes
 keystone.set('routes', require('./routes'));
 
 //prepare nodemailer config
 
-keystone.set('email nodemailer' , {
-host: process.env.MAIL_HOST,
-	port : 587,
+keystone.set('email nodemailer', {
+	host: process.env.MAIL_HOST,
+	port: 587,
 	auth: {
-	user: process.env.MAIL_USR,
-	pass: process.env.MAIL_PWD
-},
-authMethod : 'PLAIN'
+		user: process.env.MAIL_USR,
+		pass: process.env.MAIL_PWD
+	},
+	authMethod: 'PLAIN'
 });
 
 // Setup common locals for your emails. The following are required by Keystone's
@@ -160,7 +158,7 @@ keystone.set('email locals', {
 });
 
 
-keystone.set('domain name',  process.env.DOMAIN_NAME || 'http://localhost:3000');
+keystone.set('domain name', process.env.DOMAIN_NAME || 'http://localhost:3000');
 
 // Setup replacement rules for emails, to automate the handling of differences
 // between development a production.
@@ -170,19 +168,19 @@ keystone.set('domain name',  process.env.DOMAIN_NAME || 'http://localhost:3000')
 
 keystone.set('email rules', [{
 	find: '/images/',
-	replace:  keystone.get('domain name')+'/images/'
+	replace: keystone.get('domain name') + '/images/'
 }, {
 	find: '/keystone/',
-	replace: keystone.get('domain name')+'/keystone/'
+	replace: keystone.get('domain name') + '/keystone/'
 },
-{
-	find: '/#/',
-	replace: keystone.get('domain name')+'/'
-}]);
+	{
+		find: '/#/',
+		replace: keystone.get('domain name') + '/'
+	}]);
 
-keystone.Email.defaults.templateExt =  'swig';
-keystone.Email.defaults.templateEngine =  swig;
-keystone.Email.defaults.mandrill =  {};
+keystone.Email.defaults.templateExt = 'swig';
+keystone.Email.defaults.templateEngine = swig;
+keystone.Email.defaults.mandrill = {};
 
 // Load your project's email test routes
 
@@ -190,14 +188,14 @@ keystone.set('email tests', require('./routes/emails'));
 
 // Configure the navigation bar in Keystone's Admin UI
 
-var nav= {
+var nav = {
 	'Actualités': ['posts', 'post-categories', 'post-comments', 'events'],
 	'Photos': 'galleries',
 	'Demandes': 'enquiries',
-	'Club': ['teams', 'players','matches'],
+	'Club': ['teams', 'players', 'matches'],
 	'Utilisateurs': 'users',
-  'Tournois' : ['tournaments', 'registrations'],
-  'Plan du site' : ['pages', 'media', 'sponsors'],
+	'Tournois': ['tournaments', 'registrations'],
+	'Plan du site': ['pages', 'media', 'sponsors'],
 	'Outils': ['mails']
 };
 
@@ -205,7 +203,7 @@ keystone.set('nav', nav);
 
 keystone.post('signin', function (callback) {
 	//user is passed as context
-	if(!this.isValid){
+	if (!this.isValid) {
 		return callback({message: 'Your account is not yet validated by an administrator'});
 	}
 	callback();
@@ -213,37 +211,18 @@ keystone.post('signin', function (callback) {
 
 //save keystone.render function
 var oldRender = keystone.render;
-keystone.render = function(req, res, view, ext){
+/**
+ * Override keystone render to generate menu depending user's roles
+ * @param req
+ * @param res
+ * @param view
+ * @param ext
+ */
+keystone.render = function (req, res, view, ext) {
 	var userNav = {};
-	/**
-	 * Override keystone render to generate menu depending user's roles
-	 * @param req
-	 * @param res
-	 * @param view
-	 * @param ext
-	 */
-	var extString = function(ext){
-		var cache = [];
-		var temp = JSON.stringify(ext, function(key, value) {
-			if (typeof value === 'object' && value !== null) {
-				if (cache.indexOf(value) !== -1) {
-					// Circular reference found, discard key
-					return;
-				}
-				// Store value in our collection
-				cache.push(value);
-			}
-			return value;
-		});
-		cache = null; // Enable garbage collection
-		return temp;
-	};
 
-	var s = extString(ext).toString();
-	console.log('ext before: '+s);
-
-	_.each(nav, function(section, key){
-		var addMenu = function(list){
+	_.each(nav, function (section, key) {
+		var addMenu = function (list) {
 			var model = keystone.list(list);
 			if (model.hasRoles(req.user)) {
 				if (!userNav[key]) {
@@ -253,21 +232,19 @@ keystone.render = function(req, res, view, ext){
 			}
 		};
 
-		if(section instanceof Array) {
+		if (section instanceof Array) {
 			_.each(section, function (list) {
 				addMenu(list);
 			})
 		}
-		else{
+		else {
 			addMenu(section);
 		}
 	});
 
-	var locals = { nav : keystone.initNav(userNav)};
+	var locals = {nav: keystone.initNav(userNav)};
 	_.extend(ext, locals);
 
-	s = extString(ext).toString();
-	console.log('ext after: '+s);
 	//call keystone render
 	oldRender.call(keystone, req, res, view, ext);
 };
@@ -279,11 +256,11 @@ keystone.render = function(req, res, view, ext){
  * @param next
  * @returns {*}
  */
-var roleMiddleware = function(req, res, next) {
+var roleMiddleware = function (req, res, next) {
 	var index = req.path.indexOf('/keystone/');
-	if(index != -1) {
+	if (index != -1) {
 		var model = req.path.substring(index + 10);
-		if(model !== 'signin' && model !== 'signout') {
+		if (model !== 'signin' && model !== 'signout') {
 			index = model.indexOf('/');
 			if (model.length > 0 && index == -1) {
 				//try to access a model
@@ -298,7 +275,7 @@ var roleMiddleware = function(req, res, next) {
 	next();
 };
 //add middleware through keystone hook
-keystone.set('pre:routes', function(app){
+keystone.set('pre:routes', function (app) {
 	app.all('/keystone*', roleMiddleware);
 });
 
