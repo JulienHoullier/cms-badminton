@@ -13,6 +13,10 @@ exports = module.exports = function(req, res) {
 	var view = new keystone.View(req, res);
 	var locals = res.locals;
 	var today = new Date();
+	today.setHours(0);
+	today.setMinutes(0);
+	today.setSeconds(0);
+	today.setMilliseconds(0);
 
 	// locals.section is used to set the currently selected
 	// item in the header navigation.

@@ -11,6 +11,10 @@ exports = module.exports = function(req, res) {
 	var view = new keystone.View(req, res);
 	var locals = res.locals;
 	var today = new Date();
+	today.setHours(0);
+	today.setMinutes(0);
+	today.setSeconds(0);
+	today.setMilliseconds(0);
 
 	// locals.section is used to set the currently selected
 	// item in the header navigation.
@@ -22,7 +26,7 @@ exports = module.exports = function(req, res) {
 			mailLib.sendMail('email-tournois', null, '[OCC Bad - Licenciés] prochains tournoi', players, {tournois: locals.tournois});
 		});
 		req.flash('success', "Email envoyé !");
-		next();		
+		next();
 	});
 
 	// Chargement des prochaines inscriptions
@@ -52,7 +56,7 @@ exports = module.exports = function(req, res) {
 									categories: {}
 								};
 							}
-							
+
 							// Ajout de la catégorie au tournoi
 							if (tournois[registration.tournament.name]['categories'][registration.category] == null) {
 								tournois[registration.tournament.name]['categories'][registration.category] = {
@@ -65,7 +69,7 @@ exports = module.exports = function(req, res) {
 							if (tournois[registration.tournament.name]['categories'][registration.category]['divisions'][registration.ranking] == null) {
 								tournois[registration.tournament.name]['categories'][registration.category]['divisions'][registration.ranking] = [];
 							}
-							
+
 							// Ajout du joueur ou de l'équipe au tournoi.
 							tournois[registration.tournament.name]['categories'][registration.category]['divisions'][registration.ranking].push({
 								name: [registration.player1.name.full],
