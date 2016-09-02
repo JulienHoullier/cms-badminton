@@ -8,7 +8,8 @@ var mailLib = require('../lib/mail');
  */
 
 var Event = new keystone.List('Event', {
-	label: 'Evènements'
+	label: 'Evènements',
+	map: { name: 'description' }
 });
 
 Event.add({
