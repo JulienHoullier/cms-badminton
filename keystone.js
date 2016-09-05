@@ -100,37 +100,12 @@ keystone.set('email locals', {
 	mandrill: {}
 });
 
-
 keystone.set('domain name', process.env.DOMAIN_NAME || 'http://localhost:3000');
 
-// Setup replacement rules for emails, to automate the handling of differences
-// between development a production.
-
-// Be sure to update this rule to include your site's actual domain, and add
-// other rules your email templates require.
-
-keystone.set('email rules', [{
-	find: '/images/',
-	replace: keystone.get('domain name') + '/images/'
-}, {
-	find: '/keystone/',
-	replace: keystone.get('domain name') + '/keystone/'
-},
-	{
-		find: '/#/',
-		replace: keystone.get('domain name') + '/'
-	}]);
-
-keystone.Email.defaults.templateExt = 'swig';
-keystone.Email.defaults.templateEngine = swig;
-keystone.Email.defaults.mandrill = {};
-
 // Load your project's email test routes
-
 keystone.set('email tests', require('./routes/emails'));
 
 // Configure the navigation bar in Keystone's Admin UI
-
 var nav = {
 	'Actualités': ['posts', 'post-categories', 'post-comments', 'events'],
 	'Photos': 'galleries',
