@@ -9,7 +9,7 @@ var mailLib = require('../lib/mail');
 
 var Registration = new keystone.List('Registration', {
 	label: 'Inscriptions',
-	map: { name: 'tournament' }
+	map: { name: 'createdAt' }
 });
 
 Registration.add(
@@ -77,7 +77,7 @@ var sendMail = function(Registration, template, subject, callback){
 	Registration.populate('tournament player1 player2', function(err, registration){
 
 		if(err) return console.log('Error populating registration due to: '+err);
-		
+
 		var emails = [registration.player1];
 		if(registration.player2 != null){
 			emails.push(registration.player2);
@@ -105,5 +105,5 @@ var sendMailWithManager = function(Registration, template, subject, callback){
 };
 
 Registration.defaultSort = '-createdAt';
-Registration.defaultColumns = 'tournament, player1, category, ranking, status, createdAt';
+Registration.defaultColumns = 'createdAt, tournament, player1, category, ranking, status';
 Registration.register();
