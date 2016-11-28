@@ -35,6 +35,7 @@
 	{% endif %}
 
 	<br/>
+	http://www.occ-badminton.org/keystone/registrations/{{registration.id}}
 	<br/>
 	Merci d'avance.
 
