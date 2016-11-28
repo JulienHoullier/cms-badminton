@@ -36,9 +36,9 @@
 						<div class="col-sm-10">
 							<select class="form-control" id="ranking" name="ranking">
 								<option value="NC">NC</option>
-								<option value="P1">P1</option>
-								<option value="P2">P2</option>
-								<option value="P3">P3</option>
+								<option value="P12">P12</option>
+								<option value="P11">P11</option>
+								<option value="P10">P10</option>
 								<option value="D9">D9</option>
 								<option value="D8">D8</option>
 								<option value="D7">D7</option>
