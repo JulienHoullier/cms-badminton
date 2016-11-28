@@ -35,7 +35,9 @@
 	{% endif %}
 
 	<br/>
-	http://www.occ-badminton.org/keystone/registrations/{{registration.id}}
+    <br/>
+    <a href="http://www.occ-badminton.org/keystone/registrations/{{registration.id}}">lien</a>
+	<br/>
 	<br/>
 	Merci d'avance.
 
