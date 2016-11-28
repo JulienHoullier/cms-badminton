@@ -70,6 +70,10 @@ Registration.schema.post('save', function() {
 		console.log("Inscription confirmée.");
 		sendMail(this, 'registration-confirmation', 'Confirmation d\'inscription');
 	}
+    if(this.toValidate && this.status == 'Impossible'){
+		console.log("Inscription impossible.");
+		sendMail(this, 'registration-failed', 'Echec d\'inscription');
+	}
 });
 
 // Envoi d'un mail aux joueurs
