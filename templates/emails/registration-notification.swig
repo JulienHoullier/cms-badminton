@@ -36,7 +36,7 @@
 
 	<br/>
     <br/>
-    <a href="www.occ-badminton.org/keystone/registrations/{{registration.id}}">lien</a>
+    <a href="http:/www.occ-badminton.org/keystone/registrations/{{registration.id}}">lien</a>
 	<br/>
 	<br/>
 	Merci d'avance.
