@@ -6,7 +6,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>{{ title|default("OCC-Badminton") }}</title>
+		<title>{{ title|default(default_name) }}</title>
 		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
 		{# Customise the stylesheet for your site by editing /public/styles/site.less
@@ -14,10 +14,7 @@
 		<link href="/styles/site.min.css" rel="stylesheet">
 		<link href='https://fonts.googleapis.com/css?family=Roboto:300' rel='stylesheet' type='text/css'>
 		{# This file provides the default styling for the KeystoneJS Content Editor #}
-		{%- if user and user.canAccessKeystone -%}
-			<link href="/keystone/styles/content/editor.min.css" rel="stylesheet">
-		{%- endif -%}
-
+		
 		{# HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
 		   Safely remove this block if you are not targeting IE8 #}
 		<!--[if lt IE 9]>
@@ -34,13 +31,13 @@
 	<body>
 
 		{# HEADER #}
-		<header class="occ-bg">
+		<header class="occ-header-footer-bg">
 			<div id="occ-header-flag" class="container visible-md visible-lg">
 				<a href="/"><img src="/images/occ-logo.png" alt="" class="img-rounded" id="occ-logo"></a>
 			</div>
 		</header>
 
-		<div id="occ-navbar" class="occ-bg" data-spy="affix" data-offset-top="197">
+		<div id="occ-navbar" class="occ-header-footer-bg" data-spy="affix" data-offset-top="197">
 				<nav class="navbar navbar-default container" id="occ-header-nav">
 					<div class="navbar-header">
 				      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#occ-header-navbar" aria-expanded="false">
@@ -102,7 +99,7 @@
 			{%- block content -%}{%- endblock -%}
 		</main>
 
-		<div class="occ-bg">
+		<div class="occ-header-footer-bg">
 			<div class="container">
 				<h4>Partenaires</h4>
 				{% if sponsors && sponsors.length > 0%}
@@ -121,7 +118,7 @@
 		</div>
 
 		{# FOOTER #}
-		<footer class="occ-bg">
+		<footer class="occ-header-footer-bg">
 			<div class="container">
 				<p class="text-right"><a href="/pages/a-propos">À propos</a> du site web.</p>
 			</div>

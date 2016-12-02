@@ -14,11 +14,16 @@ main{
 	padding-bottom: 20px;
 }
 
-#occ-header-flag{
-	background: #f8f8f8 url('/images/occ-header.jpg');
-	background-position: center;
-	background-repeat: no-repeat;
-	padding: 20px;
+h1 h2 h3 h4 {
+  color: @theme-color;
+}
+
+.badge-important{
+  background-color: @theme-color;
+}
+
+.navbar {
+  border-radius:0px;
 }
 
 .affix {
@@ -31,17 +36,14 @@ main{
 	padding-top:70px;
 }
 
-
-#occ-logo{
-	width: 160px;
-	height: 160px;
-  	transform: rotate(-7deg);
-  	border: 5px #F8F8F8 solid;
+.occ-header-footer-bg{
+  background-color : @global-bg-color;
+  color: @theme-color;
 }
 
-.occ-bg{
-	background-color : @flag-bar-color;
-	color: #555;
+.occ-bg {
+	background-color : @bg-color;
+	color: @theme-color;
 }
 
 .occ-container{
@@ -60,6 +62,24 @@ main{
 .occ-title-text {
   text-align:center;
   color: @gray-light
+}
+
+.occ-theme-color{
+  color: @theme-color;
+}
+
+#occ-header-flag{
+  background: url('/images/occ-header.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 20px;
+}
+
+#occ-logo{
+  width: 160px;
+  height: 160px;
+  transform: rotate(-7deg);
+  border: 5px #F8F8F8 solid;
 }
 
 #occ-sponsor-bar {
@@ -126,25 +146,4 @@ main{
 		font-weight: 900;
 		padding-top: 20px;
 	}
-}
-
-.occ-theme-color{
-	color: @theme-color;
-}
-
-.btn-primary{
-	background-color: @theme-color;
-	border: 0px;
-
-	&:hover{
-		background-color: @theme-color;
-	}
-}
-
-h1{
-	color: @theme-color;
-}
-
-.badge-important{
-	background-color: @theme-color;
 }
