@@ -15,4 +15,4 @@ SBT.sublime-workspace
 start.bat
 npm-debug.log
 .idea
-site.min.css
+public/styles/site.min.css

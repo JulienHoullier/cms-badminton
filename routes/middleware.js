@@ -64,12 +64,14 @@ exports.initLocals = function(req, res, next) {
 				if(locals.navLinks.length < 8){
 					pageArray = locals.navLinks;
 				} else{
+					
 					if(!divers){
 						divers = {
 							label: 'Divers',
 							key: 'divers',
 							pages : []
 						}
+						locals.navLinks.push(divers);
 					}
 					pageArray = divers.pages;
 				}
@@ -89,7 +91,7 @@ exports.initLocals = function(req, res, next) {
 			key: 'contact',
 			href: '/contact'
 		});
-
+		
 		next(err);
 	});
 };
