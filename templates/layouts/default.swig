@@ -46,7 +46,7 @@
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 				      </button>
-				      <a class="navbar-brand visible-sm visible-xs" href="/">OCC Badminton</a>
+				      <a class="navbar-brand visible-sm visible-xs" href="/">{{ brand }}</a>
 				    </div>
 					<div class="collapse navbar-collapse row" id="occ-header-navbar">
 						<ul class="nav navbar-nav navbar-left">
