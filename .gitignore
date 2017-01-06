@@ -16,3 +16,4 @@ start.bat
 npm-debug.log
 .idea
 site.min.css
+updates/*-players.js

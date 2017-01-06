@@ -20,7 +20,7 @@ swig.setDefaults({cache: false});
 keystone.init({
 
 	'name': 'OCC-Badminton',
-	'brand': 'OCC-Badminton',
+	'brand': 'FIB Badminton',
 
 	'less': 'public',
 	'static': 'public',
@@ -60,7 +60,8 @@ keystone.set('locals', {
 	moment: moment,
 	env: keystone.get('env'),
 	utils: keystone.utils,
-	editable: keystone.content.editable
+	editable: keystone.content.editable,
+	brand: keystone.get('brand')
 });
 
 moment.defineLocale('fr', require('./locales/fr'));

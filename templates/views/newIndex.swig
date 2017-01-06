@@ -48,7 +48,7 @@
 
 				<div class="row occ-section-social">
 					<div class="col-xs-4 text-center">
-						<a href="https://twitter.com/OCCBadminton" target="_blank">
+						<a href="https://twitter.com/{{env.TWITTER_ACCOUNT}}" target="_blank">
 							<img alt="Twitter" src="/images/twitter.png" />
 						</a>
 					</div>
