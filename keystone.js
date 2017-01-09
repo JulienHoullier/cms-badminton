@@ -102,7 +102,7 @@ keystone.set('email locals', {
 	},
 	mandrill: {}
 });
-Z
+
 keystone.set('domain name', process.env.DOMAIN_NAME || 'http://localhost:3000');
 
 // Setup replacement rules for emails, to automate the handling of differences
