@@ -66,8 +66,6 @@ keystone.set('locals', {
 	brand: keystone.get('brand')
 });
 
-console.log('locals: '+JSON.stringify(keystone.get('locals')));
-
 moment.defineLocale('fr', require('./locales/fr'));
 
 // Load your project's Routes
