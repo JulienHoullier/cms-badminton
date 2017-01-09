@@ -21,8 +21,8 @@ swig.setDefaults({cache: false});
 
 keystone.init({
 
-	'name': 'OCC-Badminton',
-	'brand': 'FIB Badminton',
+	'name': process.env.DB_NAME,
+	'brand': process.env.BRAND,
 
 	'less': 'public',
 	'static': 'public',
@@ -60,11 +60,13 @@ var models = keystone.import('models');
 keystone.set('locals', {
 	_: require('underscore'),
 	moment: moment,
-	env: keystone.get('env'),
+	env: process.env,
 	utils: keystone.utils,
 	editable: keystone.content.editable,
 	brand: keystone.get('brand')
 });
+
+console.log('locals: '+JSON.stringify(keystone.get('locals')));
 
 moment.defineLocale('fr', require('./locales/fr'));
 
