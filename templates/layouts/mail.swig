@@ -22,7 +22,7 @@
                             <!-- entete -->
                             <tr class="pagetoplogo">
                                 <td class="w640"  width="640">
-                                    <table  class="w640"  width="640" cellpadding="0" cellspacing="0" border="0" style="background-color:{{theme.email_header_bg}}">
+                                    <table  class="w640"  width="640" cellpadding="0" cellspacing="0" border="0" style="background-color:{{theme.color}}">
                                         <tbody>
                                             <tr>
                                                 <td class="w30"  width="30"></td>
@@ -41,12 +41,12 @@
 
                             <!-- separateur horizontal -->
                             <tr>
-                                <td  class="w640"  width="640" height="1" bgcolor="#d7d6d6"></td>
+                                <td  class="w640"  width="640" height="1" bgcolor="{{theme.color}}"></td>
                             </tr>
 
                              <!-- contenu -->
                             <tr class="content">
-                                <td class="w640" class="w640"  width="640" bgcolor="#ffffff">
+                                <td class="w640" class="w640"  width="640" bgcolor="#{{theme.email_bg}}">
                                     <table class="w640"  width="640" cellpadding="0" cellspacing="0" border="0">
                                         <tbody>
                                             <tr>
@@ -90,9 +90,9 @@
                                                 <td class="w30"  width="30"></td>
                                                 <td class="w580"  width="580" valign="top">
                                                     <p align="middle" class="pagebottom-content-left">
-                                                        <a style="color:#255D5C;" href="/#/"><span style="color:#255D5C;">Accéder au site</span></a>
+                                                        <a style="color:#ded605;" href="/#/"><span style="color:#ded605;">Accéder au site</span></a>
                                                          - 
-                                                        <a style="color:#255D5C;" href="mailto:contact@occ-badminton.org"><span style="color:#255D5C;">Contact</span></a>
+                                                        <a style="color:#ded605;" href="mailto:	infos@fib35.com"><span style="color:#255D5C;">Contact</span></a>
                                                     </p>
                                                 </td>
 

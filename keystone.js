@@ -63,7 +63,10 @@ keystone.set('locals', {
 	env: process.env,
 	utils: keystone.utils,
 	editable: keystone.content.editable,
-	brand: keystone.get('brand')
+	brand: keystone.get('brand'),
+	theme: {
+		color: "#ded605"
+	}
 });
 
 moment.defineLocale('fr', require('./locales/fr'));
@@ -91,14 +94,8 @@ keystone.set('email locals', {
 	logo_width: 100,
 	logo_height: 76,
 	theme: {
-		email_bg: '#f9f9f9',
-		email_header_bg: '#BF1E2D',
-		link_color: '#2697de',
-		buttons: {
-			color: '#fff',
-			background_color: '#2697de',
-			border_color: '#1a7cb7'
-		}
+		color : "#ded605",
+		email_bg: '#f9f9f9'
 	},
 	mandrill: {}
 });

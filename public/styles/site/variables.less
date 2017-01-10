@@ -4,8 +4,8 @@
 @carousel-indicator-border-color: @gray-light;
 @carousel-indicator-active-bg: @gray-light;
 
-@global-bg-color: #000;
-@bg-color: lighten(@global-bg-color, 30%);
+@global-bg-color: rgba(0, 0, 0, 0.95);
+@bg-color: lighten(@global-bg-color, 70%);
 
 @theme-color: #ded605;
 @club-color: @theme-color;
@@ -16,10 +16,10 @@
 @player-color: @theme-color;
 @contact-color: @theme-color;
 
-@navbar-default-bg: @bg-color;
+@navbar-default-bg: lighten(@global-bg-color, 50%);
 @navbar-default-link-color: @theme-color;
-@navbar-default-link-hover-color: #ffffff;
+@navbar-default-link-hover-color: #BCBCBC;
 @navbar-default-link-active-bg:  lighten(@navbar-default-bg, 10%);
-@navbar-default-link-active-color: darken(@navbar-default-link-hover-color, 10%);
+@navbar-default-link-active-color: darken(@navbar-default-link-hover-color, 40%);
 
 @brand-primary: @theme-color;
