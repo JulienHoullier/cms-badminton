@@ -14,10 +14,10 @@ exports = module.exports = function(req, res) {
         .exec(function(err, teams) {
             if(err){
                 local.teams = [];
-                return next(err);
             }else{
                 locals.teams = teams;
             }
+			next(err);
         });
     });
 
