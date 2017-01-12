@@ -2,11 +2,11 @@
 {% extends "../layouts/default.swig" %}
 
 {% block content %}
-	<div class="container occ-bg">
+	<div class="container">
 
 		{{ PanelTitle.renderTitle("Créez votre compte utilisateur") }}
 
-		<form class="form-horizontal form-inscription" method="POST">
+		<form class="form-horizontal form-inscription occ-fg" method="POST">
 			<input type="hidden" name="_csrf" value="{{csrf_token_value}}">
 			<div class="form-group">
 				<label for="name.first" class="col-sm-2 control-label">Prénom</label>

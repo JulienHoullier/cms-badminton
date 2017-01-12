@@ -2,6 +2,9 @@
 
 {% block content %}
 	<div class="container">
+	
+		{{ PanelTitle.renderTitle("Equipes "+brand) }}
+		
 		<div class="panel panel-info">
 		<!-- Default panel contents -->
 			{% for team in teams %}

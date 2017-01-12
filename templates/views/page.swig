@@ -2,7 +2,7 @@
 {% extends "../layouts/default.swig" %}
 
 {% block content %}
-	<div class="container occ-bg">
+	<div class="container">
 
 		{{ PanelTitle.renderTitle(page.title) }}
 

@@ -3,7 +3,7 @@
 
 {% block content %}
 
-    <div class="container occ-bg">
+    <div class="container">
 		{{ PanelTitle.renderTitle('Résultats équipes') }}
 
         <div class="col-lg-12">

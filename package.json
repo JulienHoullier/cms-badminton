@@ -12,6 +12,7 @@
     "keystone": "^0.3.13",
     "keystone-nodemailer": "https://github.com/JulienHoullier/keystone-nodemailer.git",
     "moment": "^2.14.1",
+    "pm2": "^2.2.3",
     "prompt": "^1.0.0",
     "request": "^2.61.0",
     "rss": "^1.2.1",
@@ -40,7 +41,7 @@
   ],
   "scripts": {
     "prestart": "node lib/dbImporter.js",
-    "start": "node keystone.js"
+    "start": "node main.js"
   },
-  "main": "keystone.js"
+  "main": "main.js"
 }

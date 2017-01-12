@@ -11,22 +11,26 @@ exports = module.exports = function(req, res) {
 	// item in the header navigation.
 	locals.section = 'player';
 
+	var startTime = Date.now();
+	
 	var fillPLayers= function (players, next){
 		// Ajout des classements aux joueurs
-			async.each(players, function (player, next){
+		//Could be long so check if not 
+			async.some(players, function (player, nextOrEnd){
+				player.ranking = 'Indisponible';
 				classement(player.licence, function(err, data){
 					if(!err && data && data.length == 3){
 						player.ranking = data[0] + " / " + data[1] + " / " + data[2];	
-					} else {
-						player.ranking = 'Indisponible';
 					}
-					next(err);
+					var currentTime = Date.now();
+					nextOrEnd(err, (currentTime - startTime) > 5000);//if make more than 5 seconds let http thread continue
 				});
 			},
-			function (err){
+			function (err, result){
 				next(err);
 			});
-	}
+	};
+	
 	// Load the players by sortOrder
 	view.query('players', keystone.list('Player').model.find({type: { $ne: 'young' }}).sort('name')).then(function(err, players, next){
 			if (err) return next(err);

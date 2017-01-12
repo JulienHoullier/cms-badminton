@@ -3,15 +3,19 @@ body{
 	font-family: 'Roboto';
 }
 
-footer .container {
+footer div.container {
 	border-top: 1px solid @gray-lighter;
 	padding-top: 30px;
 }
 
 main{
-	padding-top: 20px;
+	padding: 20px 0 20px 0;
 	min-height: 600px;
-	padding-bottom: 20px;
+	
+	div.container {
+		background-color:@fg-color;
+		padding-bottom:20px;
+	}
 }
 
 h1 h2 h3 h4 {
@@ -46,22 +50,13 @@ h1 h2 h3 h4 {
 	color: @theme-color;
 }
 
+.occ-fg {
+	background-color : @fg-color;
+	color: @theme-color;
+}
+
 .occ-container{
   padding: 10px 15px 10px 15px;
-}
-
-.occ-title-panel{
-  margin-bottom: 20px;
-}
-
-.occ-title-string{
-  height:1px;
-  background-color:@gray-light;
-}
-
-.occ-title-text {
-  text-align:center;
-  color: @gray-light
 }
 
 .occ-theme-color{
@@ -140,10 +135,10 @@ h1 h2 h3 h4 {
 
 .occ-title-panel{
 	color: @theme-color;
-	margin-bottom: 20px;
+	background-color: @bg-color;
 	font-weight: bold;
 	h1{
 		font-weight: 900;
-		padding-top: 20px;
+		margin-bottom: 20px;
 	}
 }
