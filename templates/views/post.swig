@@ -20,7 +20,7 @@
 }(document, 'script', 'facebook-jssdk'));
 </script>
   <div class="container">
-				<p>
+				<p class="occ-fg">
 					<a href="/blog" class="occ-theme-color">&larr; Retour aux actualités</a>
 				</p>
 				<hr>
@@ -34,30 +34,32 @@
 									<img src="{{ post._.image.fit(300,180) }}" class="img-responsive">
 								</div>
 							{% endif %}
-							<h1 class="text-caps text-danger text-center">{{ post.title }}</h1>
-							<span>
-							{% if post.publishedDate %}
-								le {{ post._.publishedDate.format('DD/MM/YYYY') }}
-							{% endif %}
-							{% if post.category %}
-								dans la catégorie :
-								<a href="/blog/{{ post.category.key }}" class="occ-theme-color">{{ post.category.name }}</a>
-							{% endif %}
-							{% if post.author %}
-								par {{ post.author.name.first }}
-							{% endif %}
-							<span>
 							<div>
-                <div class="occ-social-button">
-                  <a href="https://twitter.com/share" class="twitter-share-button" data-via="OCCBadminton">Tweet</a>
-                  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-                </div>
-                <div class="occ-social-button">
-                  <div class="fb-share-button" data-href="http://www.occ-badminton.org/blog/post/{{post.slug}}" data-layout="button_count"></div>
-                </div>
+								<h1 class="text-caps text-danger text-center">{{ post.title }}</h1>
+								<span>
+								{% if post.publishedDate %}
+									le {{ post._.publishedDate.format('DD/MM/YYYY') }}
+								{% endif %}
+								{% if post.category %}
+									dans la catégorie :
+									<a href="/blog/{{ post.category.key }}" class="occ-theme-color">{{ post.category.name }}</a>
+								{% endif %}
+								{% if post.author %}
+									par {{ post.author.name.first }}
+								{% endif %}
+								</span>
+								<span>
+									<span class="occ-social-button">
+									  <a href="https://twitter.com/share" class="twitter-share-button" data-via="OCCBadminton">Tweet</a>
+									  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+									</span>
+									<span class="occ-social-button">
+									  <div class="fb-share-button" data-href="http://www.occ-badminton.org/blog/post/{{post.slug}}" data-layout="button_count"></div>
+									</span>
+								</span>
 							</div>
 						</header>
-						<div class="occ-post-content">
+						<div class="occ-post-content row">
 							{{ post.content.full | raw }}
 						</div>
 						<div id="comments">

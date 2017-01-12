@@ -49,6 +49,7 @@ exports = module.exports = function(app) {
 	app.all('/tournois/:idTournoi/inscription', keystone.security.csrf.middleware.init, middleware.requireUser, routes.views.tournoi.inscription);
 	app.get('/player', routes.views.player);
 	app.get('/resultats', routes.views.resultat);
+	app.get('/teams', routes.views.team);
 	app.all('/contact', routes.views.contact);
 	app.all('/account', keystone.security.csrf.middleware.init, routes.views.account);
 
