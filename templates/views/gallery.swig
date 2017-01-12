@@ -2,7 +2,7 @@
 {% import "../mixins/panel_title.swig" as PanelTitle%}
 
 {% block content %}
-	<div class="container occ-bg">
+	<div class="container">
 
 		{{ PanelTitle.renderTitle('Albums') }}
 

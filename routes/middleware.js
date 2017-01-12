@@ -41,6 +41,11 @@ exports.initLocals = function(req, res, next) {
 			href: '/gallery'
 		},
 		{
+			label: 'Equipes',
+			key: 'team',
+			href: '/teams'
+		},
+		{
 			label: 'Joueurs',
 			key: 'player',
 			href: '/player'

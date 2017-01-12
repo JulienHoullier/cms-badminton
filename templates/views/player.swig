@@ -4,7 +4,7 @@
 
 {% block content %}
 
-	<div class="container occ-bg">
+	<div class="container">
 
 		{{ PanelTitle.renderTitle("Liste des joueurs adultes "+brand) }}
 

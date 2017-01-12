@@ -2,9 +2,10 @@
 {% import "../mixins/panel_title.swig" as PanelTitle %}
 
 {% block content %}
-	<div class="container occ-bg">
+	<div class="container">
 
 		{{ PanelTitle.renderTitle('Nous contacter') }}
+		
 		{% if enquirySubmitted %}
 			<h3>Merci de votre participation </p></h3>
 		{% else %}
