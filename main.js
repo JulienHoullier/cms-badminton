@@ -1,3 +1,7 @@
+if(process.env.NODE_ENV !== 'production'){
+	require('dotenv').load();
+}
+
 var pm2 = require('pm2');
 
 var instances = process.env.WEB_CONCURRENCY || -1; // Set by Heroku or -1 to scale to max cpu core -1
