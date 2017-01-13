@@ -16,15 +16,12 @@
 				</div>
 			</div>
 		{% endif %}
-		<div class="container occ-blog-title">
-			<h1 class="center-block">{{ title }}</h1>
-		</div>
 {% endblock %}
 
 
 {% block content %}
 	<div class="container occ-blog-posts">
-		{{ PanelTitle.renderTitle('Blog') }}
+		<h1 class="center-block">Blog</h1>
 		<div class="row">
 			<div class="timeline">
 				<div class="timeline-path"></div>
