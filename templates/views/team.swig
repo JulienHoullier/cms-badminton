@@ -1,33 +1,32 @@
 {% extends "../layouts/default.swig" %}
+{% import "../mixins/panel_title.swig" as PanelTitle%}
 
 {% block content %}
 	<div class="container">
 	
-		{{ PanelTitle.renderTitle("Equipes "+brand) }}
-		
-		<div class="panel panel-info">
 		<!-- Default panel contents -->
-			{% for team in teams %}
-				<div class="panel-heading">{{ team.name }}</div>
-				<table class="table table-hover">
-					<thead>
-						<tr class="info">
-							<th>Prénom</th>
-							<th>Nom</th>
-							<th>Classement</th>
+		{% for team in teams %}
+			{{ PanelTitle.renderTitle('Equipe '+team.name ) }}
+			
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Prénom</th>
+						<th>Nom</th>
+						<th>Classement</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for player in team.players %}
+						<tr>
+							<td>{{player.name.first}}</td>
+							<td>{{player.name.last}}</td>
+							<td>{{player.ranking}}</td>
 						</tr>
-					</thead>
-					<tbody>
-						{% for player in team.players %}
-							<tr>
-								<td>{{player.name.first}}</td>
-								<td>{{player.name.last}}</td>
-								<td>{{player.ranking}}</td>
-							</tr>
-						{% endfor %}
-					</tbody>
-				</table>
-			{% endfor %}
-		</div>
+					{% endfor %}
+				</tbody>
+			</table>
+		{% endfor %}
+
 	</div>
 {% endblock %}

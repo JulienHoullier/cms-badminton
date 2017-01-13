@@ -21,7 +21,9 @@
 
 {% block content %}
 	<div class="container occ-blog-posts">
-		<h1 class="center-block">Blog</h1>
+		
+		<h1 class="text-center">Blog</h1>
+		
 		<div class="row">
 			<div class="timeline">
 				<div class="timeline-path"></div>
