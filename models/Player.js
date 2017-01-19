@@ -102,7 +102,7 @@ Player.schema.pre('save', function(next) {
 //add current timeSlot interest
 Player.schema.pre('save', function(next) {
 	//force Team category only if not editing interests and a team if present
-	if(!this.timeSlot || (!this.isNew && !this.ignoreInterestsModified && this.isModified('interests'))) {
+	if(this.timeSlot.length == 0 || (!this.isNew && !this.ignoreInterestsModified && this.isModified('interests'))) {
 		return next();
 	}
 	
