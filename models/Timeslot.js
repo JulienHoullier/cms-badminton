@@ -27,7 +27,7 @@ Timeslot.hasRoles = function(user){
 
 Timeslot.schema.pre('save', function(next) {
 	if(this.isNew){
-		var timeslotCategory = createName(this);
+		var timeslotCategory = this.fullName;
 		
 		var PostCategory = keystone.list('PostCategory');
 		PostCategory.model.findOne({name : timeslotCategory}, function(err, category){
