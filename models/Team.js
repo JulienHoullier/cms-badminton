@@ -35,7 +35,7 @@ Team.schema.pre('save', function(next) {
 	if(this.isNew){
 		var team = this;
 		var PostCategory = keystone.list('PostCategory');
-		findCategory(team, function(err, category){
+		PostCategory.model.findOne({name : team.name}, function(err, category){
 			if(err){
 				console.log(err);
 			}
@@ -67,16 +67,6 @@ Team.schema.post('save', function() {
 		});
 	}
 });
-
-var findCategory = function(team, callback){
-	var PostCategory = keystone.list('PostCategory');
-	PostCategory.model.findOne({name : team.name}, function (err, category){
-		if(err){
-			callback(err, category);
-		}
-		callback(null, category);
-	});
-};
 
 Team.defaultColumns = 'name, order, captain';
 Team.register();

@@ -24,7 +24,7 @@ Match.add({
 	team: { type: Types.Relationship, ref: 'Team', label:'Equipe', required: true, initial: true, index: true },
     matchNumber: { type: Number, label:'Journée', required: true, initial: true, index: true},
 	versus: { type: Types.Text, label:'Contre', required: true, initial: true, index: true },
-	date: { type: Date, label:'Date' },
+	date: { type: Date, format: "DD-MM-YYYY", label:'Date' },
     home: { type: Types.Select, label:'A domicile ?', options: [
 		{ value: 'Yes', label: 'Oui' },
 		{ value: 'No', label: 'Non' }
