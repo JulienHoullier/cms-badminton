@@ -32,12 +32,7 @@ Player.add({
 		{ value: 'confirmed', label: 'Inscription complétée' },
 		{ value: 'aborted', label: 'Inscription annulée' }
 	], default: 'new' },
-	timeSlot: { type: Types.Select, label:'Horaire', options: [
-		{ value: 'monday_middle', label: 'Lundi intermédiaire 19h/20h30' },
-		{ value: 'monday_newbie', label: 'Lundi débutant  20h30/22h' },
-		{ value: 'wednesday_strong', label: 'Mercredi confirmé 20h30/22h' },
-		{ value: 'friday_middle', label: 'Vendredi intermédiaire 20h/21h30' }
-	], required: true, initial: true },
+	timeSlot: { type: Types.Relationship, label:'Créneau', ref: 'Timeslot', initial: true, many:true },
 	team: { type: Types.Relationship, label:'Equipe', ref: 'Team', index: true },
 	interests : { type: Types.Relationship, label:'Libellés', ref: 'PostCategory', many:true }
 });
@@ -97,6 +92,31 @@ Player.schema.pre('save', function(next) {
 		if(team){
 			//Add category of team name if exists and not present
 			addCategoryIfNotPresent(player, team.name, next);
+		}
+		else{
+			return next();
+		}
+	});	
+});
+
+//add current timeSlot interest
+Player.schema.pre('save', function(next) {
+	//force Team category only if not editing interests and a team if present
+	if(!this.timeSlot || (!this.isNew && !this.ignoreInterestsModified && this.isModified('interests'))) {
+		return next();
+	}
+	
+	var player = this;
+	var Timeslot = keystone.list('Timeslot');
+	//find team by its id to get name
+	Timeslot.model.findById(this.timeSlot).exec(function(err, timeSlot){
+		if(err){
+			console.log(err);
+			return next(err);
+		}
+		if(timeSlot){
+			//Add category of team name if exists and not present
+			addCategoryIfNotPresent(player, timeSlot.fullName, next);
 		}
 		else{
 			return next();
