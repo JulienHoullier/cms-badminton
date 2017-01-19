@@ -50,7 +50,7 @@ Timeslot.schema.pre('save', function(next) {
 Timeslot.relationship({ ref: 'Player', path: 'players', refPath: 'timeSlot' });
 
 Timeslot.schema.virtual('fullName').get(function() {
-	return this.name +"("+this.startHour+"-"+this.endHour+")";
+	return this.name +" ("+this.startHour+"-"+this.endHour+")";
 });
 
 Timeslot.register();
