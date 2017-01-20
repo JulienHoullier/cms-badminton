@@ -2,7 +2,7 @@ var keystone = require('keystone');
 var Types = keystone.Field.Types;
 var mailLib = require('../lib/mail');
 
-const match_event= "\"Rencontre à domicile contre \"";
+const matchEvent= 'Rencontre à domicile contre ';
 /**
  * Match Model
  * =============
@@ -16,7 +16,7 @@ Match.add({
 	team: { type: Types.Relationship, ref: 'Team', label:'Equipe', required: true, initial: true, index: true },
     matchNumber: { type: Number, label:'Journée', required: true, initial: true, index: true},
 	versus: { type: Types.Text, label:'Contre', required: true, initial: true, index: true },
-	date: { type: Date, format: "DD-MM-YYYY", label:'Date' },
+	date: { type: Date, format: 'DD-MM-YYYY', label:'Date' },
     home: { type: Types.Select, label:'A domicile ?', options: [
 		{ value: 'Yes', label: 'Oui' },
 		{ value: 'No', label: 'Non' }
@@ -70,7 +70,7 @@ Match.schema.methods.getOrCreateEvent = function() {
 
 	var Match = this;
 
-	keystone.list('Event').model.findOne().where('name').text().search(match_event).language('fr').where(date).equals(Match.date).exec(function(err, event) {
+	keystone.list('Event').model.findOne().where('name').text().search(matchEvent).language('fr').where('date').equals(Match.date).exec(function(err, event) {
 
 		if (err) return console.log('Error retrieving event due to :'+err);
 
@@ -84,7 +84,7 @@ Match.schema.methods.getOrCreateEvent = function() {
 			var Event = new keystone.list('Event');
 			var newEvent = Event.model(
 				{
-					name : match_event + Match.versus, 
+					name : matchEvent + Match.versus, 
 					date : Match.date
 				}
 			);

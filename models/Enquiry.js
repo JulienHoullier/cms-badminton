@@ -23,7 +23,7 @@ Enquiry.add({
 		{ value: 'other', label: 'Autre...' }
 	] },
 	message: { type: Types.Markdown, required: true },
-	createdAt: { type: Date, default: Date.now }
+	createdAt: { type: Types.Date, default: Date.now }
 });
 
 Enquiry.hasRoles = function(user){

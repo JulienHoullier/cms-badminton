@@ -13,7 +13,7 @@ var Media = new keystone.List('Media', {
 });
 
 var TypeOptions = [];
-Object.keys(MediaTypes).forEach(function (key) { TypeOptions.push(MediaTypes[key])});
+Object.keys(MediaTypes).forEach(function (key) { TypeOptions.push(MediaTypes[key]);});
 
 Media.add({
 	type: {type: Types.Select , label:'Type',  options: TypeOptions, initial:true, required:true},

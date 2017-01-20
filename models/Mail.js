@@ -22,7 +22,7 @@ Mail.add({
 	categories: { type: Types.Relationship, label:'Catégories', ref: 'PostCategory', dependsOn: { type: 'category' }, initial: true, many:true },
 	players: { type: Types.Relationship, label:'Joueurs', ref:'Player', dependsOn: { type: 'player' }, initial: true, many:true },
 	email: { type: Types.Email, label:'E-mails', dependsOn: { type: 'mail' }, initial: true },
-	message: { type: Types.Html, label:"Message", wysiwyg: true, required: true, initial:true }
+	message: { type: Types.Html, label:'Message', wysiwyg: true, required: true, initial:true }
 });
 
 Mail.hasRoles = function(user){
@@ -45,7 +45,7 @@ Mail.schema.post('save', function() {
 
 var sendMail = function(callback, to, mail){
 	var cat = null;
-	if(arguments.length == 4){
+	if(arguments.length === 4){
 		cat = arguments[3];
 	}
 	mailLib.sendMail('email-notification', callback, mail.subject, to, {mail:mail, category:cat});
