@@ -13,7 +13,7 @@ exports = module.exports = function(req, res) {
 
 	var startTime = Date.now();
 	
-	var fillPLayers= function (players, next){
+	var fillPlayers= function (players, next){
 		// Ajout des classements aux joueurs
 		//Could be long so check if not 
 			async.some(players, function (player, nextOrEnd){
@@ -34,14 +34,14 @@ exports = module.exports = function(req, res) {
 	// Load the players by sortOrder
 	view.query('players', keystone.list('Player').model.find({type: { $ne: 'young' }}).sort('name')).then(function(err, players, next){
 			if (err) return next(err);
-			fillPLayers(players, next);
+		fillPlayers(players, next);
 	});
 	
 	if(req.user){
 		// Load the young players by sortOrder
 		view.query('youngsters', keystone.list('Player').model.find({type: { $eq: 'young' }}).sort('name')).then(function(err, players, next){
 				if (err) return next(err);
-				fillPLayers(players, next);
+			fillPlayers(players, next);
 		});
 	}
 
