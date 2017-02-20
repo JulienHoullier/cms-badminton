@@ -18,9 +18,9 @@ Tournament.add({
     date : {type : Types.Date, label: 'Date du tournoi', required: true, initial: true, format : 'DD/MM/YYYY', index: true},
     registrationDeadLine : {type : Types.Date, label: 'Date limite d\'inscription'},
     registrationEmail : {type : Types.Email, label: 'Mail de l\'organisateur'},
-    duration : {type : Number, label: 'Durée'},
-    price : {type : Types.Money, label: 'Prix'},        //prix de l'inscription
-    location : {type : Types.Location, label: 'Lieu'}
+	link: {type : Types.URL, label: 'Lien du tournoi', note:'Si présent, il sera utilisé à la place de la description et les fichiers'},
+	description: {type : Types.Html},
+	files: {type: Types.LocalFiles, label: 'Fichiers'}
 });
 
 Tournament.relationship({ ref: 'Registration', path: 'registrations', refPath: 'tournament' });
