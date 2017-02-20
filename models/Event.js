@@ -12,11 +12,11 @@ var Event = new keystone.List('Event', {
 });
 
 Event.add({
-	description: { type: Types.Text, required: true, initial:true },
+	description: { type: Types.Text, required: true, initial:true},
 	date: { type: Types.Date, format: 'DD-MM-YYYY', required: true, initial:true },
 	startHour: { type: Types.Text, required: true, initial:true, label: 'Heure de début', note:'exemple: 20h30' },
 	endHour: { type: Types.Text, required: true, initial:true, label: 'Heure de fin', note:'exemple: 22h30' },
-	weekly: { type: Types.Boolean, required: false, initial:true, label: 'Hebdomadaire' },
+	weekly: { type: Types.Boolean, required: false, initial:true, label: 'Hebdomadaire', note:'L\'évènement sera dupliqué chaque semaine'  },
 	endDate: { type: Types.Date, format: 'DD-MM-YYYY', initial:true, label: 'Date de fin', dependsOn:{weekly:true} },
 	canceled: { type: Types.Boolean, required: false, initial:false, label: 'Annuler', note:'L\'évènement sera barré.' }
 });

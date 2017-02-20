@@ -14,9 +14,9 @@ var Match = new keystone.List('Match', {
 
 Match.add({
 	team: { type: Types.Relationship, ref: 'Team', label:'Equipe', required: true, initial: true, index: true },
-    matchNumber: { type: Number, label:'Journée', required: true, initial: true, index: true},
+    matchNumber: { type: Number, label:'Journée', required: true, initial: true, index: true, note: 'Sert a definir l\'ordre' },
 	versus: { type: Types.Text, label:'Contre', required: true, initial: true, index: true },
-	date: { type: Date, format: 'DD-MM-YYYY', label:'Date' },
+	date: { type: Types.Date, format: 'DD-MM-YYYY', label:'Date', note: 'Si vous fixez la date, un mail sera envoyé aux membres de l\'équipe' },
     home: { type: Types.Select, label:'A domicile ?', options: [
 		{ value: 'Yes', label: 'Oui' },
 		{ value: 'No', label: 'Non' }
