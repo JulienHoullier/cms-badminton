@@ -20,7 +20,10 @@ Tournament.add({
     registrationEmail : {type : Types.Email, label: 'Mail de l\'organisateur'},
 	link: {type : Types.Url, label: 'Lien du tournoi', note:'Si présent, il sera utilisé à la place de la description et les fichiers'},
 	description: {type : Types.Html},
-	files: {type: Types.LocalFiles, dest: "/data/tournaments", label: 'Fichiers'}
+	files: {type: Types.LocalFiles, dest: './public/files', label: 'Fichiers', prefix: '/files',
+        format: function(item, file){
+            return '<img src="' + file.href + '" style="max-width: 300px">'
+        }}
 });
 
 Tournament.relationship({ ref: 'Registration', path: 'registrations', refPath: 'tournament' });
