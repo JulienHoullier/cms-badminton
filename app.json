@@ -1,0 +1,56 @@
+{
+  "name": "cms-badminton",
+  "scripts": {
+    "postdeploy": "git submodule init "
+  },
+  "env": {
+    "BRAND": {
+      "required": true
+    },
+    "CLOUDINARY_URL": {
+      "required": true
+    },
+    "COOKIE_SECRET": {
+      "required": true
+    },
+    "DB_NAME": {
+      "required": true
+    },
+    "MAIL_HOST": {
+      "required": true
+    },
+    "MAIL_PWD": {
+      "required": true
+    },
+    "MAIL_USR": {
+      "required": true
+    },
+    "MONGOLAB_URI": {
+      "required": true
+    },
+    "NEW_RELIC_LICENSE_KEY": {
+      "required": true
+    },
+    "NEW_RELIC_LOG": {
+      "required": true
+    },
+    "PAPERTRAIL_API_TOKEN": {
+      "required": true
+    },
+    "TWITTER_ACCOUNT": {
+      "required": true
+    }
+  },
+  "formation": {
+  },
+  "addons": [
+    "newrelic",
+    "mongolab",
+    "papertrail"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
