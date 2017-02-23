@@ -1,0 +1,3 @@
+[submodule "fib-frontend"]
+	path = frontend
+	url = https://github.com/JulienHoullier/fib-frontend

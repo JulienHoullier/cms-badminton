@@ -24,15 +24,15 @@ keystone.init({
 	'name': process.env.DB_NAME,
 	'brand': process.env.BRAND,
 
-	'less': 'public',
-	'static': 'public',
-	'favicon': 'public/favicon.ico',
-	'views': 'templates/views',
+	'less': 'frontend/public',
+	'static': 'frontend/public',
+	'favicon': 'frontend/public/favicon.ico',
+	'views': 'frontend/templates/views',
 	'view engine': 'swig',
 
 	'custom engine': swig.renderFile,
 
-	'emails': 'templates/emails',
+	'emails': 'frontend/templates/emails',
 
 	'cookie secret': process.env.COOKIE_SECRET,
 	'auto update': true,
@@ -72,7 +72,7 @@ keystone.set('locals', {
 moment.defineLocale('fr', require('./locales/fr'));
 
 // Load your project's Routes
-keystone.set('routes', require('./routes'));
+keystone.set('routes', require('./frontend/routes'));
 
 //prepare nodemailer config
 
@@ -126,7 +126,7 @@ keystone.Email.defaults.mandrill = {};
 
 // Load your project's email test routes
 
-keystone.set('email tests', require('./routes/emails'));
+keystone.set('email tests', require('./frontend/routes/emails'));
 
 // Configure the navigation bar in Keystone's Admin UI
 
