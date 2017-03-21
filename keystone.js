@@ -102,9 +102,6 @@ keystone.set('email locals', {
 
 keystone.set('domain name', process.env.DOMAIN_NAME || 'http://localhost:3000');
 
-// Load your project's email test routes
-keystone.set('email tests', require('./frontend/routes/emails'));
-
 // Configure the navigation bar in Keystone's Admin UI
 var nav = {
 	'Actualités': ['posts', 'post-categories', 'post-comments', 'events'],
@@ -198,4 +195,4 @@ keystone.set('pre:routes', function (app) {
 });
 
 // Start Keystone to connect to your database and initialise the web server
-keystone.start();
+keystone.start({onStart:function(event){console.log('Keystone started');}, onMount:function(){console.log('Keystone Mounted');}});

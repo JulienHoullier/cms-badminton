@@ -18,11 +18,11 @@ Mail.add({
 		{ value: 'category', label: 'Pour une(des) catégorie(s)' },
 		{ value: 'player', label: 'Pour un(des) joueur(s)' },
 		{ value: 'mail', label: 'Pour un(des) mails' }
-	] },
-	categories: { type: Types.Relationship, label:'Catégories', ref: 'PostCategory', dependsOn: { type: 'category' }, initial: true, many:true },
-	players: { type: Types.Relationship, label:'Joueurs', ref:'Player', dependsOn: { type: 'player' }, initial: true, many:true },
-	email: { type: Types.Email, label:'E-mails', dependsOn: { type: 'mail' }, initial: true },
-	message: { type: Types.Html, label:'Message', wysiwyg: true, required: true, initial:true }
+	]  },
+	categories: { type: Types.Relationship, label:'Catégories', ref: 'PostCategory', dependsOn: { type: 'category' }, initial: true, many:true, note: 'Le mail sera envoyé aux joueurs suivants ces catégories' },
+	players: { type: Types.Relationship, label:'Joueurs', ref:'Player', dependsOn: { type: 'player' }, initial: true, many:true, note: 'Sélectionner la liste des joueurs' },
+	email: { type: Types.Email, label:'E-mails', dependsOn: { type: 'mail' }, initial: true, note: 'Entrer les emails cibles' },
+	message: { type: Types.Html, label:'Message', wysiwyg: true, required: true, initial:true}
 });
 
 Mail.hasRoles = function(user){
