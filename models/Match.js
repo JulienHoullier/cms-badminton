@@ -12,14 +12,6 @@ var Match = new keystone.List('Match', {
 	label: 'Rencontres'
 });
 
-var storage = new keystone.Storage({
-	adapter: keystone.Storage.Adapters.FS,
-	fs: {
-		path: keystone.expandPath('/data/files'), // required; path where the files should be stored
-		publicPath: '/public/files' // path where files will be served
-	}
-});
-
 Match.add({
 	team: { type: Types.Relationship, ref: 'Team', label:'Equipe', required: true, initial: true, index: true },
     matchNumber: { type: Number, label:'Journée', required: true, initial: true, index: true, note: 'Sert a definir l\'ordre' },
@@ -30,7 +22,6 @@ Match.add({
 		{ value: 'No', label: 'Non' }
 	] },
 	location: { type: Types.Location, label:'Adresse de la salle'},
-    result: { type: Types.File, storage: storage, label:'Feuille de match' },
     occResult: { type: Number, label:'Score OCC' },
     versusResult: { type: Number, label:'Score adverse' }
 });
