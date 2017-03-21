@@ -31,7 +31,6 @@ Tournament.add({
 	link: {type : Types.Url, label: 'Lien du tournoi', note:'Si présent, il sera utilisé à la place de la description et les fichiers'},
 	description: {type : Types.Html},
 	files: {type: Types.File, storage: localStorage, label: 'Fichiers'}
-        
 });
 
 Tournament.relationship({ ref: 'Registration', path: 'registrations', refPath: 'tournament' });

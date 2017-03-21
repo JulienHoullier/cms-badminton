@@ -195,4 +195,4 @@ keystone.set('pre:routes', function (app) {
 });
 
 // Start Keystone to connect to your database and initialise the web server
-keystone.start({onStart:function(event){console.log('Keystone started');}, onMount:function(){console.log('Keystone Mounted');}});
+keystone.start();
