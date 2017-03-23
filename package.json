@@ -10,7 +10,7 @@
     "keystone": "https://github.com/keystonejs/keystone.git",
     "i18n": "^0.8.3",
     "iconv-lite": "^0.4.15",
-    "keystone-nodemailer": "https://github.com/JulienHoullier/keystone-nodemailer.git",
+    "keystone-email": "1.0.5",
     "moment": "^2.14.1",
     "pm2": "^2.2.3",
     "prompt": "^1.0.0",

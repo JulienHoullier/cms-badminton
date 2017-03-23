@@ -44,7 +44,6 @@ keystone.init({
 	'wysiwyg images': true,
 	'wysiwyg cloudinary images': true,
 
-	'signin redirect': '/',
 	'signin logo': '/images/occ-logo.png'
 
 });
@@ -74,21 +73,8 @@ moment.defineLocale('fr', require('./locales/fr'));
 // Load your project's Routes
 keystone.set('routes', require('./frontend/routes'));
 
-//prepare nodemailer config
 
-keystone.set('email nodemailer', {
-	host: process.env.MAIL_HOST,
-	port: 587,
-	auth: {
-		user: process.env.MAIL_USR,
-		pass: process.env.MAIL_PWD
-	},
-	authMethod: 'PLAIN'
-});
-
-// Setup common locals for your emails. The following are required by Keystone's
-// default email templates, you may remove them if you're using your own.
-
+// Setup common locals for your emails. 
 keystone.set('email locals', {
 	logo_src: '/images/occ-logo.png',
 	logo_width: 100,
@@ -96,8 +82,13 @@ keystone.set('email locals', {
 	theme: {
 		color : "#ded605",
 		email_bg: '#f9f9f9'
-	},
-	mandrill: {}
+	}
+});
+// Setup mail options 
+keystone.set('email options', {
+	transport: 'mailgun',
+	ext: keystone.get('view engine'),
+	engine: keystone.get('custom engine'),
 });
 
 keystone.set('domain name', process.env.DOMAIN_NAME || 'http://localhost:3000');
@@ -114,8 +105,6 @@ var nav = {
 	'Outils': ['mails']
 };
 
-keystone.set('nav', nav);
-
 keystone.post('signin', function (callback) {
 	//user is passed as context
 	if (!this.isValid) {
@@ -124,18 +113,9 @@ keystone.post('signin', function (callback) {
 	callback();
 });
 
-//save keystone.render function
-var oldRender = keystone.render;
-/**
- * Override keystone render to generate menu depending user's roles
- * @param req
- * @param res
- * @param view
- * @param ext
- */
-keystone.render = function (req, res, view, ext) {
-	var userNav = {};
 
+var filterNav = function(req) {
+	var userNav = {};
 	_.each(nav, function (section, key) {
 		var addMenu = function (list) {
 			var model = keystone.list(list);
@@ -156,13 +136,10 @@ keystone.render = function (req, res, view, ext) {
 			addMenu(section);
 		}
 	});
-
-	var locals = {nav: keystone.initNav(userNav)};
-	_.extend(ext, locals);
-
-	//call keystone render
-	oldRender.call(keystone, req, res, view, ext);
-};
+	console.log("user: "+JSON.stringify(req.user));
+	console.log("user: "+JSON.stringify(userNav));
+	return userNav;
+}
 
 /**
  * Middleware to check Model permission against logged user
@@ -172,27 +149,17 @@ keystone.render = function (req, res, view, ext) {
  * @returns {*}
  */
 var roleMiddleware = function (req, res, next) {
-	var index = req.path.indexOf('/keystone/');
+	var index = req.path.indexOf('/keystone');
 	if (index != -1) {
-		var model = req.path.substring(index + 10);
-		if (model !== 'signin' && model !== 'signout') {
-			index = model.indexOf('/');
-			if (model.length > 0 && index == -1) {
-				//try to access a model
-				var List = keystone.list(model);
-				if (List && List['hasRoles'] && !List.hasRoles(req.user)) {
-					req.flash('error', "Vous n'avez pas les droits pour accéder à cette page");
-					return res.redirect('/keystone/');
-				}
-			}
-		}
+		var userNav = filterNav(req);
+		keystone.nav = keystone.initNav(userNav);
 	}
 	next();
 };
+
+
 //add middleware through keystone hook
-keystone.set('pre:routes', function (app) {
-	app.all('/keystone*', roleMiddleware);
-});
+keystone.pre('admin', roleMiddleware);
 
 // Start Keystone to connect to your database and initialise the web server
 keystone.start();
