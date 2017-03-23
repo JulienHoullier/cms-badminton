@@ -6,7 +6,6 @@ if(process.env.NODE_ENV !== 'production'){
 
 // Require keystone
 var keystone = require('keystone');
-require('keystone-nodemailer');
 var _ = require('underscore');
 
 var swig = require('swig');
