@@ -4,7 +4,6 @@ require('dotenv').load();
 
 // Require keystone
 var keystone = require('keystone');
-require('keystone-nodemailer');
 var _ = require('underscore');
 
 var nunjucks = require('nunjucks');
