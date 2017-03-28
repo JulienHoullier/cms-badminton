@@ -81,7 +81,9 @@ Mail.schema.methods.sendNotificationEmail = function(callback) {
 						}
                     });
                 }, function(err) {
-					console.log('Error processing categories list due to: '+err);
+					if(err){
+						console.log('Error processing categories list due to: '+err);
+					}
                 });
 	}
 	
