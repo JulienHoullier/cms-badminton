@@ -48,6 +48,7 @@ var sendMail = function(callback, to, mail){
 	if(arguments.length === 4){
 		cat = arguments[3];
 	}
+	
 	mailLib.sendMail('email-notification', callback, mail.subject, to, {mail:mail, category:cat});
 };
 
@@ -94,7 +95,7 @@ Mail.schema.methods.sendNotificationEmail = function(callback) {
 		});		
 	}
 
-	if(this.type === 'mail'&& this.email){
+	if(this.type === 'mail' && this.email){
 		sendMail(callback, [{email: this.email}], this);
 	}
 };
