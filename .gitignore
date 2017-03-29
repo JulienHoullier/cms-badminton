@@ -10,11 +10,7 @@ build/Release
 node_modules
 .env
 .DS_Store
-SBT.sublime-project
-SBT.sublime-workspace
-start.bat
 npm-debug.log
 .idea
 site.min.css
 updates/*-players.js
-frontend
