@@ -28,6 +28,6 @@ Media.hasRoles = function(user){
 	return false;
 };
 
-Media.defaultSort = '-name';
-Media.defaultColumns = 'name';
+Media.defaultSort = '-type';
+Media.defaultColumns = 'type';
 Media.register();

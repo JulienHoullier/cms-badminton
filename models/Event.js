@@ -52,5 +52,5 @@ Event.schema.post('save', function() {
 });
 
 Event.defaultSort = '-date';
-Event.defaultColumns = 'name, date, description';
+Event.defaultColumns = 'date, description';
 Event.register();
