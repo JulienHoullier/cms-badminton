@@ -13,9 +13,9 @@ var Gallery = new keystone.List('Gallery', {
 
 Gallery.add({
 	name: { type: String, required: true },
-	publishedDate: { type: Date, default: Date.now, note:'Definit l\'ordre d\'apparition' },
-	heroImage: { type: Types.CloudinaryImage, note:'Si remplit, l\'image représentant l\'album' },
-	images: { type: Types.CloudinaryImages }
+	publishedDate: { type: Types.Date, default: Date.now, note:'Definit l\'ordre d\'apparition' },
+	heroImage: { type: Types.CloudinaryImage, autoCleanup : true, note:'Si remplit, l\'image représentant l\'album' },
+	images: { type: Types.CloudinaryImages, autoCleanup : true }
 });
 
 Gallery.hasRoles = function(user){

@@ -28,7 +28,7 @@ Post.add(
 		publishedDate: { type: Types.Date, label:'date de publication', index: true, dependsOn: { state: 'published' } },
 		announce: {type: Types.Boolean, label: 'Afficher en annonce d\'accueil', index: true},
 		announceDeadLine: {type: Types.Date, label: 'Fin de l\'annonce', dependsOn: { announce: true } },
-		image: { type: Types.CloudinaryImage, label:'Image' },
+		image: { type: Types.CloudinaryImage, autoCleanup : true, select: true, label:'Image' },
 		content: {
 			brief: { type: Types.Html, label:'En bref', wysiwyg: true, height: 150 },
 			extended: { type: Types.Html, label:'En détail', wysiwyg: true, height: 400 }
