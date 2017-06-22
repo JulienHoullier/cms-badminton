@@ -113,12 +113,14 @@ var nav = {
 	'Outils': ['mails']
 };
 
-keystone.post('signin', function (callback) {
+keystone.post('signin', function (callback, next) {
 	//user is passed as context
+	console.log(this);
 	if (!this.isValid) {
-		return callback({message: 'Your account is not yet validated by an administrator'});
+		console.log('passe ici');
+		return next({message: 'Your account is not yet validated by an administrator'});
 	}
-	callback();
+	next();
 });
 
 
