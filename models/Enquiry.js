@@ -23,6 +23,11 @@ Enquiry.add({
 		{ value: 'other', label: 'Autre...' }
 	] },
 	message: { type: Types.Markdown, required: true },
+	status: { type: Types.Select, options: [
+		{ value: 'new', label: 'Nouveau'},
+		{ value: 'open', label: 'Ouvert'},
+		{ value: 'close', label: 'Fermé'}
+	] },
 	createdAt: { type: Date, default: Date.now }
 });
 
@@ -35,6 +40,9 @@ Enquiry.hasRoles = function(user){
 
 Enquiry.schema.pre('save', function(next) {
 	this.wasNew = this.isNew;
+	if(this.isNew){
+		this.status = "new";
+	}
 	next();
 });
 
@@ -58,5 +66,5 @@ Enquiry.schema.methods.sendNotificationEmail = function(callback) {
 };
 
 Enquiry.defaultSort = '-createdAt';
-Enquiry.defaultColumns = 'name, email, enquiryType, createdAt';
+Enquiry.defaultColumns = 'name, email, enquiryType, createdAt, status';
 Enquiry.register();
