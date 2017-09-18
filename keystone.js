@@ -106,21 +106,19 @@ var nav = {
 	'Actualités': ['posts', 'post-categories', 'post-comments', 'events'],
 	'Photos': 'galleries',
 	'Demandes': 'enquiries',
-	'Club': ['teams', 'players', 'matches'],
+	'Club': ['teams', 'players', 'matches', 'timeslots'],
 	'Utilisateurs': 'users',
 	'Tournois': ['tournaments', 'registrations'],
 	'Plan du site': ['pages', 'media', 'sponsors'],
 	'Outils': ['mails']
 };
 
-keystone.post('signin', function (callback, next) {
+keystone.post('signin', function (req, callback) {
 	//user is passed as context
-	console.log(this);
 	if (!this.isValid) {
-		console.log('passe ici');
-		return next({message: 'Your account is not yet validated by an administrator'});
+		return callback('Your account is not yet validated by an administrator');
 	}
-	next();
+	callback();
 });
 
 
@@ -164,6 +162,11 @@ var roleMiddleware = function (req, res, next) {
 	}
 	next();
 };
+
+/**
+If a list is not in the nav, its because user a not the right to see it
+**/
+keystone.Keystone.prototype.getOrphanedLists = function(){return []};
 
 
 //add middleware through keystone hook
