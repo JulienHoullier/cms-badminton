@@ -1,0 +1,4 @@
+{
+    //heroku dedicated file
+    "stack": "heroku-18"
+}
