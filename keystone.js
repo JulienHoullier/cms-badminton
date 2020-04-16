@@ -1,7 +1,7 @@
 // Simulate config options from your production environment by
 // customising the .env file in your project's root folder.
-if(process.env.NODE_ENV !== 'production'){
-	require('dotenv').load();
+if (process.env.NODE_ENV !== 'production') {
+	require('dotenv').config();
 }
 
 // Require keystone
@@ -10,7 +10,7 @@ var _ = require('underscore');
 
 var nunjucks = require('nunjucks');
 // Disable ninjuck's built-in template caching, express handles it
-nunjucks.configure({autoescaping :true, noCache : true});
+nunjucks.configure({ autoescaping: true, noCache: true });
 var dateFilter = require('nunjucks-date-filter');
 dateFilter.install();
 // Configuration des dates françaises.
@@ -30,7 +30,7 @@ keystone.init({
 	'static': 'frontend/public',
 	'favicon': 'frontend/public/favicon.ico',
 	'views': 'frontend/templates/views',
-	'view engine': 'swig',
+	'view engine': 'njk',
 	'custom engine': nunjucks.render,
 
 	'emails': 'frontend/templates/emails',
@@ -51,13 +51,13 @@ keystone.init({
 	'wysiwyg menubar': true,
 	'wysiwyg skin': 'lightgray',
 	'wysiwyg additional buttons': 'searchreplace visualchars,'
-	 + ' charmap ltr rtl pagebreak paste, forecolor backcolor,'
-	 +' emoticons media, preview print ',
+		+ ' charmap ltr rtl pagebreak paste, forecolor backcolor,'
+		+ ' emoticons media, preview print ',
 	'wysiwyg additional plugins': 'example, table, advlist, anchor,'
-	 + ' autolink, autosave, bbcode, charmap, contextmenu, '
-	 + ' directionality, emoticons, fullpage, hr, media, pagebreak,'
-	 + ' paste, preview, print, searchreplace, textcolor,'
-	 + ' visualblocks, visualchars, wordcount'
+		+ ' autolink, autosave, bbcode, charmap, contextmenu, '
+		+ ' directionality, emoticons, fullpage, hr, media, pagebreak,'
+		+ ' paste, preview, print, searchreplace, textcolor,'
+		+ ' visualblocks, visualchars, wordcount'
 });
 
 // Load your project's Models
@@ -72,6 +72,7 @@ keystone.set('locals', {
 	env: process.env,
 	utils: keystone.utils,
 	editable: keystone.content.editable,
+	base_url: keystone.get('domain name'),
 	brand: keystone.get('brand'),
 	theme: {
 		color: "#ded605"
@@ -84,19 +85,24 @@ keystone.set('routes', require('./frontend/routes'));
 
 // Setup common locals for your emails. 
 keystone.set('email locals', {
+	base_url: keystone.get('domain name'),
+	brand: keystone.get('brand'),
 	logo_src: '/images/occ-logo.png',
 	logo_width: 100,
 	logo_height: 76,
 	theme: {
-		color : "#ded605",
+		color: "#ded605",
 		email_bg: '#f9f9f9'
 	}
 });
+
+
+
 // Setup mail options 
 keystone.set('email options', {
-	transport: 'mailgun',
+	transport: process.env.MAIL_TRANSPORT || 'mailgun',
 	engine: keystone.get('custom engine'),
-	root: 'frontend/templates/emails',
+	root: 'frontend/templates/emails'
 });
 
 keystone.set('domain name', process.env.DOMAIN_NAME || 'http://localhost:3000');
@@ -115,14 +121,16 @@ var nav = {
 
 keystone.post('signin', function (req, callback) {
 	//user is passed as context
+	console.log('passe ici: ' + JSON.stringify(this))
 	if (!this.isValid) {
+		callback('Pas encore validé')
 		return callback('Your account is not yet validated by an administrator');
 	}
 	callback();
 });
 
 
-var filterNav = function(req) {
+var filterNav = function (req) {
 	var userNav = {};
 	_.each(nav, function (section, key) {
 		var addMenu = function (list) {
@@ -156,7 +164,7 @@ var filterNav = function(req) {
  */
 var roleMiddleware = function (req, res, next) {
 	var index = req.path.indexOf('/keystone');
-	if (index != -1) {
+	if (index !== -1) {
 		var userNav = filterNav(req);
 		keystone.nav = keystone.initNav(userNav);
 	}
@@ -164,9 +172,9 @@ var roleMiddleware = function (req, res, next) {
 };
 
 /**
-If a list is not in the nav, its because user a not the right to see it
+If a list is not in the nav, its because user has not the right to see it
 **/
-keystone.Keystone.prototype.getOrphanedLists = function(){return []};
+keystone.Keystone.prototype.getOrphanedLists = function () { return [] };
 
 
 //add middleware through keystone hook
